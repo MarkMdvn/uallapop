@@ -23,9 +23,6 @@ public class Category {
   private String name;
   private String description;
 
-  @Lob
-  @Column(columnDefinition = "LONGTEXT")
-  private String attributesSchema;
 
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Product> products = new HashSet<>();

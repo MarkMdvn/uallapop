@@ -1,7 +1,5 @@
 package com.mcorp.wallapopserver.models;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,13 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapKeyColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.transaction.Transaction;
-import java.time.LocalDate;
-import java.util.EnumMap;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
 import lombok.Data;
 
 @Entity
@@ -29,35 +24,30 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotBlank
   private String title;
-  private Double Price;
+
+  @NotNull
+  @Min(0)
+  private Double price;
+
   private String description;
+
   private boolean shippingAvailable;
-  private Integer views;
-  private LocalDate postedAt;
 
-  // CONDITION OF THE PRODUCT
   @Enumerated(EnumType.STRING)
+  @NotNull
   private ItemCondition itemCondition;
-
-  // TODO imageUrls and photos
-
 
   @ManyToOne
   @JoinColumn(name = "category_id", nullable = false)
+  @NotNull
   private Category category;
 
-  @ElementCollection
-  @CollectionTable(name = "product_attributes", joinColumns = @JoinColumn(name = "product_id"))
-  @MapKeyColumn(name = "attribute_key")
-  @Column(name = "attribute_value")
-  private Map<String, String> attributes;
-
-
+  @ElementCollection(fetch = FetchType.LAZY)
+  private List<String> imageUrls;
+  
   public enum ItemCondition {
     NOT_OPENED, IN_THE_BOX, NEW, ALMOST_NEW, USED, POOR_CONDITION
   }
-
-
-
 }

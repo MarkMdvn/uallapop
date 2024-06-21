@@ -9,14 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
-  @Autowired
-  private CategoryRepository categoryRepository;
+  // TODO
 
-  // Fetch attributes schema for a category
-  @GetMapping("/{id}/attributes")
-  public ResponseEntity<String> getCategoryAttributes(@PathVariable Long id) {
-    Category category = categoryRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Category not found"));
-    return ResponseEntity.ok(category.getAttributesSchema());
-  }
+
 }

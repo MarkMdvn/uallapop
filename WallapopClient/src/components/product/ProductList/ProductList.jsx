@@ -1,8 +1,8 @@
 // src/components/ProductList.jsx
 import React, { useEffect, useState } from "react";
-import { fetchProducts } from "../utils/api.js";
+import { fetchProducts } from "../../../api/productService";
 
-const ProductList = () => {
+const AllProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -36,8 +36,7 @@ const ProductList = () => {
               {product.shippingAvailable ? "Yes" : "No"}
             </p>
             <p>
-              <strong>Categories:</strong>{" "}
-              {product.categories.map((category) => category.name).join(", ")}
+              <strong>Category:</strong> {product.category.name}
             </p>
           </li>
         ))}
@@ -46,4 +45,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default AllProductList;

@@ -1,11 +1,11 @@
 // src/App.jsx
 import React from "react";
-import ProductList from "./components/product/ProductList.jsx";
+import AllProductList from "./components/product/AllProductList.jsx";
 
 const App = () => {
   return (
     <div>
-      <ProductList />
+      <AllProductList />
     </div>
   );
 };
