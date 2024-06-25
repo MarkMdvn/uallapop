@@ -1,6 +1,5 @@
 package com.mcorp.wallapopserver.controllers;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mcorp.wallapopserver.DTO.ProductDTO;
 import com.mcorp.wallapopserver.models.Category;
@@ -8,7 +7,9 @@ import com.mcorp.wallapopserver.models.Product;
 import com.mcorp.wallapopserver.services.CategoryService;
 import com.mcorp.wallapopserver.services.FileStorageService;
 import com.mcorp.wallapopserver.services.ProductService;
+import com.mcorp.wallapopserver.utils.UrlUtil;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,16 +37,39 @@ public class ProductController {
   @Autowired
   private FileStorageService fileStorageService;
 
-
   @GetMapping("/all-products")
-  public List<Product> getAllProducts() {
-    return productService.getAllProducts();
+  public List<ProductDTO> getAllProducts() {
+    List<Product> products = productService.getAllProducts();
+    return products.stream()
+        .map(this::convertToDTO)  // Ensure every product is converted to DTO with proper URLs
+        .collect(Collectors.toList());
+  }
+
+  private ProductDTO convertToDTO(Product product) {
+    ProductDTO dto = new ProductDTO();
+    dto.setId(product.getId());
+    dto.setTitle(product.getTitle());
+    dto.setPrice(product.getPrice());
+    dto.setDescription(product.getDescription());
+    dto.setShippingAvailable(product.isShippingAvailable());
+    dto.setItemCondition(String.valueOf(product.getItemCondition()));
+    if (product.getCategory() != null) {
+      dto.setCategoryId(product.getCategory().getId());
+    }
+
+    // Directly use the image URLs as stored in the database
+    dto.setImageUrls(product.getImageUrls());
+
+    return dto;
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-    return productService.getProductById(id).map(ResponseEntity::ok)
-        .orElse(ResponseEntity.notFound().build());
+  public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+    return productService.getProductById(id)
+        .map(product -> ResponseEntity.ok(
+            convertToDTO(product))) // This returns ResponseEntity<ProductDTO>
+        .orElseGet(() -> ResponseEntity.<ProductDTO>notFound()
+            .build()); // Ensure this returns ResponseEntity<ProductDTO> as well
   }
 
   @PostMapping("/create-product")
@@ -53,20 +77,18 @@ public class ProductController {
       @RequestParam("product") String productJson,
       @RequestParam("images") MultipartFile[] files) {
     try {
-      // Deserialize JSON string to ProductDTO
       ProductDTO productDTO = objectMapper.readValue(productJson, ProductDTO.class);
-
-      // Handle the product creation logic
       Product product = productService.createProduct(productDTO);
 
-      // Store the images and update product with image URLs
-      List<String> imageUrls = fileStorageService.storeFiles(files, product.getId());
+      // Store the images and update product with image URLs using UrlUtil
+      List<String> storedFileNames = fileStorageService.storeFiles(files, product.getId());
+      List<String> imageUrls = storedFileNames.stream()
+          .map(filename -> UrlUtil.createImageUrl(filename))  // Ensure this is the correct path
+          .collect(Collectors.toList());
       product.setImageUrls(imageUrls);
-
-      // Save the updated product information
       productService.saveProduct(product);
 
-      return ResponseEntity.ok(product);
+      return ResponseEntity.ok(convertToDTO(product));
     } catch (Exception e) {
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -74,28 +96,24 @@ public class ProductController {
     }
   }
 
-
-  @PutMapping("edit-products/{id}")
-  public ResponseEntity<Product> updateProduct(@PathVariable Long id,
-      @RequestBody Product productDetails, @RequestParam Long categoryId) {
+  @PutMapping("/edit-product/{id}")
+  public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id,
+      @RequestBody ProductDTO productDTO) {
     try {
       Product product = productService.getProductById(id)
           .orElseThrow(() -> new RuntimeException("Product not found"));
-
-      product.setTitle(productDetails.getTitle());
-      product.setDescription(productDetails.getDescription());
-      product.setPrice(productDetails.getPrice());
-      product.setShippingAvailable(productDetails.isShippingAvailable());
-
-      Category category = categoryService.getCategoryById(categoryId)
+      product.setTitle(productDTO.getTitle());
+      product.setDescription(productDTO.getDescription());
+      product.setPrice(productDTO.getPrice());
+      product.setShippingAvailable(productDTO.isShippingAvailable());
+      Category category = categoryService.getCategoryById(productDTO.getCategoryId())
           .orElseThrow(() -> new RuntimeException("Category not found"));
       product.setCategory(category);
-
       Product updatedProduct = productService.saveProduct(product);
-      return ResponseEntity.ok(updatedProduct);
+      return ResponseEntity.ok(convertToDTO(updatedProduct));
     } catch (Exception e) {
       e.printStackTrace();
-      return ResponseEntity.status(500).build();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
 
@@ -110,5 +128,4 @@ public class ProductController {
       return ResponseEntity.status(500).build();
     }
   }
-
 }

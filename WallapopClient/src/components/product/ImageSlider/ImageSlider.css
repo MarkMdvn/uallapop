@@ -1,0 +1,4 @@
+.image-slider img {
+  width: 100%;
+  display: block; /* Remove extra space below the image */
+}

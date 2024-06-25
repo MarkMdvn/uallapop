@@ -1,0 +1,61 @@
+.product-details-container {
+  padding: 20px;
+}
+
+.product-details-product-price {
+  font-size: 2rem;
+  line-height: 40px;
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+
+.product-details-product-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 32px;
+  font-weight: bold;
+  color: #212529;
+}
+
+/* Shipping status */
+
+.product-details-shipping-status {
+  display: flex;
+  align-items: center;
+  font-weight: 550;
+  font-size: 1.2rem;
+}
+.product-details-shipping-status svg {
+  margin-right: 8px;
+  vertical-align: middle;
+  stroke-width: 1.5px;
+}
+
+.product-details-shipping-status svg {
+  transform: translateY(1px); /* Adjust the pixel value as needed */
+}
+
+/* For available shipping */
+.shipping-available {
+  color: #86418a;
+}
+
+/* For unavailable shipping */
+.shipping-unavailable {
+  color: rgb(92, 122, 137);
+}
+
+/* Ensuring the SVG inherits the color from the parent */
+.product-details-shipping-status svg {
+  fill: currentColor;
+}
+
+/* Product description */
+.product-details-product-description {
+  color: #29363d;
+  padding-top: 10px;
+  font-size: 1.1rem;
+  line-height: 24px;
+  word-wrap: break-word;
+  white-space: pre-line;
+}

@@ -1,0 +1,6 @@
+.product-page-container {
+  display: grid;
+  place-items: center; /* Shortcut for align-items and justify-items */
+  height: 100vh;
+  background-color: var(--main-background-color);
+}

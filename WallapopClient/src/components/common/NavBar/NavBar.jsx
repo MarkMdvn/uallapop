@@ -6,13 +6,13 @@ const NavBar = () => {
       <div className="container">
         <div className="logo">
           <img
-            src="wallapop_logo.png"
+            src="/wallapop_logo.png"
             alt="Wallapop Logo"
             className="logo-main-img"
           />
           <img
             className="logo-main-text-img"
-            src="wallapop_word_logo.jpg"
+            src="/wallapop_word_logo.jpg"
             alt="wallapop_img"
           />
         </div>
@@ -23,7 +23,7 @@ const NavBar = () => {
             className="search-input"
           />
         </div>
-        <div class="action-buttons">
+        <div classNam="action-buttons">
           <button className="btn btn-outline">
             Regístrate o inicia sesión
           </button>
