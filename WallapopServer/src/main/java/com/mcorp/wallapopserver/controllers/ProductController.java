@@ -55,6 +55,7 @@ public class ProductController {
     dto.setItemCondition(String.valueOf(product.getItemCondition()));
     if (product.getCategory() != null) {
       dto.setCategoryId(product.getCategory().getId());
+      dto.setCategoryName(product.getCategory().getName());
     }
 
     // Directly use the image URLs as stored in the database

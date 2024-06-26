@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getProductById } from "../../../api/productService";
 import { LiaShippingFastSolid } from "react-icons/lia";
+import "./ProductDetails.css";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
@@ -28,7 +29,11 @@ const ProductDetails = () => {
         {product.price.toFixed(0)} €
       </div>
       <h1 className="product-details-product-title">{product.title}</h1>
-      <h6 style={{ padding: 20 }}>[Category-specific-details]</h6>
+      <div className="product-category-specific-details">
+        Apple · iPhone 11 · 64 GB · Negro · Como nuevo
+        [category-specific-details]
+      </div>
+
       <div
         className={`product-details-shipping-status ${
           product.shippingAvailable
@@ -45,11 +50,23 @@ const ProductDetails = () => {
           <span>Only sale in person</span>
         )}
       </div>
-      <p style={{ padding: 20 }}>[product-hashtags]</p>
-      <hr />
+      <div className="product-details-product-categories">
+        <div className="product-details-product-single-category">
+          <span>{product.categoryName}</span>
+        </div>
+        <div className="product-details-product-single-category">
+          <span>{product.categoryName}</span>
+        </div>
+        <div className="product-details-product-single-category">
+          <span>{product.categoryName}</span>
+        </div>
+      </div>
+      <hr className="custom-hr" />
       <p className="product-details-product-description">
         {product.description}
       </p>
+      <div>[user-tags]</div>
+      <hr className="custom-hr" />
     </div>
   );
 };

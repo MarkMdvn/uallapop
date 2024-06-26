@@ -1,16 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
+import "./ImageSlider.css";
 
-const ImageSlider = ({ images }) => {
-  if (!Array.isArray(images)) {
-    // Check if images is an array
-    return <div>No images available</div>; // Appropriate fallback if no images
+const ImageSlider = ({ imageUrls }) => {
+  const [slide, setSlide] = useState(0);
+
+  const nextSlide = () => {
+    setSlide(slide === imageUrls.length - 1 ? 0 : slide + 1);
+  };
+
+  const prevSlide = () => {
+    setSlide(slide === 0 ? imageUrls.length - 1 : slide - 1);
+  };
+
+  if (!imageUrls || imageUrls.length === 0) {
+    return <div>No images available</div>; // Handle case where no images are provided
   }
 
   return (
-    <div className="image-slider">
-      {images.map((url, index) => (
-        <img key={index} src={url} alt={`Product Image ${index + 1}`} />
-      ))}
+    <div className="image-slider-container">
+      <div className="carousel">
+        <IoIosArrowDropleftCircle
+          onClick={prevSlide}
+          className="arrow arrow-left"
+        />
+        <div className="image-slider-images">
+          {imageUrls.map((url, idx) => (
+            <img
+              src={url}
+              alt={`Product image ${idx + 1}`}
+              key={idx}
+              className={slide === idx ? "slide" : "slide slide-hidden"}
+            />
+          ))}
+        </div>
+        <IoIosArrowDroprightCircle
+          onClick={nextSlide}
+          className="arrow arrow-right"
+        />
+        <span className="indicators">
+          {imageUrls.map((_, idx) => (
+            <button
+              key={idx}
+              className={
+                slide === idx ? "indicator" : "indicator indicator-inactive"
+              }
+              onClick={() => setSlide(idx)}
+            />
+          ))}
+        </span>
+      </div>
     </div>
   );
 };

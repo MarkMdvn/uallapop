@@ -12,5 +12,6 @@ public class ProductDTO {
   private boolean shippingAvailable;
   private String itemCondition;
   private Long categoryId;
+  private String categoryName;
   private List<String> imageUrls;
 }

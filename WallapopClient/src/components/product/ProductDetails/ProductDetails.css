@@ -2,10 +2,11 @@
   padding: 20px;
 }
 
+/* price */
 .product-details-product-price {
-  font-size: 2rem;
+  font-size: 2.2rem;
   line-height: 40px;
-  font-weight: 650;
+  font-weight: 630;
   margin-bottom: 10px;
 }
 
@@ -13,8 +14,15 @@
   font-weight: 600;
   font-size: 1.5rem;
   line-height: 32px;
-  font-weight: bold;
+  font-weight: 600;
   color: #212529;
+}
+
+/* category details */
+.product-category-specific-details {
+  color: #5c7a89;
+  margin: 1em auto 1em;
+  font-size: large;
 }
 
 /* Shipping status */
@@ -50,6 +58,12 @@
   fill: currentColor;
 }
 
+.product-details-product-categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1.5em auto 2em;
+}
+
 /* Product description */
 .product-details-product-description {
   color: #29363d;
@@ -58,4 +72,16 @@
   line-height: 24px;
   word-wrap: break-word;
   white-space: pre-line;
+}
+
+.product-details-product-single-category {
+  font-family: WallieFit;
+  font-size: 1rem;
+  line-height: 16px;
+  background-color: #eceff1;
+  border-radius: 1rem;
+  padding: 8px 16px;
+  margin: 4px 0 0 4px;
+  color: #253238;
+  cursor: pointer;
 }
