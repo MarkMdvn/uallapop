@@ -1,5 +1,6 @@
 package com.mcorp.wallapopserver.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,7 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
@@ -27,8 +28,8 @@ public class Product {
   @NotBlank
   private String title;
 
-  @NotNull
-  @Min(0)
+  @NotNull(message = "Price must be provided")
+  @DecimalMin(value = "0.0", inclusive = false, message = "Price must be positive")
   private Double price;
 
   private String description;
@@ -46,7 +47,10 @@ public class Product {
 
   @ElementCollection(fetch = FetchType.LAZY)
   private List<String> imageUrls;
-  
+
+  @Column(columnDefinition = "json")
+  private String attributes;
+
   public enum ItemCondition {
     NOT_OPENED, IN_THE_BOX, NEW, ALMOST_NEW, USED, POOR_CONDITION
   }

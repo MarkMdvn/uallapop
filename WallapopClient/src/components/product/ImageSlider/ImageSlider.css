@@ -5,7 +5,8 @@
   border-radius: 16px;
   display: flex;
   position: relative;
-  max-height: 470px;
+  height: 470px;
+
   margin: 0px 20px;
 }
 

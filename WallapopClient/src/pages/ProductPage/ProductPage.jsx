@@ -16,13 +16,15 @@ const ProductPage = () => {
         setProduct(response.data);
       } catch (error) {
         console.error("Failed to fetch product:", error);
-        // Handle the error state appropriately, maybe set an error message state
       }
     };
 
     fetchProduct();
-  }, [id]); // Re-run the effect if the id changes
+  }, [id]);
 
+  if (!product) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="product-page-container">
       {product ? (

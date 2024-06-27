@@ -13,5 +13,6 @@ public class ProductDTO {
   private String itemCondition;
   private Long categoryId;
   private String categoryName;
+  private String attributes;
   private List<String> imageUrls;
 }

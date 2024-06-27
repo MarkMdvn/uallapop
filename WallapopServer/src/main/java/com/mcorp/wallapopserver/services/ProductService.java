@@ -1,6 +1,8 @@
 package com.mcorp.wallapopserver.services;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mcorp.wallapopserver.DTO.ProductDTO;
 import com.mcorp.wallapopserver.models.Category;
 import com.mcorp.wallapopserver.models.Product;
@@ -37,7 +39,7 @@ public class ProductService implements IProductService {
   }
 
 
-  public Product createProduct(ProductDTO productDTO) {
+  public Product createProduct(ProductDTO productDTO) throws JsonProcessingException {
     Product product = new Product();
     product.setTitle(productDTO.getTitle());
     product.setPrice(productDTO.getPrice());
@@ -47,6 +49,17 @@ public class ProductService implements IProductService {
     Category category = categoryRepository.findById(productDTO.getCategoryId())
         .orElseThrow(() -> new RuntimeException("Category not found"));
     product.setCategory(category);
+    product.setAttributes(objectMapper.writeValueAsString(productDTO.getAttributes()));
+
     return productRepository.save(product);
   }
+
+  // JSON methods
+
+  private final ObjectMapper objectMapper;
+  public ProductService(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
+
+
 }

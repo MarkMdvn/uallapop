@@ -53,6 +53,7 @@ public class ProductController {
     dto.setDescription(product.getDescription());
     dto.setShippingAvailable(product.isShippingAvailable());
     dto.setItemCondition(String.valueOf(product.getItemCondition()));
+    dto.setAttributes(String.valueOf(product.getAttributes()));
     if (product.getCategory() != null) {
       dto.setCategoryId(product.getCategory().getId());
       dto.setCategoryName(product.getCategory().getName());

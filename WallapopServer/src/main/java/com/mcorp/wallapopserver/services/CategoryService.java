@@ -24,4 +24,16 @@ public class CategoryService {
   public Category saveCategory(Category category) {
     return categoryRepository.save(category);
   }
+
+  // Category division
+  public List<Category> listMainCategories() {
+    return categoryRepository.findByParentCategoryIsNull();
+  }
+
+  public List<Category> listSubCategories(Long parentId) {
+    Category parent = categoryRepository.findById(parentId)
+        .orElseThrow(() -> new RuntimeException("Category not found"));
+    return categoryRepository.findByParentCategory(parent);
+  }
+
 }

@@ -2,26 +2,19 @@ import React, { useState, useEffect } from "react";
 import { getProductById } from "../../../api/productService";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import "./ProductDetails.css";
+import { useParams } from "react-router-dom";
 
-const ProductDetails = () => {
-  const [product, setProduct] = useState(null);
-
-  useEffect(() => {
-    fetchProduct();
-  }, []);
-
-  const fetchProduct = async () => {
-    try {
-      const response = await getProductById(9); // Assuming 9 is the product ID you want to fetch
-      setProduct(response.data);
-    } catch (error) {
-      console.error("Failed to fetch product:", error);
-    }
-  };
+const ProductDetails = ({ product }) => {
+  const attributes = JSON.parse(product.attributes);
 
   if (!product) {
-    return <div>Loading...</div>; // Add a loading or fallback state while data is being fetched
+    return <div>Loading...</div>;
   }
+
+  const formatAttributes = (attributes) => {
+    const entries = Object.entries(attributes);
+    return entries.map(([key, value]) => `${value}`).join(" · ");
+  };
 
   return (
     <div className="product-details-container">
@@ -30,8 +23,7 @@ const ProductDetails = () => {
       </div>
       <h1 className="product-details-product-title">{product.title}</h1>
       <div className="product-category-specific-details">
-        Apple · iPhone 11 · 64 GB · Negro · Como nuevo
-        [category-specific-details]
+        {attributes ? formatAttributes(attributes) : "No details available"}
       </div>
 
       <div
@@ -51,12 +43,6 @@ const ProductDetails = () => {
         )}
       </div>
       <div className="product-details-product-categories">
-        <div className="product-details-product-single-category">
-          <span>{product.categoryName}</span>
-        </div>
-        <div className="product-details-product-single-category">
-          <span>{product.categoryName}</span>
-        </div>
         <div className="product-details-product-single-category">
           <span>{product.categoryName}</span>
         </div>
