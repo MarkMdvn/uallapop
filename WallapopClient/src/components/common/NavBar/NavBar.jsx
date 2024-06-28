@@ -1,7 +1,13 @@
 import React from "react";
 import "./NavBar.css";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
+  const handleSell = () => {
+    navigate(`/products/sell-product`);
+  };
   return (
     <nav className="navbar">
       <div className="container">
@@ -24,11 +30,13 @@ const NavBar = () => {
             className="search-input"
           />
         </div>
-        <div classNam="action-buttons">
+        <div className="action-buttons">
           <button className="btn btn-outline">
             Regístrate o inicia sesión
           </button>
-          <button className="btn btn-primary">Vender</button>
+          <button className="btn btn-primary" onClick={handleSell}>
+            Vender
+          </button>
         </div>
       </div>
     </nav>

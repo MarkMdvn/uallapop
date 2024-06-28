@@ -1,10 +1,12 @@
 package com.mcorp.wallapopserver.DTO;
 
 import java.util.List;
+import java.util.Map;
 import lombok.Data;
 
 @Data
 public class ProductDTO {
+
   private Long id;
   private String title;
   private Double price;
@@ -13,6 +15,6 @@ public class ProductDTO {
   private String itemCondition;
   private Long categoryId;
   private String categoryName;
-  private String attributes;
+  private Map<String, Object> attributes;
   private List<String> imageUrls;
 }

@@ -1,0 +1,15 @@
+.listing-page-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.listing-page-h1 {
+  margin-right: 13em;
+  padding-bottom: 20px;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}

@@ -1,5 +1,6 @@
 package com.mcorp.wallapopserver.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mcorp.wallapopserver.DTO.ProductDTO;
 import com.mcorp.wallapopserver.models.Category;
@@ -8,7 +9,9 @@ import com.mcorp.wallapopserver.services.CategoryService;
 import com.mcorp.wallapopserver.services.FileStorageService;
 import com.mcorp.wallapopserver.services.ProductService;
 import com.mcorp.wallapopserver.utils.UrlUtil;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @RestController
 @RequestMapping("/api/products")
@@ -53,7 +58,8 @@ public class ProductController {
     dto.setDescription(product.getDescription());
     dto.setShippingAvailable(product.isShippingAvailable());
     dto.setItemCondition(String.valueOf(product.getItemCondition()));
-    dto.setAttributes(String.valueOf(product.getAttributes()));
+    dto.setAttributes(product.getAttributes());
+
     if (product.getCategory() != null) {
       dto.setCategoryId(product.getCategory().getId());
       dto.setCategoryName(product.getCategory().getName());

@@ -6,6 +6,7 @@ import ProductPage from "./pages/ProductPage/ProductPage.jsx";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import NotFound from "./pages/NotFoundPage/NotFoundPage.jsx";
 import ProductCard from "./components/product/ProductCard/ProductCard.jsx";
+import ListingPage from "./pages/ListingPage/ListingPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <ProductPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "products/sell-product",
+    element: (
+      <Layout>
+        <ListingPage />
       </Layout>
     ),
   },

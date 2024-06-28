@@ -49,7 +49,7 @@ public class ProductService implements IProductService {
     Category category = categoryRepository.findById(productDTO.getCategoryId())
         .orElseThrow(() -> new RuntimeException("Category not found"));
     product.setCategory(category);
-    product.setAttributes(objectMapper.writeValueAsString(productDTO.getAttributes()));
+    product.setAttributes(productDTO.getAttributes());
 
     return productRepository.save(product);
   }

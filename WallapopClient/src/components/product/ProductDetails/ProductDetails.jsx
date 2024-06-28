@@ -5,7 +5,7 @@ import "./ProductDetails.css";
 import { useParams } from "react-router-dom";
 
 const ProductDetails = ({ product }) => {
-  const attributes = JSON.parse(product.attributes);
+  const attributes = product.attributes;
 
   if (!product) {
     return <div>Loading...</div>;
