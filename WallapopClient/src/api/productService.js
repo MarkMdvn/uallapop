@@ -9,7 +9,6 @@ export const getProductById = (id) => {
 };
 
 // Sell product
-
-export const sellProduct = () => {
-  return axios.get(`${API_URL}/products/create-product`);
+export const sellProduct = (productData) => {
+  return axios.post(`${API_URL}/products/create-product`, productData);
 };

@@ -51,6 +51,7 @@ public class Product {
   @NotNull
   private Category category;
 
+
   @ElementCollection(fetch = FetchType.LAZY)
   private List<String> imageUrls;
 

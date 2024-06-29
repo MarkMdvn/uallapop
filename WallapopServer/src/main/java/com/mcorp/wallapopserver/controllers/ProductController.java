@@ -65,7 +65,6 @@ public class ProductController {
       dto.setCategoryName(product.getCategory().getName());
     }
 
-    // Directly use the image URLs as stored in the database
     dto.setImageUrls(product.getImageUrls());
 
     return dto;
@@ -91,7 +90,7 @@ public class ProductController {
       // Store the images and update product with image URLs using UrlUtil
       List<String> storedFileNames = fileStorageService.storeFiles(files, product.getId());
       List<String> imageUrls = storedFileNames.stream()
-          .map(filename -> UrlUtil.createImageUrl(filename))  // Ensure this is the correct path
+          .map(filename -> UrlUtil.createImageUrl(filename))
           .collect(Collectors.toList());
       product.setImageUrls(imageUrls);
       productService.saveProduct(product);

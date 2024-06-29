@@ -5,28 +5,26 @@ import { IoCarSportOutline } from "react-icons/io5";
 import { GiFamilyHouse } from "react-icons/gi";
 import "./CategorySelector.css";
 
-const CategorySelector = () => {
+const CategorySelector = ({ onSelectCategory, selectedCategory }) => {
   return (
-    <div className="category-selector-container">
-      <h1 className="category-selector-h1">What are you trying to sell?</h1>
+    <div className="main-form-container">
+      <h1 className="main-form-h1">What are you trying to sell?</h1>
       <div className="category-selector-categories-container">
-        <button className="category other-items-category">
-          <FiSmartphone />
-          <span>Other items</span>
-        </button>
-        <button className="category jobs-category">
-          <MdWorkOutline />
-          <span>A job</span>
-        </button>
-        <button className="category cars-category">
-          <IoCarSportOutline />
-          <span>A car</span>
-        </button>
-        <button className="category houses-category">
-          <GiFamilyHouse />
-
-          <span>Housing</span>
-        </button>
+        {["OtherItems", "Jobs", "Cars", "Houses"].map((category) => (
+          <button
+            key={category}
+            onClick={() => onSelectCategory(category)}
+            className={`category ${category.toLowerCase()}-category ${
+              selectedCategory === category ? "category-selected" : ""
+            }`}
+          >
+            {category === "OtherItems" && <FiSmartphone />}
+            {category === "Jobs" && <MdWorkOutline />}
+            {category === "Cars" && <IoCarSportOutline />}
+            {category === "Houses" && <GiFamilyHouse />}
+            <span>{category === "OtherItems" ? "Other items" : category}</span>
+          </button>
+        ))}
       </div>
     </div>
   );

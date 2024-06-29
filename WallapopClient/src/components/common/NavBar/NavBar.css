@@ -32,7 +32,7 @@ body {
   height: 40px;
   border-radius: 30%;
   margin-right: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
 
 .logo-main-text-img {

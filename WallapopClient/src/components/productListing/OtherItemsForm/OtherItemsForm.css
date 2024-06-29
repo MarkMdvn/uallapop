@@ -1,0 +1,8 @@
+.continue-button {
+  background-color: white;
+  border: none;
+  color: var(--primary-color);
+  font-weight: bolder;
+  margin: 10px 1px 10px auto;
+  cursor: pointer;
+}

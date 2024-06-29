@@ -1,0 +1,39 @@
+/* icon styles*/
+
+.icon-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 70px;
+  margin: 5px;
+  border: 1px solid #e2e3e4; /* Light grey border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #ffffff; /* White background */
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.icon-button:hover {
+  background-color: #f0f0f0; /* Light grey background on hover */
+  border-color: #b6b4b4; /* Darker border on hover */
+}
+
+.icon-button.active {
+  background-color: #4a90e2; /* Blue background for active state */
+  border-color: #4a90e2; /* Blue border for active state */
+  color: #ffffff; /* White text color for active state */
+}
+
+.icon-label {
+  margin-top: 1px;
+  font-size: 0.75rem;
+  color: #606060; /* Grey text */
+}
+
+.form-group.icons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
