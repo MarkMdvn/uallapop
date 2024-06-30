@@ -28,12 +28,10 @@
   gap: 20px;
 }
 
-/* Three columns layout */
 .form-row {
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* Two columns layout */
 .two-columns {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -63,6 +61,12 @@
 }
 
 .input-field:focus {
-  border-color: #4a90e2;
+  border-color: var(--primary-color);
   outline: none;
+}
+
+.small-form-recomendations {
+  color: #90a4ae;
+  padding: 9px 10px 1px 10px;
+  font-size: small;
 }

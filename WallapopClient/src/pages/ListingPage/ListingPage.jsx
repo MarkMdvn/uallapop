@@ -1,9 +1,9 @@
 import CategorySelector from "../../components/productListing/CategorySelector/CategorySelector";
 import "./ListingPage.css";
-import CarsForm from "../../components/productListing/CarsForm/CarsForm";
-import JobsForm from "../../components/productListing/JobsForm/JobsForm";
-import OtherItemsForm from "../../components/productListing/OtherItemsForm/OtherItemsForm";
-import PropertyForm from "../../components/productListing/PropertyForm/PropertyForm";
+import CarsForm from "../../components/productListing/Forms/MainForms/CarsForm/CarsForm";
+import JobsForm from "../../components/productListing/Forms/MainForms/JobsForm/JobsForm";
+import SubcategorySelector from "../../components/productListing/Forms/OtherItemsForm/SubcategorySelector/SubcategorySelector";
+import PropertyForm from "../../components/productListing/Forms/MainForms/PropertyForm/PropertyForm";
 
 import React, { useState } from "react";
 
@@ -23,7 +23,7 @@ const ListingPage = () => {
       case "Properties":
         return <PropertyForm />;
       case "OtherItems":
-        return <OtherItemsForm />;
+        return <SubcategorySelector />;
     }
   };
 

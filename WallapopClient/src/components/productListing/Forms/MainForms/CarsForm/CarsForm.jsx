@@ -3,7 +3,6 @@ import { MdOilBarrel, MdElectricalServices } from "react-icons/md";
 import { LuFuel } from "react-icons/lu";
 import { TbManualGearbox, TbAutomaticGearbox } from "react-icons/tb";
 import "./CarsForm.css";
-import "../../../pages/ListingPage/ListingPage.css";
 
 const CarForm = () => {
   const [brand, setBrand] = useState("");

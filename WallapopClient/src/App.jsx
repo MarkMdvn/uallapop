@@ -1,11 +1,12 @@
 import React from "react";
-import "./index.css";
+import "./styles/base.css";
+import "./styles/themes.css";
+import "./styles/layout.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/layout/Layout.jsx";
 import ProductPage from "./pages/ProductPage/ProductPage.jsx";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import NotFound from "./pages/NotFoundPage/NotFoundPage.jsx";
-import ProductCard from "./components/product/ProductCard/ProductCard.jsx";
 import ListingPage from "./pages/ListingPage/ListingPage.jsx";
 
 const router = createBrowserRouter([
