@@ -1,0 +1,37 @@
+.car-details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 25px;
+}
+
+.single-car-detail-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--dark-gray);
+  font-size: 15px;
+}
+
+.single-car-detail-container svg {
+  margin: 7px auto;
+  font-size: 30px;
+}
+
+/* Model details */
+
+.model-detail-name {
+  color: rgb(175, 184, 192);
+}
+
+.model-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.single-model-detail {
+  width: 48%;
+  box-sizing: border-box;
+}

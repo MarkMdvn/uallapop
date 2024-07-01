@@ -1,8 +1,18 @@
 import React from "react";
-import { FiSmartphone } from "react-icons/fi";
-import { MdWorkOutline } from "react-icons/md";
-import { IoCarSportOutline } from "react-icons/io5";
-import { GiFamilyHouse } from "react-icons/gi";
+import { SlScreenSmartphone } from "react-icons/sl";
+
+import {
+  PiBooksLight,
+  PiTelevisionLight,
+  PiBicycleLight,
+  PiWashingMachineLight,
+  PiGameControllerLight,
+  PiLaptopLight,
+  PiCarProfileLight,
+  PiHouseLight,
+  PiBagSimpleLight,
+  PiTShirtLight,
+} from "react-icons/pi";
 import "./CategorySelector.css";
 
 const CategorySelector = ({ onSelectCategory, selectedCategory }) => {
@@ -18,10 +28,21 @@ const CategorySelector = ({ onSelectCategory, selectedCategory }) => {
               selectedCategory === category ? "category-selected" : ""
             }`}
           >
-            {category === "OtherItems" && <FiSmartphone />}
-            {category === "Jobs" && <MdWorkOutline />}
-            {category === "Cars" && <IoCarSportOutline />}
-            {category === "Houses" && <GiFamilyHouse />}
+            {category === "OtherItems" && (
+              <div className="category-icon-container">
+                <SlScreenSmartphone />
+                <PiTShirtLight />
+                <PiBooksLight />
+                <PiTelevisionLight />
+                <PiBicycleLight />
+                <PiWashingMachineLight />
+                <PiGameControllerLight />
+                <PiLaptopLight />
+              </div>
+            )}
+            {category === "Jobs" && <PiBagSimpleLight />}
+            {category === "Cars" && <PiCarProfileLight />}
+            {category === "Houses" && <PiHouseLight />}
             <span>{category === "OtherItems" ? "Other items" : category}</span>
           </button>
         ))}

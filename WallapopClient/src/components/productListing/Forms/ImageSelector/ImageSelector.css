@@ -1,0 +1,63 @@
+.image-selector-recommendation {
+  background-color: #f0f3f5;
+  width: 99%;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.image-selector-recommendation h4 {
+  color: var(--dark-gray);
+  padding-bottom: 5px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.image-selector-recommendation p {
+  color: var(--dark-gray);
+  line-height: 20px;
+  font-size: 0.875rem;
+}
+
+/* Images */
+
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Three images per row */
+  gap: 5px;
+  padding: 15px 0px 0px;
+}
+
+.image-slot {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  border: 1px solid #dcdddf;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.image-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-slot:hover {
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+}
+
+.photo-icon {
+  font-size: 40px;
+  color: #929cb1;
+  stroke-width: 1.3;
+}
+
+.image-slot p {
+  color: var(--light-gray);
+  padding-top: 10px;
+  font-size: small;
+}

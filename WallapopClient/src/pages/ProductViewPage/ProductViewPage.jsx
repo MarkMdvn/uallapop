@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import NavBar from "../../components/common/NavBar/NavBar"; // Assuming NavBar is at this location
-import ProductCard from "../../components/product/ProductCard/ProductCard";
-import { getProductById } from "../../api/productService"; // Adjust the path as necessary
-import "./ProductPage.css";
+import ProductCard from "../../components/ProductView/ProductCard/ProductCard";
+import { getProductById } from "../../api/productService";
+import "./ProductViewPage.css";
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);

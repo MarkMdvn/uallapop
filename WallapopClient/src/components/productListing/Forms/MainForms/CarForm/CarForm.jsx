@@ -2,166 +2,146 @@ import React, { useState } from "react";
 import { MdOilBarrel, MdElectricalServices } from "react-icons/md";
 import { LuFuel } from "react-icons/lu";
 import { TbManualGearbox, TbAutomaticGearbox } from "react-icons/tb";
-import "./CarsForm.css";
+import ImageSelector from "../../ImageSelector/ImageSelector";
+import "./CarForm.css";
 
-const CarForm = () => {
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [cashPrice, setCashPrice] = useState("");
-  const [financedPrice, setFinancedPrice] = useState("");
-  const [currency, setCurrency] = useState("€");
-  const [year, setYear] = useState("");
-  const [title, setTitle] = useState("");
-  const [version, setVersion] = useState("");
-  const [numberOfDoors, setNumberOfDoors] = useState("");
-  const [horsePower, setHorsePower] = useState("");
-  const [carType, setCarType] = useState("");
-  const [kilometers, setKilometers] = useState("");
-  const [engine, setEngine] = useState("");
-  const [transmission, setTransmission] = useState("");
-  const [description, setDescription] = useState("");
+const CarForm = ({ formData, handleInputChange }) => {
   const [selectedEngine, setSelectedEngine] = useState("");
   const [selectedTransmission, setSelectedTransmission] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = {
-      brand,
-      model,
-      cashPrice,
-      financedPrice,
-      currency,
-      year,
-      title,
-      version,
-      numberOfDoors,
-      horsePower,
-      carType,
-      kilometers,
-      engine,
-      transmission,
-      description,
-    };
-    console.log(formData);
-    // Implement form submission logic here
-  };
   const handleEngineSelect = (engine) => {
     setSelectedEngine(engine);
+    handleInputChange("engine", engine, true); // true indicates this is an attribute
   };
 
   const handleTransmissionSelect = (transmission) => {
     setSelectedTransmission(transmission);
+    handleInputChange("transmission", transmission, true);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Final form data to submit:", formData);
+  };
   return (
     <>
-      <div className="main-form-container">
-        <h1 className="main-form-h1">Basic information</h1>
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <div className="main-form-container">
+          <h1 className="main-form-h1">Basic information</h1>
           <div className="form-row two-columns">
             <div className="form-group">
-              <label className="main-label">Marca</label>
+              <label className="main-label">Brand</label>
               <select
                 className="input-field"
-                value={brand}
+                value={formData.attributes.brand}
                 placeholder="Ej: Seat"
-                onChange={(e) => setBrand(e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("brand", e.target.value, true)
+                }
               >
-                <option></option>
+                <option value={"Seat"}>Seat</option>
+                <option value={"BMW"}>BMW</option>
               </select>
             </div>
+
             <div className="form-group">
-              <label className="main-label">Modelo</label>
-              <select
+              <label className="main-label">Model</label>
+              <input
                 className="input-field"
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-              >
-                <option className="input-field" value="Ej: ibiza"></option>
-              </select>
+                type="text"
+                value={formData.attributes.model}
+                onChange={(e) =>
+                  handleInputChange("model", e.target.value, true)
+                }
+              />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label className="main-label">Precio al contado</label>
+              <label className="main-label">Cash price</label>
               <input
                 className="input-field"
                 type="text"
-                value={cashPrice}
-                onChange={(e) => setCashPrice(e.target.value)}
-                placeholder="Con cariño..."
+                value={formData.price}
+                onChange={(e) =>
+                  handleInputChange("price", e.target.value, false)
+                }
               />
             </div>
+
             <div className="form-group" style={{ width: "23em" }}>
-              <label className="main-label">Precio financiado (opcional)</label>
+              <label className="main-label">Financed price (opcional)</label>
+              <input
+                className="input-field"
+                type="number"
+                value={formData.attributes.financedPrice}
+                onChange={(e) =>
+                  handleInputChange("financedPrice", e.target.value, true)
+                }
+              />
+            </div>
+            <div className="form-group" style={{ width: "100%" }}>
+              <label className="main-label">Currency</label>
               <input
                 className="input-field"
                 type="text"
-                value={financedPrice}
-                onChange={(e) => setFinancedPrice(e.target.value)}
-                placeholder="Precio final financiado"
+                value={formData.attributes.currency}
+                onChange={(e) =>
+                  handleInputChange("currency", e.target.value, true)
+                }
               />
-            </div>
-            <div className="form-group" style={{ width: "80px" }}>
-              <label className="main-label">Moneda</label>
-              <select
-                className="input-field"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-              >
-                <option value="€">€</option>
-              </select>
             </div>
           </div>
-
           <div className="form-row two-columns">
             <div className="form-group">
-              <label className="main-label">Año</label>
-              <select
+              <label className="main-label">Year</label>
+              <input
                 className="input-field"
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
-              >
-                <option value="">De fabricación</option>
-              </select>
+                type="number"
+                value={formData.attributes.year}
+                onChange={(e) =>
+                  handleInputChange("year", e.target.value, true)
+                }
+              />
             </div>
             <div className="form-group">
               <label className="main-label">Título</label>
               <input
                 className="input-field"
                 type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Esto es lo que se verá en tu anuncio"
-                maxLength="50"
+                value={formData.title}
+                onChange={(e) =>
+                  handleInputChange("title", e.target.value, false)
+                }
               />
             </div>
           </div>
-        </form>
-      </div>
+        </div>
 
-      <div className="main-form-container">
-        <h1 className="main-form-h1">Información de tu vehículo</h1>
-        <form onSubmit={handleSubmit}>
+        <div className="main-form-container">
+          <h1 className="main-form-h1">Información de tu vehículo</h1>
           <div className="form-row two-columns">
             <div className="form-group">
               <label className="main-label">Versión</label>
-              <select
-                className="input-field"
-                value={version}
-                onChange={(e) => setVersion(e.target.value)}
-              >
-                <option value="">¿Es alguna versión o serie especf?</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label className="main-label">Número de plazas</label>
               <input
                 className="input-field"
-                type="number"
-                placeholder="Escribe un número"
-                onChange={(e) => setNumberOfDoors(e.target.value)}
+                type="text"
+                value={formData.attributes.carVersion}
+                onChange={(e) =>
+                  handleInputChange("carVersion", e.target.value, true)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="main-label">Number of seats</label>
+              <input
+                className="input-field"
+                type="text"
+                value={formData.attributes.numberOfSeats}
+                onChange={(e) =>
+                  handleInputChange("numberOfSeats", e.target.value, true)
+                }
               />
             </div>
           </div>
@@ -171,18 +151,22 @@ const CarForm = () => {
               <label className="main-label">Número de puertas</label>
               <input
                 className="input-field"
-                type="number"
-                placeholder="Escribe un número"
-                onChange={(e) => setNumberOfDoors(e.target.value)}
+                type="text"
+                value={formData.attributes.numberOfDoors}
+                onChange={(e) =>
+                  handleInputChange("numberOfDoors", e.target.value, true)
+                }
               />
             </div>
             <div className="form-group two-columns">
               <label className="main-label">Caballos</label>
               <input
                 className="input-field"
-                type="number"
-                placeholder="Escribe un número"
-                onChange={(e) => setHorsePower(e.target.value)}
+                type="text"
+                value={formData.attributes.horsepower}
+                onChange={(e) =>
+                  handleInputChange("horsepower", e.target.value, true)
+                }
               />
             </div>
           </div>
@@ -190,21 +174,24 @@ const CarForm = () => {
           <div className="form-row two-columns">
             <div className="form-group ">
               <label className="main-label">Tipo de coche</label>
-              <select
+              <input
                 className="input-field"
-                value={carType}
-                onChange={(e) => setCarType(e.target.value)}
-              >
-                <option value="">Pequeño, coupé, sedán, familiar</option>
-              </select>
+                type="text"
+                value={formData.attributes.carType}
+                onChange={(e) =>
+                  handleInputChange("carType", e.target.value, true)
+                }
+              />
             </div>
             <div className="form-group ">
               <label className="main-label">Kilómetros</label>
               <input
                 className="input-field"
                 type="text"
-                placeholder="¡Con precisión!"
-                onChange={(e) => setKilometers(e.target.value)}
+                value={formData.attributes.kilometers}
+                onChange={(e) =>
+                  handleInputChange("kilometers", e.target.value, true)
+                }
               />
             </div>
           </div>
@@ -217,12 +204,12 @@ const CarForm = () => {
               <div className="icon-row">
                 <div
                   onClick={() => handleEngineSelect("gasoline")}
-                  className={` icon-button ${
+                  className={`icon-button ${
                     selectedEngine === "gasoline" ? "active" : ""
                   }`}
                 >
                   <MdOilBarrel />
-                  <span className="icon-label">GASOLINA</span>
+                  <span className="icon-label">GASOLINE</span>
                 </div>
                 <div
                   onClick={() => handleEngineSelect("diesel")}
@@ -244,10 +231,12 @@ const CarForm = () => {
                 </div>
               </div>
             </div>
+
             <div className="form-group icons">
-              <label className="main-label">Cambio</label>
+              <label className="main-label">Transmission</label>
               <div className="icon-row">
-                <div
+                <button
+                  type="button"
                   onClick={() => handleTransmissionSelect("manual")}
                   className={`icon-button ${
                     selectedTransmission === "manual" ? "active" : ""
@@ -255,16 +244,16 @@ const CarForm = () => {
                 >
                   <TbManualGearbox />
                   <span className="icon-label">MANUAL</span>
-                </div>
-                <div
+                </button>
+                <button
                   onClick={() => handleTransmissionSelect("automatic")}
                   className={`icon-button ${
                     selectedTransmission === "automatic" ? "active" : ""
                   }`}
                 >
                   <TbAutomaticGearbox />
-                  <span className="icon-label">AUTOMÁTICO</span>
-                </div>
+                  <span className="icon-label">AUTOMATIC</span>
+                </button>
               </div>
             </div>
           </div>
@@ -274,12 +263,15 @@ const CarForm = () => {
             <textarea
               className="input-field"
               rows="4"
-              placeholder="Cuéntanos más. ¿Usado o nuevo? ¿Rojo o amarillo? ¿Tiene algún golpecito?"
-              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Tell us a little bit more, how is it?"
+              value={formData.description}
+              onChange={(e) =>
+                handleInputChange("description", e.target.value, false)
+              }
             ></textarea>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </>
   );
 };

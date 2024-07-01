@@ -1,6 +1,5 @@
 import React from "react";
 import NavBar from "../../components/common/NavBar/NavBar";
-import ProductDetails from "../../components/product/ProductDetails/ProductDetails";
 import "./HomePage.css";
 
 const HomePage = () => {

@@ -9,6 +9,10 @@ export const getProductById = (id) => {
 };
 
 // Sell product
-export const sellProduct = (productData) => {
-  return axios.post(`${API_URL}/products/create-product`, productData);
+export const sellProduct = (formData) => {
+  return axios.post(`${API_URL}/products/create-product`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };

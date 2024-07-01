@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getProductById } from "../../../api/productService";
+import { getProductById } from "../../../../api/productService";
 import { LiaShippingFastSolid } from "react-icons/lia";
-import "./ProductDetails.css";
-import { useParams } from "react-router-dom";
+import "./OtherItemsDetails.css";
 
 const ProductDetails = ({ product }) => {
   const attributes = product.attributes;

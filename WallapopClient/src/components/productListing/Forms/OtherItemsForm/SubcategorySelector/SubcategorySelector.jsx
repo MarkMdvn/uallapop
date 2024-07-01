@@ -35,7 +35,6 @@ const SubcategorySelector = () => {
     }
   };
 
-  /* Subcategory selection */
   const formComponents = {
     5: BicycleForm,
     6: SmartphoneForm,
@@ -87,8 +86,11 @@ const SubcategorySelector = () => {
       {showDropdown && (
         <>
           <div className="main-form-container">
+            <h1 className="main-form-h1">Information about the product</h1>
             <div className="form-group">
-              <label className="main-label">Select a Category</label>
+              <label className="main-label">
+                Don't worry, there are a lot of categories
+              </label>
               <select
                 className="input-field"
                 value={category}
