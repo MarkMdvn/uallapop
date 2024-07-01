@@ -68,8 +68,7 @@
 /* Product description */
 .product-details-product-description {
   color: var(--light-gray);
-  padding-top: 10px;
-  font-size: 1.1rem;
+  padding: 10px 0;
   line-height: 24px;
   word-wrap: break-word;
   white-space: pre-line;

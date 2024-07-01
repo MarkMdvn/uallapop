@@ -22,7 +22,17 @@ const ListingPage = () => {
   });
 
   const handleSelectCategory = (category) => {
-    setFormData({ ...formData, categoryName: category });
+    const categoryIds = {
+      Cars: 2,
+      Properties: 3,
+      Jobs: 4,
+      OtherItems: 1,
+    };
+    setFormData({
+      ...formData,
+      categoryName: category,
+      categoryId: categoryIds[category],
+    });
   };
 
   const handleInputChange = (name, value, isAttribute = false) => {
