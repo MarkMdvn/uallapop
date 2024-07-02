@@ -12,14 +12,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 
 @Entity
@@ -57,6 +62,16 @@ public class Product {
 
   @JdbcTypeCode(SqlTypes.JSON)
   private Map<String, Object> attributes;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @CreatedDate
+  @Column(nullable = false, updatable = false)
+  private Date createdAt;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @LastModifiedDate
+  @Column(nullable = false)
+  private Date updatedAt;
 
   public enum ItemCondition {
     NOT_OPENED, IN_THE_BOX, NEW, ALMOST_NEW, USED, POOR_CONDITION

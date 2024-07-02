@@ -8,6 +8,8 @@ import ListingPage from "./pages/ListingPage/ListingPage.jsx";
 import "./styles/base.css";
 import "./styles/themes.css";
 import "./styles/layout.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const router = createBrowserRouter([
   {

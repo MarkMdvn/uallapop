@@ -8,7 +8,7 @@ import ImageSelector from "../../components/ProductListing/Forms/ImageSelector/I
 import { sellProduct } from "../../api/productService";
 
 const ListingPage = () => {
-  const [submitButtonVisible, setSubmitButtonVisible] = useState();
+  const [submitButtonVisible, setSubmitButtonVisible] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     price: "",
@@ -33,6 +33,7 @@ const ListingPage = () => {
       categoryName: category,
       categoryId: categoryIds[category],
     });
+    setSubmitButtonVisible(true);
   };
 
   const handleInputChange = (name, value, isAttribute = false) => {
@@ -53,7 +54,6 @@ const ListingPage = () => {
       if (file) data.append("images", file); // Use 'image' as the key expected by the backend
     });
 
-    // Append other form data as a stringified object
     data.append(
       "product",
       JSON.stringify({
@@ -121,10 +121,11 @@ const ListingPage = () => {
           }
         />
       )}
-
-      <button onClick={handleSubmit} className="submit-product-button">
-        Submit Product
-      </button>
+      {submitButtonVisible && (
+        <button onClick={handleSubmit} className="submit-product-button">
+          Submit Product
+        </button>
+      )}
     </div>
   );
 };

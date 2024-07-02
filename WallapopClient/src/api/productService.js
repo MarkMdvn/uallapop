@@ -16,3 +16,8 @@ export const sellProduct = (formData) => {
     },
   });
 };
+
+// Fetch latest products by category ID
+export const getLatestProductsByCategory = (categoryId) => {
+  return axios.get(`${API_URL}/products/latest-by-category/${categoryId}`);
+};

@@ -2,6 +2,8 @@ import React from "react";
 import ImageSlider from "../ImageSlider/ImageSlider";
 import OtherItemDetails from "../ProductDetails/OtherItemsDetails/OtherItemsDetails";
 import CarDetails from "../ProductDetails/CarDetails/CarDetails";
+import PropertyDetails from "../ProductDetails/PropertyDetails/PropertyDetails";
+import JobDetails from "../ProductDetails/JobDetails/JobDetails";
 import SellerInfo from "../SellerInfo/SellerInfo";
 import "./ProductCard.css";
 
@@ -18,9 +20,9 @@ const ProductCard = ({ product }) => {
       case 2:
         return <CarDetails product={product} />;
       case 3:
-      /* return <PropertyDetails product={product} />; */
+        return <PropertyDetails product={product} />;
       case 4:
-      /* return <JobDetails product={product} />; */
+        return <JobDetails product={product} />;
       default:
         return <OtherItemDetails product={product} />;
     }

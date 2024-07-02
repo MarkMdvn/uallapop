@@ -42,6 +42,7 @@ const CarForm = ({ formData, handleInputChange }) => {
                 <option value={"Seat"}>Seat</option>
                 <option value={"BMW"}>BMW</option>
                 <option value={"Porshe"}>Porshe</option>
+                <option value={"Mercedes-Benz"}>Mercedes-Benz</option>
               </select>
             </div>
 

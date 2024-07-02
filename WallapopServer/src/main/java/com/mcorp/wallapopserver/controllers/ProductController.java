@@ -1,7 +1,7 @@
 package com.mcorp.wallapopserver.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mcorp.wallapopserver.DTO.BasicProductDTO;
 import com.mcorp.wallapopserver.DTO.ProductDTO;
 import com.mcorp.wallapopserver.models.Category;
 import com.mcorp.wallapopserver.models.Product;
@@ -9,9 +9,7 @@ import com.mcorp.wallapopserver.services.CategoryService;
 import com.mcorp.wallapopserver.services.FileStorageService;
 import com.mcorp.wallapopserver.services.ProductService;
 import com.mcorp.wallapopserver.utils.UrlUtil;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
@@ -66,6 +63,8 @@ public class ProductController {
     }
 
     dto.setImageUrls(product.getImageUrls());
+    dto.setCreatedAt(product.getCreatedAt()); // Set createdAt
+    dto.setUpdatedAt(product.getUpdatedAt()); // Set updatedAt
 
     return dto;
   }
@@ -87,7 +86,6 @@ public class ProductController {
       ProductDTO productDTO = objectMapper.readValue(productJson, ProductDTO.class);
       Product product = productService.createProduct(productDTO);
 
-      // Store the images and update product with image URLs using UrlUtil
       List<String> storedFileNames = fileStorageService.storeFiles(files, product.getId());
       List<String> imageUrls = storedFileNames.stream()
           .map(filename -> UrlUtil.createImageUrl(filename))
@@ -134,5 +132,17 @@ public class ProductController {
       e.printStackTrace();
       return ResponseEntity.status(500).build();
     }
+  }
+
+  // BasicProductDTO controllers
+  @GetMapping("/latest-by-category/{categoryId}")
+  public ResponseEntity<List<BasicProductDTO>> getLatestProductsByCategory(
+      @PathVariable Long categoryId) {
+    List<BasicProductDTO> products = productService.getLatestProductsByCategory(categoryId);
+    if (products.isEmpty()) {
+      return ResponseEntity.noContent().build();
+    }
+    return ResponseEntity.ok(products);
+
   }
 }
