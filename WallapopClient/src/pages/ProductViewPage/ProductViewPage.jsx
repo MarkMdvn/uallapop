@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProductCard from "../../components/ProductView/ProductCard/ProductCard";
+import ProductViewCard from "../../components/product/ProductView/ProductViewCard/ProductViewCard";
 import { getProductById } from "../../api/productService";
 import "./ProductViewPage.css";
 
-const ProductPage = () => {
+const ProductViewPage = () => {
   const [product, setProduct] = useState(null);
-  const { id } = useParams(); // Get the product ID from the URL parameters
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -27,7 +27,7 @@ const ProductPage = () => {
   return (
     <div className="product-page-container">
       {product ? (
-        <ProductCard product={product} />
+        <ProductViewCard product={product} />
       ) : (
         <p>Loading product details...</p>
       )}
@@ -35,4 +35,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductViewPage;

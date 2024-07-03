@@ -63,20 +63,22 @@ public class ProductController {
     }
 
     dto.setImageUrls(product.getImageUrls());
-    dto.setCreatedAt(product.getCreatedAt()); // Set createdAt
-    dto.setUpdatedAt(product.getUpdatedAt()); // Set updatedAt
+    dto.setCreatedAt(product.getCreatedAt());
+    dto.setUpdatedAt(product.getUpdatedAt());
+    dto.setViewCount(product.getViewCount());
 
     return dto;
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
-    return productService.getProductById(id)
+    return productService.incrementViewCount(id)
         .map(product -> ResponseEntity.ok(
-            convertToDTO(product))) // This returns ResponseEntity<ProductDTO>
+            convertToDTO(product)))
         .orElseGet(() -> ResponseEntity.<ProductDTO>notFound()
-            .build()); // Ensure this returns ResponseEntity<ProductDTO> as well
+            .build());
   }
+
 
   @PostMapping("/create-product")
   public ResponseEntity<?> createProduct(

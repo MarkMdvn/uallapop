@@ -20,6 +20,7 @@ public class ProductDTO {
   private List<String> imageUrls;
   private Date createdAt;
   private Date updatedAt;
+  private int viewCount;
 
 
 }

@@ -1,0 +1,30 @@
+.sustainability-banner-container {
+  margin: -20px 20px 20px;
+}
+
+.sustainability-banner {
+  background-color: #d8ff7c;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* This will center all children vertically */
+  width: 100%;
+  padding: 10px 10px;
+}
+
+.sustainability-banner-phrase {
+  padding: 10px 0px;
+  color: #136d60;
+}
+
+.sustainability-banner a {
+  color: #136d60;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.sustainability-icon {
+  font-size: 30px;
+  color: #136d60;
+  margin: 0px 17px 0px 10px;
+}

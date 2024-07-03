@@ -13,6 +13,8 @@
 body {
   height: 100vh;
   background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
 }
 
 .kanit-light {
@@ -22,8 +24,8 @@ body {
 }
 
 .custom-hr {
-  border: none; /* Removes the default border */
-  height: 1px; /* Makes it a thin line, adjust as needed */
-  background-color: #cccccca2; /* Light grey color, change as per your design */
-  margin: 20px 0; /* Adds vertical spacing above and below the hr */
+  border: none;
+  height: 1px;
+  background-color: #cccccca2;
+  margin: 20px 0;
 }

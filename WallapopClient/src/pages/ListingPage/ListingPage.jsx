@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import CategorySelector from "../../components/ProductListing/CategorySelector/CategorySelector";
-import CarForm from "../../components/ProductListing/Forms/MainForms/CarForm/CarForm";
-import JobsForm from "../../components/ProductListing/Forms/MainForms/JobsForm/JobsForm";
-import PropertyForm from "../../components/ProductListing/Forms/MainForms/PropertyForm/PropertyForm";
-import SubcategorySelector from "../../components/ProductListing/Forms/OtherItemsForm/SubcategorySelector/SubcategorySelector";
-import ImageSelector from "../../components/ProductListing/Forms/ImageSelector/ImageSelector";
+import CategorySelector from "../../components/product/ProductListing/CategorySelector/CategorySelector";
+import CarForm from "../../components/product/ProductListing/Forms/MainForms/CarForm/CarForm";
+import JobsForm from "../../components/product/ProductListing/Forms/MainForms/JobsForm/JobsForm";
+import PropertyForm from "../../components/product/ProductListing/Forms/MainForms/PropertyForm/PropertyForm";
+import SubcategorySelector from "../../components/product/ProductListing/Forms/OtherItemsForm/SubcategorySelector/SubcategorySelector";
+import ImageSelector from "../../components/product/ProductListing/Forms/ImageSelector/ImageSelector";
 import { sellProduct } from "../../api/productService";
 
 const ListingPage = () => {
   const [submitButtonVisible, setSubmitButtonVisible] = useState(false);
+  const [imageSelector, setImageSelectorVisible] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     price: "",

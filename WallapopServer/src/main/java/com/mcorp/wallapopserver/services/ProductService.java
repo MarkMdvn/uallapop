@@ -16,14 +16,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
 
+  private final ObjectMapper objectMapper;
   @Autowired
   private ProductRepository productRepository;
   @Autowired
   private CategoryRepository categoryRepository;
+
+  public ProductService(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
 
   public List<Product> getAllProducts() {
     return productRepository.findAll();
@@ -33,15 +39,29 @@ public class ProductService {
     return productRepository.findById(id);
   }
 
+  public Optional<Product> incrementViewCount(Long id) {
+    Optional<Product> productOpt = productRepository.findById(id);
+    if (productOpt.isPresent()) {
+      Product product = productOpt.get();
+      product.setViewCount(product.getViewCount() + 1);
+      productRepository.save(product);
+    }
+    return productOpt;
+  }
+
+  @Transactional
   public Product saveProduct(Product product) {
     return productRepository.save(product);
   }
 
+  // JSON methods
+
+  @Transactional
   public void deleteProduct(Product product) {
     productRepository.delete(product);
   }
 
-
+  @Transactional
   public Product createProduct(ProductDTO productDTO) throws JsonProcessingException {
     Product product = new Product();
     product.setTitle(productDTO.getTitle());
@@ -57,16 +77,10 @@ public class ProductService {
     return productRepository.save(product);
   }
 
-  // JSON methods
-
-  private final ObjectMapper objectMapper;
-  public ProductService(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper;
-  }
-
   // BasicProductDTO methods
   public List<BasicProductDTO> getLatestProductsByCategory(Long categoryId) {
-    List<Product> products = productRepository.findTop16ByCategory_IdOrderByCreatedAtDesc(categoryId);
+    List<Product> products = productRepository.findTop16ByCategory_IdOrderByCreatedAtDesc(
+        categoryId);
     return products.stream()
         .map(this::convertToBasicDTO)
         .collect(Collectors.toList());
@@ -79,7 +93,8 @@ public class ProductService {
     dto.setPrice(product.getPrice());
     dto.setShippingAvailable(product.isShippingAvailable());
     // Only taking the first image for simplicity
-    dto.setImageUrls(product.getImageUrls().isEmpty() ? Collections.emptyList() : Collections.singletonList(product.getImageUrls().get(0)));
+    dto.setImageUrls(product.getImageUrls().isEmpty() ? Collections.emptyList()
+        : Collections.singletonList(product.getImageUrls().get(0)));
     return dto;
   }
 }

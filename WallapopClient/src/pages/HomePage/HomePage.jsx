@@ -1,6 +1,6 @@
 // src/pages/HomePage.jsx
 import React, { useState, useEffect } from "react";
-import ProductSlider from "../../components/common/ProductSlider/ProductSlider";
+import ProductSlider from "../../components/product/ProductSlider/ProductSlider";
 import { getLatestProductsByCategory } from "../../api/productService"; //
 import "./HomePage.css";
 

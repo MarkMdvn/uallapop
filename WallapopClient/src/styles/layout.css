@@ -1,3 +1,6 @@
 .main-content {
-  padding-top: 122px;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
