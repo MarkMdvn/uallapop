@@ -1,19 +1,32 @@
 package com.mcorp.wallapopserver.security;
 
+import com.mcorp.wallapopserver.security.jwt.AuthTokenFilter;
+import com.mcorp.wallapopserver.security.jwt.JwtAuthEntryPoint;
+import com.mcorp.wallapopserver.security.user.WallapopUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
 
-  private final UserDetailsService userDetailsService;
+  private final WallapopUserDetailsService userDetailsService;
   private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
   @Bean
@@ -43,23 +56,21 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
-        .exceptionHandling(
-            exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
+        .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/**", "/rooms/**", "/bookings/**")
-            .permitAll().requestMatchers("/roles/**").hasRole("ADMIN")
-            .anyRequest().authenticated());
+        .authorizeHttpRequests(
+            auth -> auth.requestMatchers("/auth/**", "api/products/**", "**").permitAll()
+                .requestMatchers("/roles/**").hasRole("ADMIN").anyRequest().authenticated());
     http.authenticationProvider(authenticationProvider());
     http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     return http.build();
   }
+
+  // File storage configuration
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    // Serve all subdirectories under ProductImages
-    registry.addResourceHandler("/images/**")
-        .addResourceLocations(
-            "file:///D:/Development/Fullstack_Projects/Wallapop2/WallapopAssets/ProductImages/");
+    registry.addResourceHandler("/images/**").addResourceLocations(
+        "file:///D:/Development/Fullstack_Projects/Wallapop2/WallapopAssets/ProductImages/");
   }
 }
