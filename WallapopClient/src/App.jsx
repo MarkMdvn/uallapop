@@ -37,6 +37,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/login",
+    element: (
+      <Layout>
+        <h1>LoginPage</h1>
+      </Layout>
+    ),
+  },
+  {
     errorElement: <NotFound />,
   },
 ]);
