@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/admin/users")
+@RequestMapping("/admin/users")
 @RequiredArgsConstructor
 public class UserController {
   private final UserService userService;
 
-  @GetMapping("/all-users")
+@GetMapping()
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<List<User>> getUsers(){
 
@@ -39,7 +39,7 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching user");
     }
   }
-  @DeleteMapping("/delete/{userId}")
+  @DeleteMapping("/{userId}")
   @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #email == principal.username)")
   public ResponseEntity<String> deleteUser(@PathVariable("userId") String email){
     try{

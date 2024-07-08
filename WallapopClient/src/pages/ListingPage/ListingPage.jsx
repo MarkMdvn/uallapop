@@ -6,8 +6,12 @@ import PropertyForm from "../../components/product/ProductListing/Forms/MainForm
 import SubcategorySelector from "../../components/product/ProductListing/Forms/OtherItemsForm/SubcategorySelector/SubcategorySelector";
 import ImageSelector from "../../components/product/ProductListing/Forms/ImageSelector/ImageSelector";
 import { sellProduct } from "../../api/productService";
+import { useAuth } from "../../components/auth/AuthProvider";
+import ProtectedRoute from "../../components/ProtectedRoute";
 
 const ListingPage = () => {
+  const { getAuthHeader } = useAuth();
+  const headers = getAuthHeader();
   const [submitButtonVisible, setSubmitButtonVisible] = useState(false);
   const [imageSelector, setImageSelectorVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,6 +52,7 @@ const ListingPage = () => {
     }
   };
   const handleSubmit = async () => {
+    const headers = getAuthHeader();
     const data = new FormData();
 
     // Append each image file to the FormData
@@ -70,7 +75,7 @@ const ListingPage = () => {
     );
 
     try {
-      const response = await sellProduct(data);
+      const response = await sellProduct(data, headers);
       console.log("Product created:", response.data);
     } catch (error) {
       console.error("Failed to post product:", error);
@@ -107,27 +112,29 @@ const ListingPage = () => {
   };
 
   return (
-    <div className="listing-page-container">
-      <h1 className="listing-page-h1">Post your product</h1>
-      <CategorySelector
-        onSelectCategory={handleSelectCategory}
-        selectedCategory={formData.categoryName}
-      />
-      {formData.categoryName && renderForm()}
-      {formData.categoryName && (
-        <ImageSelector
-          images={formData.images}
-          onImageChange={(newImages) =>
-            setFormData({ ...formData, images: newImages })
-          }
+    <ProtectedRoute>
+      <div className="listing-page-container">
+        <h1 className="listing-page-h1">Post your product</h1>
+        <CategorySelector
+          onSelectCategory={handleSelectCategory}
+          selectedCategory={formData.categoryName}
         />
-      )}
-      {submitButtonVisible && (
-        <button onClick={handleSubmit} className="submit-product-button">
-          Submit Product
-        </button>
-      )}
-    </div>
+        {formData.categoryName && renderForm()}
+        {formData.categoryName && (
+          <ImageSelector
+            images={formData.images}
+            onImageChange={(newImages) =>
+              setFormData({ ...formData, images: newImages })
+            }
+          />
+        )}
+        {submitButtonVisible && (
+          <button onClick={handleSubmit} className="submit-product-button">
+            Submit Product
+          </button>
+        )}
+      </div>
+    </ProtectedRoute>
   );
 };
 

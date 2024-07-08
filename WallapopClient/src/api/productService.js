@@ -1,5 +1,8 @@
 // src/api.js
 import axios from "axios";
+import { useAuth } from "../components/auth/AuthProvider"; // Make sure the path is correct
+
+import { getHeader } from "./authService";
 
 const API_URL = "http://localhost:9192/api";
 
@@ -8,12 +11,9 @@ export const getProductById = (id) => {
   return axios.get(`${API_URL}/products/${id}`);
 };
 
-// Sell product
-export const sellProduct = (formData) => {
+export const sellProduct = (formData, headers) => {
   return axios.post(`${API_URL}/products/create-product`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+    headers,
   });
 };
 

@@ -8,6 +8,7 @@ import com.mcorp.wallapopserver.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,10 @@ public class UserService {
     Role userRole = roleRepository.findByName("ROLE_USER").get();
     user.setRoles(Collections.singletonList(userRole));
     return userRepository.save(user);
+  }
+
+  public Optional<User> findUserByEmail(String email) {
+    return userRepository.findByEmail(email);
   }
 
   public List<User> getUsers() {

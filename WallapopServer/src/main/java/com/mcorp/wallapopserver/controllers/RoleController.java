@@ -21,19 +21,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/admin/roles")
 @RequiredArgsConstructor
 public class RoleController {
 
   @Autowired
   private final RoleService roleService;
 
-  @GetMapping("/all-roles")
+  @GetMapping()
   public ResponseEntity<List<Role>> getAllRoles(){
     return new ResponseEntity<>(roleService.getRoles(), FOUND);
   }
 
-  @PostMapping("/create-new-role")
+  @PostMapping()
   public ResponseEntity<String> createRole(@RequestBody Role theRole){
     try{
       roleService.createRole(theRole);
@@ -46,6 +46,7 @@ public class RoleController {
   @DeleteMapping("/delete/{roleId}")
   public void deleteRole(@PathVariable("roleId") Long roleId){
     roleService.deleteRole(roleId);
+
   }
   @PostMapping("/remove-all-users-from-role/{roleId}")
   public Role removeAllUsersFromRole(@PathVariable("roleId") Long roleId){

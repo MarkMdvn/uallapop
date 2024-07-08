@@ -1,0 +1,74 @@
+/* LoginForm.css */
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-form {
+  background-color: white;
+  height: 530px;
+  width: 436px; /* Match the width from the screenshot */
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input-container {
+  margin: 40px 0px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 20px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.login-remember-forgot {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 20px 0;
+}
+
+.login-button {
+  width: 100%;
+  background-color: var(--primary-color);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-button:hover {
+  background-color: #45a049;
+}
+
+.forgot-password {
+  color: #069;
+  text-decoration: none;
+}
+
+.switch-to-register {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+}

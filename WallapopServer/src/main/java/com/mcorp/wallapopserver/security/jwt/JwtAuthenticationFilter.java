@@ -18,11 +18,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
-public class AuthTokenFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-  private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+  private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
   @Autowired
-  private JwtUtils jwtUtils;
+  private JwtTokenUtil jwtUtils;
   @Autowired
   private WallapopUserDetailsService userDetailsService;
 

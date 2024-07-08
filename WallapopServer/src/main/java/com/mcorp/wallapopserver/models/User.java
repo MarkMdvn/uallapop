@@ -10,8 +10,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import lombok.Data;
 
 @Entity
@@ -25,13 +28,24 @@ public class User {
   private String email;
   private String password;
 
-  @ManyToMany(fetch = FetchType.EAGER,
-      cascade = {CascadeType.PERSIST,
-          CascadeType.MERGE, CascadeType.DETACH})
+  // Location and rating information
+  private String location;
+  private double averageRating; // Average rating from user reviews
+
+  // Transaction statistics
+  private int totalSales;
+  private int totalPurchases;
+  private int totalItemsShipped;
+
+  @OneToMany(mappedBy = "user")
+  private List<Product> products = new ArrayList<>();
+
+  @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH })
   @JoinTable(name = "user_roles",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Collection<Role> roles = new HashSet<>();
 
-
+  @OneToMany(mappedBy = "reviewedUser", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Rating> ratings = new ArrayList<>();
 }

@@ -1,9 +1,12 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom"; // Add Link to the import
+import { useNavigate, Link } from "react-router-dom";
 import "./NavBar.css";
+import { useAuth } from "../../auth/AuthProvider";
 
 const NavBar = () => {
   const navigate = useNavigate();
+
+  const currentUser = localStorage.getItem("userId");
 
   const handleSell = () => {
     navigate(`/products/sell-product`);
@@ -20,9 +23,9 @@ const NavBar = () => {
               className="logo-main-img"
             />
             <img
-              className="logo-main-text-img"
               src="/wallapop_word_logo.jpg"
               alt="Wallapop Logo Text"
+              className="logo-main-text-img"
             />
           </Link>
         </div>
@@ -33,10 +36,19 @@ const NavBar = () => {
             className="search-input"
           />
         </div>
-        <div className="action-buttons">
-          <button className="btn btn-outline">
-            Regístrate o inicia sesión
-          </button>
+        <div className="right-nav-container">
+          {currentUser ? (
+            <h6 className="text-success text-center">
+              {" "}
+              You are logged-In as {currentUser}
+            </h6>
+          ) : (
+            <Link to="/authentication">
+              <button className="btn btn-outline">
+                Regístrate o inicia sesión
+              </button>
+            </Link>
+          )}
           <button className="btn btn-primary" onClick={handleSell}>
             Vender
           </button>

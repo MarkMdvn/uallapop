@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<Product, Long> {
   List<Product> findTop16ByCategory_IdOrderByCreatedAtDesc(Long categoryId);
 
+  List<Product> findByUserId(Long userId);
+
+
 }

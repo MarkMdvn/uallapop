@@ -29,3 +29,18 @@ body {
   background-color: #cccccca2;
   margin: 20px 0;
 }
+
+.input-field {
+  width: 100%;
+  padding: 19px 8px;
+  font-size: 16px;
+  border: 1px solid #d8d6d6;
+  border-radius: 9px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.input-field:hover {
+  border: 2px solid black;
+  padding: 18px 7px; /* Reduce padding by 1px on all sides */
+}

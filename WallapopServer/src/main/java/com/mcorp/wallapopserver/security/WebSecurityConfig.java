@@ -1,11 +1,12 @@
 package com.mcorp.wallapopserver.security;
 
-import com.mcorp.wallapopserver.security.jwt.AuthTokenFilter;
+import com.mcorp.wallapopserver.security.jwt.JwtAuthenticationFilter;
 import com.mcorp.wallapopserver.security.jwt.JwtAuthEntryPoint;
 import com.mcorp.wallapopserver.security.user.WallapopUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -30,8 +31,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
   private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
   @Bean
-  public AuthTokenFilter authenticationTokenFilter() {
-    return new AuthTokenFilter();
+  public JwtAuthenticationFilter authenticationTokenFilter() {
+    return new JwtAuthenticationFilter();
   }
 
   @Bean
@@ -57,15 +58,19 @@ public class WebSecurityConfig implements WebMvcConfigurer {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
         .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
-        .sessionManagement(
-            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(
-            auth -> auth.requestMatchers("/auth/**", "api/products/**", "**").permitAll()
-                .requestMatchers("/roles/**").hasRole("ADMIN").anyRequest().authenticated());
-    http.authenticationProvider(authenticationProvider());
-    http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/auth/**").permitAll()  // Public endpoints like login, register
+            .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+            .requestMatchers("/images/**").permitAll()  // Allow public access to images
+            .requestMatchers("/api/products/create-product", "/api/products/edit-product/**", "/api/products/delete-product/**").authenticated()  // Secured endpoints
+            .anyRequest().authenticated())  // All other requests need authentication
+        .authenticationProvider(authenticationProvider())
+        .addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
     return http.build();
   }
+
 
   // File storage configuration
   @Override

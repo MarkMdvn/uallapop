@@ -8,8 +8,10 @@ import com.mcorp.wallapopserver.DTO.ProductDTO;
 import com.mcorp.wallapopserver.models.Category;
 import com.mcorp.wallapopserver.models.Product;
 import com.mcorp.wallapopserver.models.Product.ItemCondition;
+import com.mcorp.wallapopserver.models.User;
 import com.mcorp.wallapopserver.repositories.CategoryRepository;
 import com.mcorp.wallapopserver.repositories.ProductRepository;
+import com.mcorp.wallapopserver.repositories.UserRepository;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +28,8 @@ public class ProductService {
   private ProductRepository productRepository;
   @Autowired
   private CategoryRepository categoryRepository;
+  @Autowired
+  private UserRepository userRepository;
 
   public ProductService(ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
@@ -62,17 +66,16 @@ public class ProductService {
   }
 
   @Transactional
-  public Product createProduct(ProductDTO productDTO) throws JsonProcessingException {
-    Product product = new Product();
-    product.setTitle(productDTO.getTitle());
-    product.setPrice(productDTO.getPrice());
-    product.setDescription(productDTO.getDescription());
-    product.setShippingAvailable(productDTO.isShippingAvailable());
-    product.setItemCondition(ItemCondition.valueOf(productDTO.getItemCondition()));
+  public Product createProduct(ProductDTO productDTO, String email) throws JsonProcessingException {
+    Product product = objectMapper.convertValue(productDTO, Product.class);
     Category category = categoryRepository.findById(productDTO.getCategoryId())
         .orElseThrow(() -> new RuntimeException("Category not found"));
     product.setCategory(category);
-    product.setAttributes(productDTO.getAttributes());
+
+    // Fetch user and set to product
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+    product.setUser(user);
 
     return productRepository.save(product);
   }

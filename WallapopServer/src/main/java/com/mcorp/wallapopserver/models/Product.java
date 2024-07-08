@@ -69,6 +69,11 @@ public class Product {
 
   private int viewCount;
 
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = true)
+  private User user;
+
   public enum ItemCondition {
     NOT_OPENED, IN_THE_BOX, NEW, ALMOST_NEW, USED, POOR_CONDITION
   }

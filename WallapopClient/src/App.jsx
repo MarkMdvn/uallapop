@@ -10,6 +10,8 @@ import "./styles/themes.css";
 import "./styles/layout.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AuthenticationPage from "./pages/AuthenticationPage/AuthenticationPage.jsx";
+import { AuthProvider } from "./components/auth/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,12 +39,8 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/login",
-    element: (
-      <Layout>
-        <h1>LoginPage</h1>
-      </Layout>
-    ),
+    path: "/authentication",
+    element: <AuthenticationPage />,
   },
   {
     errorElement: <NotFound />,
@@ -50,7 +48,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 };
 
 export default App;
