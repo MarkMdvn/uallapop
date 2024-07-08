@@ -2,6 +2,7 @@
   width: 679px;
   background-color: white;
   border-radius: 17px;
-  overflow: hidden;
+  overflow: visible;
   margin-top: 50px;
+  position: relative; /* Needed for sticky positioning context */
 }

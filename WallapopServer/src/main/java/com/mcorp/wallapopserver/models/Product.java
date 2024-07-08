@@ -70,8 +70,8 @@ public class Product {
   private int viewCount;
 
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", nullable = true)
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
 
   public enum ItemCondition {

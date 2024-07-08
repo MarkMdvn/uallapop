@@ -31,7 +31,7 @@ public class AuthController {
   private final AuthenticationManager authenticationManager;
   private final JwtTokenUtil jwtUtils;
 
-  @PostMapping("/register ")
+  @PostMapping("/register")
   public ResponseEntity<?> registerUser(@RequestBody User user) {
     try {
       userService.registerUser(user);

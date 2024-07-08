@@ -9,11 +9,11 @@
   flex-direction: row;
   align-items: center; /* This will center all children vertically */
   width: 100%;
-  padding: 10px 10px;
+  padding: 15px 10px;
 }
 
 .sustainability-banner-phrase {
-  padding: 10px 0px;
+  padding-bottom: 15px;
   color: #136d60;
 }
 

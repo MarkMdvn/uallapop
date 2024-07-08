@@ -68,6 +68,7 @@ public class ProductController {
     dto.setCreatedAt(product.getCreatedAt());
     dto.setUpdatedAt(product.getUpdatedAt());
     dto.setViewCount(product.getViewCount());
+    dto.setUserId(product.getUser().getId());
 
     return dto;
   }

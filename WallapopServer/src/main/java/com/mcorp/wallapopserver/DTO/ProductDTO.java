@@ -21,6 +21,7 @@ public class ProductDTO {
   private Date createdAt;
   private Date updatedAt;
   private int viewCount;
+  private Long userId;
 
 
 }

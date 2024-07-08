@@ -1,4 +1,100 @@
 .seller-info-container {
-  height: 100px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 111px;
+  z-index: 1000;
   background-color: white;
+  padding: 20px;
+  z-index: 100;
+  border-radius: 17px; /* high enough to stay on top */
+}
+
+.seller-avatar-img img {
+  width: 33px; /* Fixed size for the image */
+  height: 33px; /* Fixed size for the image */
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  margin-right: 15px; /* Space between image and text */
+}
+
+.seller-details {
+  flex-grow: 1; /* Takes up the remaining space */
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.seller-stats {
+  display: flex;
+  align-items: center; /* Aligns the sales count and rating horizontally */
+  gap: 10px; /* Space between sales count and rating */
+}
+
+.seller-history {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.seller-actions {
+  display: flex;
+  align-items: center;
+}
+
+.seller-actions button {
+  width: 100px;
+  height: 40px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.seller-like-button {
+  border: none;
+  background-color: #eceff1;
+  transition: background-color 0.4s ease;
+}
+
+.seller-like-button svg {
+  color: rgb(255, 88, 88);
+  font-size: 24px;
+  fill: white; /* White fill inside the heart */
+  transition: fill 0.3s ease; /* Smooth transition for fill color */
+}
+.seller-like-button:hover {
+  background-color: rgb(255, 88, 88); /* Same as the heart's color */
+}
+
+.seller-like-button:hover svg {
+  fill: white; /* Keeps the heart's inside white even on hover */
+}
+
+.seller-chat-button {
+  border-color: var(--primary-color);
+  border-style: solid;
+  background-color: white;
+  font-weight: bold;
+}
+
+/* SELLER SALES STATS */
+
+.seller-total-sales {
+  color: var(--light-gray);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.seller-total-sales svg {
+  color: rgb(247, 147, 166);
+}
+
+.seller-total-ratings {
+  color: #038673;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 20px;
+  text-decoration: underline;
 }

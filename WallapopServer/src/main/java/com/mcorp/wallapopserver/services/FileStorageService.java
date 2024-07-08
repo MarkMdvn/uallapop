@@ -18,8 +18,8 @@ public class FileStorageService {
 
   public List<String> storeFiles(MultipartFile[] files, Long productId) throws IOException {
     List<String> filePaths = new ArrayList<>();
-    if (files.length > 5) {
-      throw new IllegalStateException("Cannot upload more than 5 images.");
+    if (files.length > 10) {
+      throw new IllegalStateException("Cannot upload more than 10 images.");
     }
 
     Path productFolder = Paths.get(uploadDir, String.valueOf(productId)).toAbsolutePath()
