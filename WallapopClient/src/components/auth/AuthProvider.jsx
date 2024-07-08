@@ -1,51 +1,55 @@
-import React, { createContext, useState, useContext } from "react";
-import { jwtDecode } from "jwt-decode"; // import dependency
+import React, { createContext, useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
-export const AuthContext = createContext({
-  user: null,
-  handleLogin: (token) => {},
-  handleLogout: () => {},
-});
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      return jwtDecode(token); // Initialize from local storage
-    }
-    return null;
+    return token ? jwtDecode(token) : null;
   });
 
-  const handleLogin = (token) => {
-    const decodedUser = jwtDecode(token);
-    localStorage.setItem("userId", decodedUser.sub);
-    localStorage.setItem("userRole", decodedUser.roles);
-    localStorage.setItem("userEmail", decodedUser.email);
-    localStorage.setItem("token", token);
-    setUser(decodedUser);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      fetchUserDetails(decoded.sub, token);
+    }
+  }, []); // Removed user from dependencies to avoid initial reference error
+
+  const fetchUserDetails = async (userId, token) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:9192/api/users/by-email/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("Fetched user details:", response.data);
+      setUser({ ...jwtDecode(token), ...response.data });
+    } catch (error) {
+      console.error("Failed to fetch user details:", error);
+    }
   };
 
-  const getAuthHeader = () => {
-    const token = localStorage.getItem("token");
-    return token ? { Authorization: `Bearer ${token}` } : undefined;
+  const handleLogin = (token) => {
+    localStorage.setItem("token", token);
+    const decodedUser = jwtDecode(token);
+    setUser(decodedUser);
+    fetchUserDetails(decodedUser.sub, token);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userRole");
     localStorage.removeItem("token");
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, handleLogin, handleLogout, getAuthHeader }}
-    >
+    <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);

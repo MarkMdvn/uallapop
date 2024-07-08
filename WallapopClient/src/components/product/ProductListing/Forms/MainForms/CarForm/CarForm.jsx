@@ -110,7 +110,9 @@ const CarForm = ({ formData, handleInputChange }) => {
                   handleInputChange("year", e.target.value, true)
                 }
               >
+                <option value="">Select a year</option>
                 <option value="2023">2023</option>
+                <option value="2022">2022</option>
               </select>
             </div>
             <div className="form-group" style={{ width: "27em" }}>

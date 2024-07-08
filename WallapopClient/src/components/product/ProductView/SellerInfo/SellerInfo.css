@@ -1,8 +1,10 @@
 .seller-info-container {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-around;
   position: sticky;
-  top: 111px;
+  top: 100px;
   z-index: 1000;
   background-color: white;
   padding: 20px;
@@ -28,14 +30,27 @@
 .seller-stats {
   display: flex;
   align-items: center; /* Aligns the sales count and rating horizontally */
-  gap: 10px; /* Space between sales count and rating */
+  gap: 10px 2px; /* Space between sales count and rating */
+}
+
+.seller-avrg-rating {
+  color: black;
+  font-weight: lighter;
+  font-size: small;
+  padding-top: 3px;
+}
+
+.seller-num-of-ratings {
+  font-size: small;
+  color: rgb(182, 182, 182);
 }
 
 .seller-history {
-  width: 200px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 5px;
+  width: 35%;
 }
 
 .seller-actions {
@@ -76,6 +91,12 @@
   border-style: solid;
   background-color: white;
   font-weight: bold;
+  transform: fill 0.3s ease;
+}
+
+.seller-chat-button:hover {
+  color: #494949;
+  border-color: #59f1db;
 }
 
 /* SELLER SALES STATS */

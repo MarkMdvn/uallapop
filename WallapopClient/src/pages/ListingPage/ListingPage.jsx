@@ -10,8 +10,7 @@ import { useAuth } from "../../components/auth/AuthProvider";
 import ProtectedRoute from "../../components/ProtectedRoute";
 
 const ListingPage = () => {
-  const { getAuthHeader } = useAuth();
-  const headers = getAuthHeader();
+  const { user } = useAuth();
   const [submitButtonVisible, setSubmitButtonVisible] = useState(false);
   const [imageSelector, setImageSelectorVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -51,8 +50,11 @@ const ListingPage = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
+
   const handleSubmit = async () => {
-    const headers = getAuthHeader();
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
     const data = new FormData();
 
     // Append each image file to the FormData

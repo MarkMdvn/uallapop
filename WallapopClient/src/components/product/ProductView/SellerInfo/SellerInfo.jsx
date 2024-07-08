@@ -45,12 +45,14 @@ const SellerInfo = ({ userId }) => {
               readOnly
             />
           </Stack>
+          <span className="seller-avrg-rating">{seller.averageRating}</span>
+          <span className="seller-num-of-ratings">(1)</span>
         </div>
       </div>
       <div className="seller-history">
         <div className="seller-total-sales">
           <BiSolidBarChartAlt2 />
-          {seller.totalSales} ventas
+          {seller.totalSales} sells
         </div>
         <div className="seller-total-ratings">1 ratings</div>
       </div>

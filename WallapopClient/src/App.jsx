@@ -11,7 +11,6 @@ import "./styles/layout.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AuthenticationPage from "./pages/AuthenticationPage/AuthenticationPage.jsx";
-import { AuthProvider } from "./components/auth/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -48,11 +47,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

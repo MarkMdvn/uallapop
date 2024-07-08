@@ -2,15 +2,19 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAuth } from "../../auth/AuthProvider";
+import { BsPlusCircle } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
+import { TbMail } from "react-icons/tb";
 
 const NavBar = () => {
   const navigate = useNavigate();
-
-  const currentUser = localStorage.getItem("userId");
+  const { user } = useAuth();
 
   const handleSell = () => {
     navigate(`/products/sell-product`);
   };
+
+  console.log(user);
 
   return (
     <nav className="navbar">
@@ -37,20 +41,34 @@ const NavBar = () => {
           />
         </div>
         <div className="right-nav-container">
-          {currentUser ? (
-            <h6 className="text-success text-center">
-              {" "}
-              You are logged-In as {currentUser}
-            </h6>
+          {user ? (
+            <>
+              <div className="navbar-user-buttons">
+                <div className="navbar-user-buttons-fav">
+                  <AiOutlineHeart /> Favourites
+                </div>
+                <div className="navbar-user-buttons-mail">
+                  <TbMail /> Mailbox
+                </div>
+              </div>
+              <div className="user-profile-container">
+                <img
+                  src={`data:image/jpeg;base64,${user.profileImg}`}
+                  alt={`${user.name}'s profile`}
+                  style={{ width: 35, height: 35, borderRadius: "50%" }}
+                />{" "}
+                You
+              </div>
+            </>
           ) : (
             <Link to="/authentication">
-              <button className="btn btn-outline">
+              <button className="btn register-btn-navbar">
                 Regístrate o inicia sesión
               </button>
             </Link>
           )}
-          <button className="btn btn-primary" onClick={handleSell}>
-            Vender
+          <button className="btn sell-btn-navbar" onClick={handleSell}>
+            <BsPlusCircle /> Vender
           </button>
         </div>
       </div>

@@ -27,14 +27,21 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
   private final UserService userService;
 
-@GetMapping()
+  @GetMapping()
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<List<User>> getUsers(){
-
     return new ResponseEntity<>(userService.getUsers(), HttpStatus.FOUND);
   }
 
-  @GetMapping("lalala/{id}")
+  @GetMapping("/by-email/{email}")
+  public ResponseEntity<BasicUserDTO> getBasicUserByEmail(@PathVariable String email) {
+    return userService.findUserByEmail(email)
+        .map(this::convertToDto)
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  @GetMapping("allala/{id}") // TODO does a infinite loop with userId -> product List
   public ResponseEntity<?> getUserById(@PathVariable("id") Long id){
     try{
       Optional<User> theUser = userService.findUserById(id);
@@ -45,6 +52,8 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching user");
     }
   }
+
+
 
   // Basic user info:
   @GetMapping("/{id}")

@@ -44,7 +44,7 @@ export async function loginUser(login) {
 /*  This is function to get the user profile */
 export async function getUserProfile(userId, token) {
   try {
-    const response = await api.get(`users/profile/${userId}`, {
+    const response = await api.get(`api/users/${userId}`, {
       headers: getHeader(),
     });
     return response.data;
