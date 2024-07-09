@@ -69,10 +69,16 @@ public class Product {
 
   private int viewCount;
 
-
   @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
+
+  @Enumerated(EnumType.STRING)
+  private ProductStatus productStatus;
+
+  public enum ProductStatus {
+    ON_SELL, RESERVED, SOLD
+  }
 
   public enum ItemCondition {
     NOT_OPENED, IN_THE_BOX, NEW, ALMOST_NEW, USED, POOR_CONDITION

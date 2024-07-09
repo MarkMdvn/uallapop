@@ -1,0 +1,107 @@
+.vertical-navbar-container {
+  display: flex;
+  flex-direction: column;
+  width: 250px; /* Adjust width as necessary */
+  background-color: #fff;
+  height: 100vh;
+  padding: 20px 7px;
+}
+
+.vertical-navbar-profile-section {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  gap: 6px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.vertical-navbar-profile-section:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+.vnav-profile-section-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.vnav-profile-section-details small {
+  color: rgb(156, 169, 179);
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.nav-items {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-items li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 15px;
+  margin: 2px 0;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.nav-items li svg {
+  font-size: 25px;
+}
+
+.nav-items li:hover {
+  background-color: #f0f0f0;
+}
+
+.stars-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-sections {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* This pushes the main items and help apart */
+  height: calc(100% - 200px);
+}
+
+.nav-help {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-help li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 15px;
+  margin: 2px 0;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.nav-help li svg {
+  font-size: 25px;
+}
+
+.nav-help li:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-item-selected {
+  background-color: #f0f0f0; /* Same as hover color */
+  font-weight: bold;
+}

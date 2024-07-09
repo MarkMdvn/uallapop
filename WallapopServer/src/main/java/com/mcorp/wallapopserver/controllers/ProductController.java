@@ -8,8 +8,10 @@ import com.mcorp.wallapopserver.models.Product;
 import com.mcorp.wallapopserver.services.CategoryService;
 import com.mcorp.wallapopserver.services.FileStorageService;
 import com.mcorp.wallapopserver.services.ProductService;
+import com.mcorp.wallapopserver.services.UserService;
 import com.mcorp.wallapopserver.utils.UrlUtil;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,38 +42,18 @@ public class ProductController {
   private ObjectMapper objectMapper;
   @Autowired
   private FileStorageService fileStorageService;
+  @Autowired
+  private UserService userService;
 
   @GetMapping("/all-products")
   public List<ProductDTO> getAllProducts() {
     List<Product> products = productService.getAllProducts();
-    return products.stream()
+      return products.stream()
         .map(this::convertToDTO)  // Ensure every product is converted to DTO with proper URLs
         .collect(Collectors.toList());
   }
 
-  private ProductDTO convertToDTO(Product product) {
-    ProductDTO dto = new ProductDTO();
-    dto.setId(product.getId());
-    dto.setTitle(product.getTitle());
-    dto.setPrice(product.getPrice());
-    dto.setDescription(product.getDescription());
-    dto.setShippingAvailable(product.isShippingAvailable());
-    dto.setItemCondition(String.valueOf(product.getItemCondition()));
-    dto.setAttributes(product.getAttributes());
 
-    if (product.getCategory() != null) {
-      dto.setCategoryId(product.getCategory().getId());
-      dto.setCategoryName(product.getCategory().getName());
-    }
-
-    dto.setImageUrls(product.getImageUrls());
-    dto.setCreatedAt(product.getCreatedAt());
-    dto.setUpdatedAt(product.getUpdatedAt());
-    dto.setViewCount(product.getViewCount());
-    dto.setUserId(product.getUser().getId());
-
-    return dto;
-  }
 
   @GetMapping("/{id}")
   public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
@@ -82,6 +64,22 @@ public class ProductController {
             .build());
   }
 
+  @GetMapping("/my-products")
+  @PreAuthorize("isAuthenticated()")
+  public ResponseEntity<List<BasicProductDTO>> getUserProducts(Principal principal) {
+    try {
+      // Assuming you have a way to extract the user ID from the Principal or from the token directly
+      Long userId = userService.getUserIdFromPrincipal(principal);
+      List<Product> products = productService.getProductsByUserId(userId);
+      List<BasicProductDTO> productDTOs = products.stream()
+          .map(this::convertToBasicDTO)
+          .collect(Collectors.toList());
+      return ResponseEntity.ok(productDTOs);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
+    }
+  }
 
   @PostMapping("/create-product")
   @PreAuthorize("hasRole('ROLE_USER')")
@@ -151,5 +149,45 @@ public class ProductController {
     }
     return ResponseEntity.ok(products);
 
+  }
+
+  // DTO methods
+
+  private ProductDTO convertToDTO(Product product) {
+    ProductDTO dto = new ProductDTO();
+    dto.setId(product.getId());
+    dto.setTitle(product.getTitle());
+    dto.setPrice(product.getPrice());
+    dto.setDescription(product.getDescription());
+    dto.setShippingAvailable(product.isShippingAvailable());
+    dto.setItemCondition(String.valueOf(product.getItemCondition()));
+    dto.setAttributes(product.getAttributes());
+
+    if (product.getCategory() != null) {
+      dto.setCategoryId(product.getCategory().getId());
+      dto.setCategoryName(product.getCategory().getName());
+    }
+
+    dto.setImageUrls(product.getImageUrls());
+    dto.setCreatedAt(product.getCreatedAt());
+    dto.setUpdatedAt(product.getUpdatedAt());
+    dto.setViewCount(product.getViewCount());
+    dto.setUserId(product.getUser().getId());
+    dto.setProductStatus(product.getProductStatus());
+
+    return dto;
+  }
+
+  private BasicProductDTO convertToBasicDTO(Product product) {
+    BasicProductDTO dto = new BasicProductDTO();
+    dto.setId(product.getId());
+    dto.setTitle(product.getTitle());
+    dto.setPrice(product.getPrice());
+    dto.setImageUrls(product.getImageUrls());
+    dto.setCreatedAt(product.getCreatedAt());
+    dto.setUpdatedAt(product.getUpdatedAt());
+    dto.setProductStatus(product.getProductStatus());
+
+    return dto;
   }
 }

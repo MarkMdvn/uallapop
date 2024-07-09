@@ -89,6 +89,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+}
+
+.user-profile-container:hover {
+  color: var(--primary-color);
 }
 
 .right-nav-container {
@@ -117,17 +122,19 @@
   padding: 13px 30px;
   color: var(--primary-color);
   font-weight: 200;
+  transition: 0.2s;
 }
 
 .register-btn-navbar:hover {
   background-color: var(--primary-color);
   color: white;
+  transition: 0.2s;
 }
 
 .sell-btn-navbar {
   display: flex;
   align-items: center;
-  background-color: var(--primary-color);
+  background-color: #13c1ac;
   color: white;
 }
 

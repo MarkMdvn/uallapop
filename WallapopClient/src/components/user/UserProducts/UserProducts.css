@@ -1,0 +1,153 @@
+.user-products-container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.user-products-header {
+  font-size: 1.375rem;
+  color: #253238;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.user-products-subheader {
+  font-size: 0.875rem;
+  color: #607d8b;
+  margin-bottom: 0;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.product-list {
+  margin-top: 20px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for shadow and movement */
+}
+
+.product-item:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Example shadow: horizontal offset, vertical offset, blur radius, color */
+  transform: translateY(-2px); /* Moves the item up by 5 pixels */
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  margin-right: 20px;
+  object-fit: cover;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.product-details {
+  flex-grow: 1;
+}
+
+.product-details span {
+  color: #90a4ae;
+  padding-top: 10px;
+}
+
+.product-details-dates {
+  width: 45%;
+  display: flex;
+  gap: 20px;
+  color: #90a4ae;
+  font-size: 0.9rem;
+}
+
+.product-details-dates-ind {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-details-dates-ind span {
+  color: black;
+  padding-bottom: 4px;
+}
+
+.product-buttons {
+  margin-left: auto;
+  margin-right: 15px;
+  position: relative; /* For tooltip positioning */
+}
+
+/* buttons */
+
+.product-button {
+  background-color: white;
+  border: 0.5px solid rgb(235, 235, 235);
+  padding: 8px 10px;
+  margin-right: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--light-gray);
+  position: relative; /* Needed for tooltip positioning */
+}
+
+.product-button::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(34, 36, 35);
+  color: white;
+  padding: 13px;
+  border-radius: 7px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.product-button:hover::before {
+  opacity: 1;
+}
+.product-button:nth-child(1):hover {
+  color: white;
+  background-color: #f75883;
+}
+
+.product-button:nth-child(2):hover {
+  color: white;
+  background-color: rgb(84, 84, 153);
+}
+
+.product-button:nth-child(3):hover {
+  color: white;
+  background-color: rgb(165, 47, 47);
+}
+
+.tab-buttons {
+  display: flex;
+  margin-top: 10px;
+}
+
+.tab-button {
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tab-button.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}

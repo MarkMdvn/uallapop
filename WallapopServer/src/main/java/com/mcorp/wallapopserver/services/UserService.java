@@ -7,6 +7,7 @@ import com.mcorp.wallapopserver.repositories.RoleRepository;
 import com.mcorp.wallapopserver.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,11 @@ public class UserService {
   }
 
 
+  public Long getUserIdFromPrincipal(Principal principal) {
+    String email = principal.getName();
+    User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    return user.getId();
+  }
 
   public List<User> getUsers() {
     return userRepository.findAll();

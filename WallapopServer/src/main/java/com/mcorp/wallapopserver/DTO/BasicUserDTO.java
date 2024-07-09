@@ -1,5 +1,6 @@
 package com.mcorp.wallapopserver.DTO;
 
+import com.mcorp.wallapopserver.models.Product.ProductStatus;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,5 @@ public class BasicUserDTO {
   private int totalItemsShipped;
   private Set<Long> productIds;
   private byte[] profileImg;
+  private ProductStatus productStatus;
 }

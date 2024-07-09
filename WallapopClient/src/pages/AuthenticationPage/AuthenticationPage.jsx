@@ -1,28 +1,31 @@
 import React, { useState } from "react";
-import LoginForm from "../../components/auth/LoginForm/LoginForm";
 import AuthenticationForm from "../../components/auth/AuthenticationForm/AuthenticationForm";
-import "./AuthenticationPage.css";
+import LoginForm from "../../components/auth/LoginForm/LoginForm";
 import RegistrationForm from "../../components/auth/RegistrationForm/RegistrationForm";
 import "./AuthenticationPage.css";
 
-function AuthenticationPage() {
-  const [formType, setFormType] = useState("auth");
+const AuthenticationPage = () => {
+  const [currentForm, setCurrentForm] = useState("auth"); // 'auth', 'login', 'register'
 
-  const changeForm = (type) => setFormType(type);
+  const changeFormToLogin = () => setCurrentForm("login");
+  const changeFormToRegister = () => setCurrentForm("register");
 
   return (
-    <div className="authentication-page">
-      {formType === "login" && (
-        <LoginForm changeForm={() => changeForm("register")} />
+    <div>
+      {currentForm === "auth" && (
+        <AuthenticationForm
+          changeFormToLogin={changeFormToLogin}
+          changeFormToRegister={changeFormToRegister}
+        />
       )}
-      {formType === "register" && (
-        <RegistrationForm changeForm={() => changeForm("auth")} />
+      {currentForm === "login" && (
+        <LoginForm changeForm={changeFormToRegister} />
       )}
-      {formType === "auth" && (
-        <AuthenticationForm changeForm={() => changeForm("login")} />
+      {currentForm === "register" && (
+        <RegistrationForm changeForm={changeFormToLogin} />
       )}
     </div>
   );
-}
+};
 
 export default AuthenticationPage;

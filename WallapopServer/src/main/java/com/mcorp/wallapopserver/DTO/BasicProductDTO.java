@@ -1,5 +1,7 @@
 package com.mcorp.wallapopserver.DTO;
 
+import com.mcorp.wallapopserver.models.Product.ProductStatus;
+import java.util.Date;
 import java.util.List;
 import lombok.Data;
 
@@ -9,5 +11,8 @@ public class BasicProductDTO {
   private String title;
   private Double price;
   private boolean shippingAvailable;
-  private List<String> imageUrls; // Ensure only one or few are sent to minimize load
+  private List<String> imageUrls;
+  private Date createdAt;
+  private Date updatedAt;
+  private ProductStatus productStatus;
 }

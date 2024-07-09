@@ -14,7 +14,9 @@ const NavBar = () => {
     navigate(`/products/sell-product`);
   };
 
-  console.log(user);
+  const handleProfileClick = () => {
+    navigate("/user");
+  };
 
   return (
     <nav className="navbar">
@@ -51,7 +53,10 @@ const NavBar = () => {
                   <TbMail /> Mailbox
                 </div>
               </div>
-              <div className="user-profile-container">
+              <div
+                className="user-profile-container"
+                onClick={handleProfileClick}
+              >
                 <img
                   src={`data:image/jpeg;base64,${user.profileImg}`}
                   alt={`${user.name}'s profile`}

@@ -100,4 +100,12 @@ public class ProductService {
         : Collections.singletonList(product.getImageUrls().get(0)));
     return dto;
   }
+
+  public List<Product> getProductsByUser(Long userId) {
+    return productRepository.findByUserId(userId);
+  }
+
+  public List<Product> getProductsByUserId(Long userId) {
+    return productRepository.findByUserId(userId);
+  }
 }
