@@ -1,5 +1,6 @@
 package com.mcorp.wallapopserver.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -71,10 +72,13 @@ public class Product {
 
   @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JsonBackReference
   private User user;
 
   @Enumerated(EnumType.STRING)
-  private ProductStatus productStatus;
+  @Column(nullable = false) // Ensures the database column is not nullable
+  private ProductStatus productStatus = ProductStatus.ON_SELL;
+
 
   public enum ProductStatus {
     ON_SELL, RESERVED, SOLD

@@ -1,7 +1,7 @@
 // src/components/ProtectedRoute.jsx
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../components/auth/AuthProvider"; // Adjust the import path as necessary
+import { useAuth } from "../components/auth/AuthProvider";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -14,4 +14,4 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-export default ProtectedRoute; // Make sure to export the component
+export default ProtectedRoute;

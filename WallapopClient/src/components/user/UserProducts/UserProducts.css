@@ -37,7 +37,7 @@
 }
 
 .product-item:hover {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Example shadow: horizontal offset, vertical offset, blur radius, color */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Example shadow: horizontal offset, vertical offset, blur radius, color */
   transform: translateY(-2px); /* Moves the item up by 5 pixels */
 }
 
@@ -71,6 +71,7 @@
 .product-details-dates-ind {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .product-details-dates-ind span {
@@ -126,10 +127,15 @@
 
 .product-button:nth-child(2):hover {
   color: white;
-  background-color: rgb(84, 84, 153);
+  background-color: rgb(151, 126, 71);
 }
 
 .product-button:nth-child(3):hover {
+  color: white;
+  background-color: rgb(84, 84, 153);
+}
+
+.product-button:nth-child(4):hover {
   color: white;
   background-color: rgb(165, 47, 47);
 }

@@ -1,6 +1,7 @@
 package com.mcorp.wallapopserver.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,6 +41,7 @@ public class User {
   private int totalItemsShipped;
 
   @OneToMany(mappedBy = "user")
+  @JsonManagedReference
   private List<Product> products = new ArrayList<>();
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -50,7 +52,7 @@ public class User {
   @OneToMany(mappedBy = "reviewedUser", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Rating> ratings = new ArrayList<>();
 
-  @Lob // Indicates that this field should be treated as a Large Object
+  @Lob
   @Column(columnDefinition = "MEDIUMBLOB")
   private byte[] profileImage;
 }

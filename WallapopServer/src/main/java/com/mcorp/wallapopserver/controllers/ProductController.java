@@ -3,8 +3,10 @@ package com.mcorp.wallapopserver.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mcorp.wallapopserver.DTO.BasicProductDTO;
 import com.mcorp.wallapopserver.DTO.ProductDTO;
+import com.mcorp.wallapopserver.DTO.ProductStatusUpdateDTO;
 import com.mcorp.wallapopserver.models.Category;
 import com.mcorp.wallapopserver.models.Product;
+import com.mcorp.wallapopserver.models.Product.ProductStatus;
 import com.mcorp.wallapopserver.services.CategoryService;
 import com.mcorp.wallapopserver.services.FileStorageService;
 import com.mcorp.wallapopserver.services.ProductService;
@@ -127,6 +129,23 @@ public class ProductController {
     }
   }
 
+  @PutMapping("/{id}/status")
+  public ResponseEntity<?> updateProductStatus(@PathVariable Long id, @RequestBody ProductStatusUpdateDTO statusUpdate) {
+    try {
+      Product product = productService.getProductById(id)
+          .orElseThrow(() -> new RuntimeException("Product not found"));
+      product.setProductStatus(statusUpdate.getProductStatus());
+      System.out.println("Updating product status to: " + statusUpdate.getProductStatus());
+
+      productService.saveProduct(product);
+      ProductStatusUpdateDTO updatedStatusDTO = convertToProductStatusUpdateDTO(product);
+      return ResponseEntity.ok(updatedStatusDTO);
+    } catch (Exception e) {
+      e.printStackTrace(); // It's a good practice to log the stack trace for debugging.
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update product status");
+    }
+  }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
     try {
@@ -186,6 +205,13 @@ public class ProductController {
     dto.setImageUrls(product.getImageUrls());
     dto.setCreatedAt(product.getCreatedAt());
     dto.setUpdatedAt(product.getUpdatedAt());
+    dto.setProductStatus(product.getProductStatus());
+
+    return dto;
+  }
+
+  private ProductStatusUpdateDTO convertToProductStatusUpdateDTO (Product product) {
+    ProductStatusUpdateDTO dto = new ProductStatusUpdateDTO();
     dto.setProductStatus(product.getProductStatus());
 
     return dto;

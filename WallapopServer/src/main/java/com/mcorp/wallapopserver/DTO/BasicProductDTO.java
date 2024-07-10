@@ -14,5 +14,5 @@ public class BasicProductDTO {
   private List<String> imageUrls;
   private Date createdAt;
   private Date updatedAt;
-  private ProductStatus productStatus;
+  private ProductStatus productStatus = ProductStatus.ON_SELL;
 }

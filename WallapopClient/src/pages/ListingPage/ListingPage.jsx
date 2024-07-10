@@ -8,11 +8,13 @@ import ImageSelector from "../../components/product/ProductListing/Forms/ImageSe
 import { sellProduct } from "../../api/productService";
 import { useAuth } from "../../components/auth/AuthProvider";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import { useNavigate, Link } from "react-router-dom";
 
 const ListingPage = () => {
   const { user } = useAuth();
   const [submitButtonVisible, setSubmitButtonVisible] = useState(false);
   const [imageSelector, setImageSelectorVisible] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     price: "",
@@ -79,6 +81,7 @@ const ListingPage = () => {
     try {
       const response = await sellProduct(data, headers);
       console.log("Product created:", response.data);
+      navigate("/user");
     } catch (error) {
       console.error("Failed to post product:", error);
     }

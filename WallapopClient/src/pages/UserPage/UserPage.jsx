@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UserSidebar from "../../components/user/UserSidebar/UserSidebar";
 import UserFavourites from "../../components/user/UserFavourites/UserFavourites";
 import UserProducts from "../../components/user/UserProducts/UserProducts";
-// Import other necessary components
+import UserDetails from "../../components/user/UserDetails/UserDetails";
 
 const UserPage = () => {
   const [activeComponent, setActiveComponent] = useState("Profile"); // Default component
@@ -13,9 +13,15 @@ const UserPage = () => {
         return <UserFavourites />;
       case "Products":
         return <UserProducts />;
+      case "UserDetails":
+        return <UserDetails />;
       // Add other cases as necessary
       default:
-        return <div>Profile Information</div>; // Default or initial view
+        return (
+          <div>
+            <UserProducts />
+          </div>
+        );
     }
   };
 

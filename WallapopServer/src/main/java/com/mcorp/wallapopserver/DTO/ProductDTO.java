@@ -4,7 +4,9 @@ import com.mcorp.wallapopserver.models.Product.ProductStatus;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 public class ProductDTO {
@@ -23,7 +25,7 @@ public class ProductDTO {
   private Date updatedAt;
   private int viewCount;
   private Long userId;
-  private ProductStatus productStatus;
+  private ProductStatus productStatus = ProductStatus.ON_SELL;
 
 
 }

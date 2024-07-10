@@ -21,22 +21,26 @@ function UserVerticalNavbar({ setActiveComponent }) {
     setRating(user.averageRating);
   }, [user.averageRating]);
 
-  const [selectedItem, setSelectedItem] = useState(""); // Initialize with the default selected item, if any
-
+  const [selectedItem, setSelectedItem] = useState("Products");
   const handleItemClick = (componentName) => {
-    setActiveComponent(componentName); // Update the main component to be rendered
-    setSelectedItem(componentName); // Set the current item as selected
+    setActiveComponent(componentName);
+    setSelectedItem(componentName);
   };
 
   return (
     <div className="vertical-navbar-container">
-      <div className="vertical-navbar-profile-section">
+      <div
+        className={`vertical-navbar-profile-section ${
+          selectedItem === "UserDetails" ? "nav-item-user-details-selected" : ""
+        }`}
+        onClick={() => handleItemClick("UserDetails")}
+      >
         <img
           src={`data:image/jpeg;base64,${user.profileImg}`}
           alt={`${user.name}'s profile`}
           style={{ width: 35, height: 35, borderRadius: "50%" }}
         />{" "}
-        <div className="vnav-profile-section-details">
+        <div className="nav-profile-section-details">
           <p style={{ fontWeight: "bold" }}>{user.name}</p>
           <div className="stars-profile-section">
             <Stack>

@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import AuthenticationPage from "./pages/AuthenticationPage/AuthenticationPage.jsx";
 import UserPage from "./pages/UserPage/UserPage.jsx";
 import NavBar from "./components/common/NavBar/NavBar.jsx";
-
+import Modal from "react-modal";
 const router = createBrowserRouter([
   {
     path: "/",
