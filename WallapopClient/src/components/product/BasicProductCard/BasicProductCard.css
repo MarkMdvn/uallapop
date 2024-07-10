@@ -51,3 +51,14 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+.price-and-like {
+  display: flex;
+  justify-content: space-between;
+}
+
+.liked-icon {
+  margin-right: 10px;
+  fill: rgb(255, 85, 80);
+  font-size: 20px;
+}

@@ -66,10 +66,10 @@
 }
 
 .profile-main-image img {
-  width: 80px; /* Fixed size for the image */
-  height: 80px; /* Fixed size for the image */
-  border-radius: 100px; /* Makes the image circular */
-  object-fit: cover; /* Ensures the image covers the area without distortion */
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+  object-fit: cover;
   margin-right: 15px;
   margin-left: 50px;
 }
@@ -120,10 +120,10 @@
 .info-field {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Aligns children (label and input) to the right */
-  gap: 50px; /* Sets a gap of 50px between the label and the input */
+  justify-content: flex-end;
+  gap: 100px; /* Sets a gap of 50px between the label and the input */
   margin-bottom: 10px;
-  width: 60%; /* Ensure the fields stretch to full width of the container */
+  width: 50%; /* Ensure the fields stretch to full width of the container */
 }
 
 .info-field label {

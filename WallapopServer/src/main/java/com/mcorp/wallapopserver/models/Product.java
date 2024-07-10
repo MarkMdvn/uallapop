@@ -12,9 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
-
 
 @Entity
 @Data
@@ -79,6 +80,9 @@ public class Product {
   @Column(nullable = false) // Ensures the database column is not nullable
   private ProductStatus productStatus = ProductStatus.ON_SELL;
 
+  @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+  private List<Like> productLikes = new ArrayList<>();
+
 
   public enum ProductStatus {
     ON_SELL, RESERVED, SOLD
@@ -88,3 +92,4 @@ public class Product {
     NOT_OPENED, IN_THE_BOX, NEW, ALMOST_NEW, USED, POOR_CONDITION
   }
 }
+

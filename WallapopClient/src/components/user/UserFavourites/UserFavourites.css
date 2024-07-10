@@ -1,0 +1,49 @@
+.favourite-products-container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.favourite-products-header {
+  font-size: 1.375rem;
+  color: #253238;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.favourite-products-subheader {
+  font-size: 0.875rem;
+  color: #607d8b;
+  margin-bottom: 0;
+  line-height: 20px;
+  font-weight: 500;
+}
+.tab-buttons {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  color: var(--primary-color); /* Active tab has a darker background */
+}
+
+.items-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  max-width: 1100px;
+  background: white;
+  border-radius: 16px;
+}
+
+.items-list .product-item {
+  text-align: center;
+}

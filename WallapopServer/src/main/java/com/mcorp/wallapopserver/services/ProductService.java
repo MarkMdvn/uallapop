@@ -66,14 +66,14 @@ public class ProductService {
   }
 
   @Transactional
-  public Product createProduct(ProductDTO productDTO, String email) throws JsonProcessingException {
+  public Product createProduct(ProductDTO productDTO, Long  id) throws JsonProcessingException {
     Product product = objectMapper.convertValue(productDTO, Product.class);
     Category category = categoryRepository.findById(productDTO.getCategoryId())
         .orElseThrow(() -> new RuntimeException("Category not found"));
     product.setCategory(category);
 
     // Fetch user and set to product
-    User user = userRepository.findByEmail(email)
+    User user = userRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("User not found"));
     product.setUser(user);
 

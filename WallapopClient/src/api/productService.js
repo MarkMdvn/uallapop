@@ -48,3 +48,35 @@ export const handleDeleteProduct = async (productId) => {
     console.error("Failed to delete product", error);
   }
 };
+
+// Like functions
+
+const API_BASE_URL = "http://localhost:9192/api"; // Adjust according to your actual API URL
+
+export const likeProduct = async (productId) => {
+  return axios.post(
+    `${API_BASE_URL}/likes/product/${productId}`,
+    {},
+    {
+      headers: { Authorization: `Bearer ${localStorage.token}` },
+    }
+  );
+};
+
+export const unlikeProduct = async (productId) => {
+  return axios.delete(`${API_BASE_URL}/likes/product/${productId}`, {
+    headers: { Authorization: `Bearer ${localStorage.token}` },
+  });
+};
+
+export const checkLikedStatus = async (productId) => {
+  return axios.get(`${API_BASE_URL}/likes/check-product/${productId}`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+};
+
+export const getUserLikedProducts = async () => {
+  return axios.get(`${API_BASE_URL}/likes/products`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+};

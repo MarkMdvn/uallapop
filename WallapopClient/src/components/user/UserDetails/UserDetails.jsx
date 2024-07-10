@@ -29,9 +29,13 @@ const UserDetails = () => {
         <h4>Profile image</h4>
         <div className="profile-images">
           <div className="profile-main-image">
-            <span style={{ marginTop: "0px" }}>Main photo</span>
+            <span style={{ marginRight: "40px" }}>Main photo</span>
             <img
-              src={`data:image/jpeg;base64,${user.profileImg}`}
+              src={
+                user.profileImg
+                  ? `data:image/jpeg;base64,${user.profileImg}`
+                  : "/user-default.png"
+              }
               alt={`${user.name}'s profile`}
               className="profile-photo"
             />

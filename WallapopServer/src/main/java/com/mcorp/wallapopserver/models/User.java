@@ -31,11 +31,9 @@ public class User {
   private String email;
   private String password;
 
-  // Location and rating information
   private String location;
-  private double averageRating; // Average rating from user reviews
+  private double averageRating;
 
-  // Transaction statistics
   private int totalSales;
   private int totalPurchases;
   private int totalItemsShipped;
@@ -55,4 +53,10 @@ public class User {
   @Lob
   @Column(columnDefinition = "MEDIUMBLOB")
   private byte[] profileImage;
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private List<Like> givenLikes = new ArrayList<>();
+
+  @OneToMany(mappedBy = "likedUser", fetch = FetchType.LAZY)
+  private List<Like> receivedLikes = new ArrayList<>();
 }

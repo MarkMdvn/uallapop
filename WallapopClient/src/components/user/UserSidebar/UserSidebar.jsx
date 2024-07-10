@@ -36,7 +36,11 @@ function UserVerticalNavbar({ setActiveComponent }) {
         onClick={() => handleItemClick("UserDetails")}
       >
         <img
-          src={`data:image/jpeg;base64,${user.profileImg}`}
+          src={
+            user.profileImg
+              ? `data:image/jpeg;base64,${user.profileImg}`
+              : "/user-default.png"
+          }
           alt={`${user.name}'s profile`}
           style={{ width: 35, height: 35, borderRadius: "50%" }}
         />{" "}

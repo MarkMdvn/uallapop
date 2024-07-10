@@ -32,7 +32,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product-card-container">
-      <SellerInfo userId={product.userId} />
+      <SellerInfo userId={product.userId} productId={product.id} />
       <ImageSlider imageUrls={product.imageUrls} />
       {renderDetailsComponent(product.categoryId)}
       <SustainabilityBanner />

@@ -10,8 +10,6 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
-import Modal from "react-modal";
-
 import ConfirmActionModal from "../../modals/ConfirmationModal/ConfirmationModal";
 import { Navigate, useNavigate } from "react-router-dom";
 
