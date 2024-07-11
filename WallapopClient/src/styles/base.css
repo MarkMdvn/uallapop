@@ -1,6 +1,7 @@
 :root {
   --primary-color: rgb(19, 193, 172);
   --main-background-color: rgb(236, 239, 241);
+  --nav-margin-top: 100px;
 }
 
 * {

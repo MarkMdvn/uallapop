@@ -1,0 +1,5 @@
+.user-page-container {
+  display: flex;
+  margin-top: var(--nav-margin-top);
+  height: calc(100vh - var(--nav-margin-top));
+}

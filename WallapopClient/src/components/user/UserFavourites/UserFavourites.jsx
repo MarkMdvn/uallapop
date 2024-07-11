@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getUserLikedProducts } from "../../../api/productService";
+import {
+  getProductById,
+  getUserLikedProducts,
+} from "../../../api/productService";
 import BasicProductCard from "../../../components/product/BasicProductCard/BasicProductCard";
 import "./UserFavourites.css";
 
@@ -44,8 +47,8 @@ const LikedItems = () => {
       </div>
       <div className="items-list">
         {activeTab === "Products" &&
-          likedProducts.map((product) => (
-            <BasicProductCard product={product} />
+          likedProducts.map((product, index) => (
+            <BasicProductCard product={product} key={index} />
           ))}
       </div>
     </div>

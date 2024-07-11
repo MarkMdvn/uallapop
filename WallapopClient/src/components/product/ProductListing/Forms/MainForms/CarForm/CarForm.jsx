@@ -10,7 +10,7 @@ const CarForm = ({ formData, handleInputChange }) => {
 
   const handleEngineSelect = (engine) => {
     setSelectedEngine(engine);
-    handleInputChange("engine", engine, true); // true indicates this is an attribute
+    handleInputChange("engine", engine, true);
   };
 
   const handleTransmissionSelect = (transmission) => {
@@ -42,6 +42,7 @@ const CarForm = ({ formData, handleInputChange }) => {
                 <option value={"BMW"}>BMW</option>
                 <option value={"Porshe"}>Porshe</option>
                 <option value={"Mercedes-Benz"}>Mercedes-Benz</option>
+                <option value={"Audi"}>Audi</option>
               </select>
             </div>
 

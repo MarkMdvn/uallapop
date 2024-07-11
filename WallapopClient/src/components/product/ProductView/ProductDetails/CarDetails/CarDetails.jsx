@@ -4,6 +4,7 @@ import { LiaCarSideSolid } from "react-icons/lia";
 import { PiSeatbeltLight, PiEngine } from "react-icons/pi";
 import { GiCarDoor, GiGearStick } from "react-icons/gi";
 import { TbHorse } from "react-icons/tb";
+import { formatPrice } from "../../../../../utils/formatPrice";
 
 const CarDetails = ({ product }) => {
   const attributes = product.attributes;
@@ -15,7 +16,7 @@ const CarDetails = ({ product }) => {
   return (
     <div className="product-details-container">
       <div className="product-details-product-price">
-        {product.price.toFixed(0)} €
+        {formatPrice(product.price.toFixed(0))} €
       </div>
       <h1 className="product-details-product-title">{product.title}</h1>
       <hr className="custom-hr" />

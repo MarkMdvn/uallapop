@@ -11,11 +11,19 @@ const NavBar = () => {
   const { user } = useAuth();
 
   const handleSell = () => {
-    navigate(`/products/sell-product`);
+    navigate("/products/sell-product");
   };
 
   const handleProfileClick = () => {
     navigate("/user");
+  };
+
+  const handleFavouritesClick = () => {
+    if (user) {
+      navigate("/user?favourites=true"); // Direct to the user page with the 'favourites' query parameter
+    } else {
+      navigate("/authentication"); // Navigate to login page if not logged in
+    }
   };
 
   return (
@@ -46,7 +54,10 @@ const NavBar = () => {
           {user ? (
             <>
               <div className="navbar-user-buttons">
-                <div className="navbar-user-buttons-fav">
+                <div
+                  className="navbar-user-buttons-fav"
+                  onClick={handleFavouritesClick}
+                >
                   <AiOutlineHeart /> Favourites
                 </div>
                 <div className="navbar-user-buttons-mail">

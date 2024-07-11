@@ -13,15 +13,16 @@ import { LuWallet } from "react-icons/lu";
 import { IoEarthOutline } from "react-icons/io5";
 import { MdHelpOutline } from "react-icons/md";
 
-function UserVerticalNavbar({ setActiveComponent }) {
+const UserVerticalNavbar = ({ setActiveComponent, initialSelected }) => {
   const { user } = useAuth();
   const [rating, setRating] = useState(user.averageRating);
+  const [selectedItem, setSelectedItem] = useState(initialSelected);
 
   useEffect(() => {
     setRating(user.averageRating);
-  }, [user.averageRating]);
+    setSelectedItem(initialSelected);
+  }, [user.averageRating, initialSelected]);
 
-  const [selectedItem, setSelectedItem] = useState("Products");
   const handleItemClick = (componentName) => {
     setActiveComponent(componentName);
     setSelectedItem(componentName);
@@ -111,6 +112,6 @@ function UserVerticalNavbar({ setActiveComponent }) {
       </div>
     </div>
   );
-}
+};
 
 export default UserVerticalNavbar;

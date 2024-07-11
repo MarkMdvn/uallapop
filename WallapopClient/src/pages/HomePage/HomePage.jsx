@@ -11,16 +11,16 @@ const HomePage = () => {
     const fetchCarProducts = async () => {
       try {
         const response = await getLatestProductsByCategory(2);
-        console.log("API Response:", response.data); // Ensure this logs expected data
+        console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
           setProducts(response.data);
         } else {
           console.error("Data received is not an array:", response.data);
-          setProducts([]); // Ensure reset if data is incorrect
+          setProducts([]);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
-        setProducts([]); // Set to empty on error
+        setProducts([]);
       }
     };
 
@@ -29,8 +29,6 @@ const HomePage = () => {
 
   return (
     <div className="home-page-container">
-      <ProductSlider SliderTitle={"Latest Car posts"} products={products} />
-      <ProductSlider SliderTitle={"Latest Car posts"} products={products} />
       <ProductSlider SliderTitle={"Latest Car posts"} products={products} />
     </div>
   );

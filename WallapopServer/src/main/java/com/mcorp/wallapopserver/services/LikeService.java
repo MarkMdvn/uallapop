@@ -69,7 +69,7 @@ public class LikeService {
     dto.setId(product.getId());
     dto.setTitle(product.getTitle());
     dto.setPrice(product.getPrice());
-    dto.setImageUrl(product.getImageUrls().isEmpty() ? null : product.getImageUrls().get(0)); // Assuming you want the first image
+    dto.setImageUrls(product.getImageUrls());
     dto.setCreatedAt(product.getCreatedAt());
     dto.setUpdatedAt(product.getUpdatedAt());
     dto.setProductStatus(product.getProductStatus());
@@ -86,6 +86,10 @@ public class LikeService {
 
   public boolean isProductLikedByUser(Long productId, Long userId) {
     return likeRepository.existsByUserIdAndProductId(userId, productId);
+  }
+
+  public int countLikesByProductId(Long productId) {
+    return likeRepository.countByProductId(productId);
   }
 
 }

@@ -3,6 +3,7 @@ import "./BasicProductCard.css";
 import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { checkLikedStatus } from "../../../api/productService";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const BasicProductCard = ({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -20,12 +21,6 @@ const BasicProductCard = ({ product }) => {
 
     fetchLikedStatus();
   }, [product.id]);
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat("es-ES", {
-      style: "currency",
-      currency: "EUR",
-    }).format(price);
-  };
 
   const handleCardClick = () => {
     navigate(`/products/${product.id}`); // Navigate to product detail page
@@ -42,7 +37,9 @@ const BasicProductCard = ({ product }) => {
       </div>
       <div className="basic-product-card-details">
         <div className="price-and-like">
-          <p className="basic-product-card-price">{product.price}</p>
+          <p className="basic-product-card-price">
+            {formatPrice(product.price)}
+          </p>
           <span>{isLiked && <FaHeart className="liked-icon" />}</span>
         </div>
         <h4 className="basic-product-card-title">{product.title}</h4>

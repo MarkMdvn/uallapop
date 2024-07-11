@@ -80,3 +80,18 @@ export const getUserLikedProducts = async () => {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 };
+
+export const getCountOfLikes = async (productId) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/likes/product/${productId}/count`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch like count", error);
+    return { count: 0 };
+  }
+};

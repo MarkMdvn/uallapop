@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import UserSidebar from "../../components/user/UserSidebar/UserSidebar";
 import UserFavourites from "../../components/user/UserFavourites/UserFavourites";
 import UserProducts from "../../components/user/UserProducts/UserProducts";
 import UserDetails from "../../components/user/UserDetails/UserDetails";
+import "./UserPage.css";
 
 const UserPage = () => {
-  const [activeComponent, setActiveComponent] = useState("Profile"); // Default component
+  const location = useLocation();
+  const [activeComponent, setActiveComponent] = useState("Products"); // Default component
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    if (searchParams.get("favourites")) {
+      setActiveComponent("Favourites");
+    }
+  }, [location.search]);
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -15,19 +25,17 @@ const UserPage = () => {
         return <UserProducts />;
       case "UserDetails":
         return <UserDetails />;
-      // Add other cases as necessary
       default:
-        return (
-          <div>
-            <UserProducts />
-          </div>
-        );
+        return <UserProducts />;
     }
   };
 
   return (
-    <div style={{ display: "flex", marginTop: "100px" }}>
-      <UserSidebar setActiveComponent={setActiveComponent} />
+    <div className="user-page-container">
+      <UserSidebar
+        setActiveComponent={setActiveComponent}
+        initialSelected={activeComponent}
+      />
       <div style={{ flexGrow: 1 }}>{renderComponent()}</div>
     </div>
   );
