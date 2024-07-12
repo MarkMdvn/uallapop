@@ -14,12 +14,23 @@ import AuthenticationPage from "./pages/AuthenticationPage/AuthenticationPage.js
 import UserPage from "./pages/UserPage/UserPage.jsx";
 import NavBar from "./components/common/NavBar/NavBar.jsx";
 import Modal from "react-modal";
+import NavCategorySelector from "./components/common/NavCategorySelector/NavCategorySelector.jsx";
+import ProductListPage from "./pages/ProductListPage/ProductListPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <Layout>
+        <NavCategorySelector />
         <HomePage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/products-by-category/:categoryId",
+    element: (
+      <Layout>
+        <ProductListPage />
       </Layout>
     ),
   },

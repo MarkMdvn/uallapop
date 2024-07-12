@@ -1,0 +1,77 @@
+.horizontal-product-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  max-height: 210px;
+  width: 100%;
+  height: auto;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.horizontal-product-card-container:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.horizontal-product-image-container {
+  flex: 0 0 350px;
+  height: 210px;
+  display: flex;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.horizontal-product-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.horizontal-product-card-details {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  height: 190px;
+}
+
+.price-and-like {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.horizontal-product-card-price {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.liked-icon {
+  color: rgb(255, 85, 80);
+  font-size: 20px;
+}
+
+.horizontal-product-card-title {
+  margin-top: 2px;
+  font-size: 0.9rem;
+  color: #253238;
+  margin: 10px 0;
+  font-weight: lighter;
+}
+
+.horizontal-product-card-description {
+  overflow: hidden;
+  color: #5c7a89;
+  font-size: 0.75rem;
+}
+
+.horizontal-product-card-extra {
+  font-size: 0.875rem;
+  color: #999;
+  margin-top: auto;
+}

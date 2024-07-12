@@ -1,6 +1,7 @@
 package com.mcorp.wallapopserver.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -34,11 +35,11 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotBlank
+  @NotBlank(message = "Title cannot be empty")
   private String title;
 
   @NotNull(message = "Price must be provided")
-  @DecimalMin(value = "0.0", inclusive = false, message = "Price must be positive")
+  @DecimalMin(value = "0.01", message = "Price must be positive")
   private Double price;
 
   @Column(length = 1000)
@@ -50,7 +51,7 @@ public class Product {
   @NotNull
   private ItemCondition itemCondition;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", nullable = false)
   @NotNull
   private Category category;
@@ -71,17 +72,19 @@ public class Product {
 
   private int viewCount;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   @JsonBackReference
   private User user;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false) // Ensures the database column is not nullable
+  @Column(nullable = false)
   private ProductStatus productStatus = ProductStatus.ON_SELL;
 
-  @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Like> productLikes = new ArrayList<>();
+
+
 
 
   public enum ProductStatus {

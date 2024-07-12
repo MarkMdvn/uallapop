@@ -1,11 +1,13 @@
 // src/components/common/ProductSlider/ProductSlider.jsx
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getLatestProductsByCategory } from "../../../api/productService"; //
+
 import Slider from "react-slick";
 import BasicProductCard from "../../../components/product/BasicProductCard/BasicProductCard";
 import "./ProductSlider.css";
 
-const ProductSlider = ({ SliderTitle, products }) => {
+const ProductSlider = ({ SliderTitle, categoryId }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -40,6 +42,28 @@ const ProductSlider = ({ SliderTitle, products }) => {
       },
     ],
   };
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchCarProducts = async () => {
+      try {
+        const response = await getLatestProductsByCategory(categoryId);
+        console.log("API Response:", response.data);
+        if (Array.isArray(response.data)) {
+          setProducts(response.data);
+        } else {
+          console.error("Data received is not an array:", response.data);
+          setProducts([]);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setProducts([]);
+      }
+    };
+
+    fetchCarProducts();
+  }, []);
 
   return (
     <div className="product-slider-container">

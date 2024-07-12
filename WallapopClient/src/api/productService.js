@@ -70,9 +70,13 @@ export const unlikeProduct = async (productId) => {
 };
 
 export const checkLikedStatus = async (productId) => {
-  return axios.get(`${API_BASE_URL}/likes/check-product/${productId}`, {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  });
+  if (!localStorage.getItem("token")) {
+    console.log("guest status");
+  } else {
+    return axios.get(`${API_BASE_URL}/likes/check-product/${productId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+  }
 };
 
 export const getUserLikedProducts = async () => {

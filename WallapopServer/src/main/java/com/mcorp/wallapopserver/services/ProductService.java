@@ -7,7 +7,6 @@ import com.mcorp.wallapopserver.DTO.BasicProductDTO;
 import com.mcorp.wallapopserver.DTO.ProductDTO;
 import com.mcorp.wallapopserver.models.Category;
 import com.mcorp.wallapopserver.models.Product;
-import com.mcorp.wallapopserver.models.Product.ItemCondition;
 import com.mcorp.wallapopserver.models.User;
 import com.mcorp.wallapopserver.repositories.CategoryRepository;
 import com.mcorp.wallapopserver.repositories.ProductRepository;
@@ -94,7 +93,9 @@ public class ProductService {
     dto.setId(product.getId());
     dto.setTitle(product.getTitle());
     dto.setPrice(product.getPrice());
+    dto.setDescription(product.getDescription());
     dto.setShippingAvailable(product.isShippingAvailable());
+
     // Only taking the first image for simplicity
     dto.setImageUrls(product.getImageUrls().isEmpty() ? Collections.emptyList()
         : Collections.singletonList(product.getImageUrls().get(0)));
@@ -108,4 +109,5 @@ public class ProductService {
   public List<Product> getProductsByUserId(Long userId) {
     return productRepository.findByUserId(userId);
   }
+
 }

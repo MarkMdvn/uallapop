@@ -203,6 +203,7 @@ public class ProductController {
     dto.setId(product.getId());
     dto.setTitle(product.getTitle());
     dto.setPrice(product.getPrice());
+    dto.setDescription(product.getDescription());
     dto.setImageUrls(product.getImageUrls());
     dto.setCreatedAt(product.getCreatedAt());
     dto.setUpdatedAt(product.getUpdatedAt());

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./BasicProductCard.css";
+import "./HorizontalProductCard.css";
 import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { checkLikedStatus } from "../../../api/productService";
 import { formatPrice } from "../../../utils/formatPrice";
+import { truncateText } from "../../../utils/stringUtils";
 
-const BasicProductCard = ({ product }) => {
+const HorizontalProductCard = ({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
@@ -24,36 +25,36 @@ const BasicProductCard = ({ product }) => {
   }, [product.id]);
 
   const handleCardClick = () => {
-    navigate(`/products/${product.id}`); // Navigate to product detail page
+    navigate(`/products/${product.id}`);
   };
 
   return (
-    <div className="basic-product-card-container" onClick={handleCardClick}>
-      <div className="basic-product-image-container">
+    <div
+      className="horizontal-product-card-container"
+      onClick={handleCardClick}
+    >
+      <div className="horizontal-product-image-container">
         <img
-          className="basic-product-card-image"
+          className="horizontal-product-card-image"
           src={product.imageUrls[0]}
           alt={product.title}
         />
       </div>
-      <div className="basic-product-card-details">
+      <div className="horizontal-product-card-details">
         <div className="price-and-like">
-          <p className="basic-product-card-price">
-            {formatPrice(product.price)}
+          <p className="horizontal-product-card-price">
+            {formatPrice(product.price)} €
           </p>
           <span>{isLiked && <FaHeart className="liked-icon" />}</span>
         </div>
-        <h4 className="basic-product-card-title">{product.title}</h4>
-        {product.category === "OtherItems" && (
-          <p>
-            {product.shippingAvailable
-              ? "Envío disponible"
-              : "Envío no disponible"}
-          </p>
-        )}
+        <h4 className="horizontal-product-card-title">{product.title}</h4>
+        <p className="horizontal-product-card-description">
+          {truncateText(product.description, 500)}
+        </p>
+        <p className="horizontal-product-card-extra">{product.extraInfo}</p>
       </div>
     </div>
   );
 };
 
-export default BasicProductCard;
+export default HorizontalProductCard;

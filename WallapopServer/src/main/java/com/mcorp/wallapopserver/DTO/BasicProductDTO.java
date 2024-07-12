@@ -10,6 +10,7 @@ public class BasicProductDTO {
   private Long id;
   private String title;
   private Double price;
+  private String description;
   private boolean shippingAvailable;
   private List<String> imageUrls;
   private Date createdAt;
