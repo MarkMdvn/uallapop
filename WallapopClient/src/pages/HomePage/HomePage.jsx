@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import ProductSlider from "../../components/product/ProductSlider/ProductSlider";
 import { getLatestProductsByCategory } from "../../api/productService"; //
 import "./HomePage.css";
+import HomeBanner from "../../components/banners/HomeBanner/HomeBanner";
 
 const HomePage = () => {
   const carsCategory = 2;

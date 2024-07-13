@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./NavCategorySelector.css";
 import { IoMenuOutline } from "react-icons/io5";
 const NavCategorySelector = () => {
+  const [showCategorySelector, setShowCategorySelector] = useState(true);
+
+  let lastScrollTop = 0;
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+      // Downscroll
+      setShowCategorySelector(false);
+    } else {
+      // Upscroll
+      setShowCategorySelector(true);
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="nav-category-selector-container">
+    <div
+      className={`nav-category-selector-container ${
+        showCategorySelector ? "category-visible" : "category-hidden"
+      }`}
+    >
       <div className="nav-category-selector-list">
         <div className="nc-list-item all-categories-item">
           <Link to="/category/all">

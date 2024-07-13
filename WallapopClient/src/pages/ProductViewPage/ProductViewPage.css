@@ -1,4 +1,5 @@
 .product-page-container {
+  margin-top: var(--nav-margin-top);
   display: grid;
   place-items: center;
   width: 100%;

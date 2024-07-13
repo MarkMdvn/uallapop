@@ -9,6 +9,15 @@
   border-top: 1px solid #d1dbe0;
   border-bottom: 1px solid #d1dbe0;
   align-items: center;
+  transition: top 0.3s;
+}
+
+.category-visible {
+  top: var(--nav-margin-top);
+}
+
+.category-hidden {
+  top: -48px; /* Adjust based on your category selector height */
 }
 
 .nav-category-selector-list {

@@ -8,6 +8,15 @@
   position: fixed;
   width: 100%;
   z-index: 1000;
+  transition: top 0.3s;
+}
+
+.navbar-visible {
+  top: 0;
+}
+
+.navbar-hidden {
+  top: -100px;
 }
 
 .container {

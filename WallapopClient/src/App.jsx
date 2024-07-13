@@ -16,12 +16,15 @@ import NavBar from "./components/common/NavBar/NavBar.jsx";
 import Modal from "react-modal";
 import NavCategorySelector from "./components/common/NavCategorySelector/NavCategorySelector.jsx";
 import ProductListPage from "./pages/ProductListPage/ProductListPage.jsx";
+import Footer from "./components/common/Footer/Footer.jsx";
+import HomeBanner from "./components/banners/HomeBanner/HomeBanner.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <Layout>
         <NavCategorySelector />
+        <HomeBanner />
         <HomePage />
       </Layout>
     ),
@@ -37,9 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/products/:id",
     element: (
-      <Layout>
+      <>
+        <NavBar enableScrollEffect={false} />
         <ProductViewPage />
-      </Layout>
+        <Footer />
+      </>
     ),
   },
   {
@@ -59,7 +64,7 @@ const router = createBrowserRouter([
 
     element: (
       <>
-        <NavBar />
+        <NavBar enableScrollEffect={false} />
         <UserPage />
       </>
     ),

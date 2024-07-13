@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAuth } from "../../auth/AuthProvider";
@@ -6,9 +6,34 @@ import { BsPlusCircle } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { TbMail } from "react-icons/tb";
 
-const NavBar = () => {
+const NavBar = ({ enableScrollEffect = true }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [showNavbar, setShowNavbar] = useState(true);
+
+  let lastScrollTop = 0;
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+      // Downscroll
+      setShowNavbar(false);
+    } else {
+      // Upscroll
+      setShowNavbar(true);
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+  };
+
+  useEffect(() => {
+    if (enableScrollEffect) {
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [enableScrollEffect]);
 
   const handleSell = () => {
     navigate("/products/sell-product");
@@ -27,7 +52,9 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav
+      className={`navbar ${showNavbar ? "navbar-visible" : "navbar-hidden"}`}
+    >
       <div className="container">
         <div className="logo">
           <Link to="/">
