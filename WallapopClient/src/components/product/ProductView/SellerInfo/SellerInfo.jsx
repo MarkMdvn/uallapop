@@ -12,13 +12,16 @@ import {
   unlikeProduct,
   checkLikedStatus,
 } from "../../../../api/productService";
-import axios from "axios";
 
 const SellerInfo = ({ userId, productId }) => {
   const [seller, setSeller] = useState(null);
   const [liked, setLiked] = useState();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleSellerClick = () => {
+    navigate(`/users/${seller.id}`);
+  };
 
   useEffect(() => {
     if (userId) {
@@ -82,7 +85,7 @@ const SellerInfo = ({ userId, productId }) => {
 
   return (
     <div className="seller-info-container">
-      <div className="seller-avatar-img">
+      <div className="seller-avatar-img" onClick={handleSellerClick}>
         {" "}
         <img
           src={
@@ -93,7 +96,7 @@ const SellerInfo = ({ userId, productId }) => {
           alt={`${seller.name}'s profile`}
         />
       </div>
-      <div className="seller-details">
+      <div className="seller-details" onClick={handleSellerClick}>
         <h4>{seller.name}</h4>
         <div className="seller-stats">
           <Stack>

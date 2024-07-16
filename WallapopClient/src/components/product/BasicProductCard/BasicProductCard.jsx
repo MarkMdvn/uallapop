@@ -11,6 +11,7 @@ const BasicProductCard = ({ product }) => {
 
   useEffect(() => {
     const fetchLikedStatus = async () => {
+      if (!localStorage.getItem("token")) return;
       try {
         const response = await checkLikedStatus(product.id);
         setIsLiked(response.data.liked);
@@ -24,7 +25,7 @@ const BasicProductCard = ({ product }) => {
   }, [product.id]);
 
   const handleCardClick = () => {
-    navigate(`/products/${product.id}`); // Navigate to product detail page
+    navigate(`/products/${product.id}`);
   };
 
   return (

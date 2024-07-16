@@ -33,16 +33,13 @@
 }
 
 .banner-text-container {
-  opacity: 1;
-}
-.banner-text-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
   width: 300px;
   background-color: var(--banner-side-color);
-  transition: opacity 2s ease;
+  transition: opacity 2s none;
 }
 
 .banner-text {

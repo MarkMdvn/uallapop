@@ -41,7 +41,13 @@ body {
   cursor: pointer;
 }
 
-.input-field:hover {
+.input-field:hover:enabled {
   border: 2px solid black;
   padding: 18px 7px; /* Reduce padding by 1px on all sides */
+}
+
+.input-field:disabled {
+  background-color: #e9ecef;
+  color: #434a50;
+  cursor: default;
 }

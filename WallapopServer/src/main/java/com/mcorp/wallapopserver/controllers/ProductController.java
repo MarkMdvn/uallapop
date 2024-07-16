@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -168,7 +169,14 @@ public class ProductController {
       return ResponseEntity.noContent().build();
     }
     return ResponseEntity.ok(products);
+  }
 
+  @GetMapping("/latest-by-category-wp/{categoryId}")
+  public Page<BasicProductDTO> getProductsByCategory(
+      @PathVariable Long categoryId,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "7") int size) {
+    return productService.getLatestProductsByCategory(categoryId, page, size);
   }
 
   // DTO methods

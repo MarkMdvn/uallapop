@@ -1,6 +1,7 @@
 package com.mcorp.wallapopserver.controllers;
 
 import com.mcorp.wallapopserver.DTO.BasicUserDTO;
+import com.mcorp.wallapopserver.DTO.UserDTO;
 import com.mcorp.wallapopserver.models.User;
 import com.mcorp.wallapopserver.services.UserService;
 import java.util.List;
@@ -41,16 +42,25 @@ public class UserController {
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-  @GetMapping("allala/{id}") // TODO does a infinite loop with userId -> product List
-  public ResponseEntity<?> getUserById(@PathVariable("id") Long id){
-    try{
-      Optional<User> theUser = userService.findUserById(id);
-      return ResponseEntity.ok(theUser);
-    }catch (UsernameNotFoundException e){
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }catch (Exception e){
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching user");
+//  @GetMapping("complete-user/{id}") // TODO does a infinite loop with userId -> product List
+//  public ResponseEntity<?> getUserById(@PathVariable("id") Long id){
+//    try{
+//      Optional<User> theUser = userService.findUserById(id);
+//      return ResponseEntity.ok(theUser);
+//    }catch (UsernameNotFoundException e){
+//      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+//    }catch (Exception e){
+//      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching user");
+//    }
+//  }
+
+  @GetMapping("complete-user/{userId}")
+  public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
+    UserDTO userDTO = userService.getUserById(userId);
+    if (userDTO == null) {
+      return ResponseEntity.notFound().build();
     }
+    return ResponseEntity.ok(userDTO);
   }
 
 

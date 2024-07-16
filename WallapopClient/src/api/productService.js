@@ -1,8 +1,5 @@
 // src/api.js
 import axios from "axios";
-import { useAuth } from "../components/auth/AuthProvider";
-
-import { getHeader } from "./authService";
 
 const API_URL = "http://localhost:9192/api";
 
@@ -97,5 +94,17 @@ export const getCountOfLikes = async (productId) => {
   } catch (error) {
     console.error("Failed to fetch like count", error);
     return { count: 0 };
+  }
+};
+
+export const getLatestProductsByCategoryWP = async (categoryId, page, size) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/products/latest-by-category-wp/${categoryId}?page=${page}&size=${size}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    throw error;
   }
 };

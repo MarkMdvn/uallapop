@@ -4,6 +4,7 @@
   padding: 20px 50px;
   box-sizing: border-box;
   padding: 50px 300px 30px;
+  border-top: 0.5px solid rgb(231, 231, 231);
 }
 
 .footer-top {

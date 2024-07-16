@@ -2,11 +2,37 @@ import React, { useState } from "react";
 import { MdOutlineOilBarrel, MdElectricalServices } from "react-icons/md";
 import { LuFuel } from "react-icons/lu";
 import { TbManualGearbox, TbAutomaticGearbox } from "react-icons/tb";
+import carBrands from "../../../../../../data/carBrands.json";
 import "./CarForm.css";
 
 const CarForm = ({ formData, handleInputChange }) => {
   const [selectedEngine, setSelectedEngine] = useState("");
   const [selectedTransmission, setSelectedTransmission] = useState("");
+
+  // FORM THINGS
+  const isModelInputDisabled =
+    !formData.attributes.brand || formData.attributes.brand === "";
+
+  // Generate an array of years from 1950 to the current year
+  const currentYear = new Date().getFullYear();
+
+  const years = Array.from(
+    { length: currentYear - 1969 },
+    (v, k) => 1970 + k
+  ).reverse();
+
+  const carTypes = [
+    "Small",
+    "Coupe",
+    "Sedan",
+    "Family",
+    "Minivan",
+    "4X4",
+    "Van",
+    "Other",
+  ];
+
+  // FORM HOOKS
 
   const handleEngineSelect = (engine) => {
     setSelectedEngine(engine);
@@ -21,6 +47,7 @@ const CarForm = ({ formData, handleInputChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Final form data to submit:", formData);
+    onSubmit();
   };
   return (
     <>
@@ -37,12 +64,14 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("brand", e.target.value, true)
                 }
+                required
               >
-                <option value={"Seat"}>Seat</option>
-                <option value={"BMW"}>BMW</option>
-                <option value={"Porshe"}>Porshe</option>
-                <option value={"Mercedes-Benz"}>Mercedes-Benz</option>
-                <option value={"Audi"}>Audi</option>
+                <option value="">Select a brand</option>
+                {carBrands.map((brand) => (
+                  <option key={brand.name} value={brand.name}>
+                    {brand.name}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -55,26 +84,31 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("model", e.target.value, true)
                 }
+                required
+                disabled={isModelInputDisabled}
               />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group" style={{ width: "16em" }}>
-              <label className="main-label">Cash price</label>
+              <label className="main-label">Cash price Ex. 13500</label>
               <input
                 className="input-field"
-                type="text"
+                type="number"
                 placeholder="Carefully..."
                 value={formData.price}
                 onChange={(e) =>
                   handleInputChange("price", e.target.value, false)
                 }
+                required
+                step="1"
+                min="1"
               />
             </div>
 
             <div className="form-group" style={{ width: "16em" }}>
-              <label className="main-label">Financed price (opcional)</label>
+              <label className="main-label">Financed price (optional)</label>
               <input
                 className="input-field"
                 type="number"
@@ -83,6 +117,7 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("financedPrice", e.target.value, true)
                 }
+                step="1"
               />
             </div>
             <div className="form-group" style={{ width: "100%" }}>
@@ -94,6 +129,7 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("currency", e.target.value, true)
                 }
+                required
               >
                 <option value="€">€</option>
                 <option value="$">$</option>
@@ -110,10 +146,14 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("year", e.target.value, true)
                 }
+                required
               >
                 <option value="">Select a year</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
+                {years.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-group" style={{ width: "27em" }}>
@@ -126,16 +166,21 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("title", e.target.value, false)
                 }
+                required
+                minLength={1}
+                maxLength={50}
               />
             </div>
           </div>
         </div>
 
+        {/* Other information about the vehicle*/}
+
         <div className="main-form-container">
           <h1 className="main-form-h1">Information about your vehicle</h1>
           <div className="form-row two-columns">
             <div className="form-group">
-              <label className="main-label">Version</label>
+              <label className="main-label">Version (optional)</label>
               <input
                 className="input-field"
                 type="text"
@@ -183,6 +228,7 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("horsepower", e.target.value, true)
                 }
+                required
               />
             </div>
           </div>
@@ -190,15 +236,21 @@ const CarForm = ({ formData, handleInputChange }) => {
           <div className="form-row two-columns">
             <div className="form-group ">
               <label className="main-label">Type of car</label>
-              <input
+              <select
                 className="input-field"
-                type="text"
-                placeholder="Small, coupe, sedan, family, 4X4..."
                 value={formData.attributes.carType}
                 onChange={(e) =>
                   handleInputChange("carType", e.target.value, true)
                 }
-              />
+                required
+              >
+                <option value="">Select a car type</option>
+                {carTypes.map((type, index) => (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form-group ">
               <label className="main-label">Kilometers</label>
@@ -210,6 +262,8 @@ const CarForm = ({ formData, handleInputChange }) => {
                 onChange={(e) =>
                   handleInputChange("kilometers", e.target.value, true)
                 }
+                required
+                step="1"
               />
             </div>
           </div>
@@ -288,6 +342,8 @@ const CarForm = ({ formData, handleInputChange }) => {
               onChange={(e) =>
                 handleInputChange("description", e.target.value, false)
               }
+              required
+              maxLength={1000}
             ></textarea>
           </div>
         </div>

@@ -61,3 +61,21 @@
   padding-top: 10px;
   font-size: small;
 }
+
+.remove-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 2px;
+  border-radius: 50px;
+  right: 2px;
+  padding: 1px;
+  color: black; /* Make the icon stand out against possibly dark images */
+  background-color: var(--primary-color);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.remove-icon:hover {
+  background-color: rgb(181, 253, 235);
+}

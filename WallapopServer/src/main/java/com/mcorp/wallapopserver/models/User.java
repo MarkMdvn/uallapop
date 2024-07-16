@@ -39,7 +39,6 @@ public class User {
   private int totalItemsShipped;
 
   @OneToMany(mappedBy = "user")
-  @JsonManagedReference
   private List<Product> products = new ArrayList<>();
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE,

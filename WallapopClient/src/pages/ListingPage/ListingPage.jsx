@@ -59,6 +59,12 @@ const ListingPage = () => {
     };
     const data = new FormData();
 
+    const form = document.querySelector("form");
+    if (form && !form.checkValidity()) {
+      form.reportValidity();
+      return; // Stop the submission if the form is not valid
+    }
+
     // Append each image file to the FormData
     formData.images.forEach((file, index) => {
       if (file) data.append("images", file); // Use 'image' as the key expected by the backend

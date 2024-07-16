@@ -20,7 +20,7 @@ const CategorySelector = ({ onSelectCategory, selectedCategory }) => {
     <div className="main-form-container">
       <h1 className="main-form-h1">What are you trying to sell?</h1>
       <div className="category-selector-categories-container">
-        {["OtherItems", "Jobs", "Cars", "Houses"].map((category) => (
+        {["OtherItems", "Jobs", "Cars", "Properties"].map((category) => (
           <button
             key={category}
             onClick={() => onSelectCategory(category)}
@@ -42,7 +42,7 @@ const CategorySelector = ({ onSelectCategory, selectedCategory }) => {
             )}
             {category === "Jobs" && <PiBagSimpleLight />}
             {category === "Cars" && <PiCarProfileLight />}
-            {category === "Houses" && <PiHouseLight />}
+            {category === "Properties" && <PiHouseLight />}
             <span>{category === "OtherItems" ? "Other items" : category}</span>
           </button>
         ))}

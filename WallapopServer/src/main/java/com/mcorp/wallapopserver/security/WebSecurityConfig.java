@@ -60,9 +60,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/**").permitAll()  // Public endpoints like login, register
+            .requestMatchers("/auth/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/products/**", "api/users/**").permitAll()
-            .requestMatchers("/images/**").permitAll()  // Allow public access to images
+            .requestMatchers("/images/**").permitAll()
             .requestMatchers("/api/products/create-product", "/api/products/edit-product/**", "/api/products/delete-product/**").authenticated()  // Secured endpoints
             .anyRequest().authenticated())  // All other requests need authentication
         .authenticationProvider(authenticationProvider())

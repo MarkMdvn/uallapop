@@ -1,5 +1,6 @@
 package com.mcorp.wallapopserver.services;
 
+import com.mcorp.wallapopserver.DTO.UserDTO;
 import com.mcorp.wallapopserver.exceptions.UserAlreadyExistsException;
 import com.mcorp.wallapopserver.models.Role;
 import com.mcorp.wallapopserver.models.User;
@@ -11,6 +12,7 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -92,5 +94,28 @@ public class UserService {
   public byte[] getUserImage(Long userId) {
     User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     return user.getProfileImage();
+
+
   }
+
+  public UserDTO getUserById(Long userId) {
+    User user = userRepository.findById(userId).orElse(null);
+    if (user == null) return null;
+
+    UserDTO dto = new UserDTO();
+    dto.setId(user.getId());
+    dto.setName(user.getName());
+    dto.setProfileImg(user.getProfileImage());
+    dto.setEmail(user.getEmail());
+    dto.setLocation(user.getLocation());
+    dto.setAverageRating(user.getAverageRating());
+    dto.setTotalSales(user.getTotalSales());
+    dto.setTotalPurchases(user.getTotalPurchases());
+    dto.setTotalItemsShipped(user.getTotalItemsShipped());
+    dto.setProductIds(user.getProducts().stream().map(product -> product.getId()).collect(
+        Collectors.toList()));
+
+    return dto;
+  }
+
 }

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { getLatestProductsByCategory } from "../../../api/productService"; //
-
 import Slider from "react-slick";
 import BasicProductCard from "../../../components/product/BasicProductCard/BasicProductCard";
 import "./ProductSlider.css";
@@ -49,7 +48,6 @@ const ProductSlider = ({ SliderTitle, categoryId }) => {
     const fetchCarProducts = async () => {
       try {
         const response = await getLatestProductsByCategory(categoryId);
-        console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
           setProducts(response.data);
         } else {
@@ -63,7 +61,7 @@ const ProductSlider = ({ SliderTitle, categoryId }) => {
     };
 
     fetchCarProducts();
-  }, []);
+  }, [categoryId]);
 
   return (
     <div className="product-slider-container">

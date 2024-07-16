@@ -18,6 +18,7 @@ import NavCategorySelector from "./components/common/NavCategorySelector/NavCate
 import ProductListPage from "./pages/ProductListPage/ProductListPage.jsx";
 import Footer from "./components/common/Footer/Footer.jsx";
 import HomeBanner from "./components/banners/HomeBanner/HomeBanner.jsx";
+import SellerPage from "./pages/SellerPage/SellerPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
         <ProductViewPage />
         <Footer />
       </>
+    ),
+  },
+  {
+    path: "/users/:userId",
+    element: (
+      <Layout>
+        <SellerPage />
+      </Layout>
     ),
   },
   {

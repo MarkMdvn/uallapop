@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,6 +89,12 @@ public class ProductService {
     return products.stream()
         .map(this::convertToBasicDTO)
         .collect(Collectors.toList());
+  }
+
+  public Page<BasicProductDTO> getLatestProductsByCategory(Long categoryId, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Product> productPage = productRepository.findByCategory_IdOrderByCreatedAtDesc(categoryId, pageable);
+    return productPage.map(this::convertToBasicDTO);
   }
 
   private BasicProductDTO convertToBasicDTO(Product product) {
