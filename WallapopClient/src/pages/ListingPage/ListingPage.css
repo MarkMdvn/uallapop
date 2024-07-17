@@ -26,15 +26,16 @@
 .form-row {
   display: grid;
   gap: 20px;
-  width: 100%;
-}
-
-.form-row {
   grid-template-columns: repeat(3, 1fr);
+  width: 100%;
 }
 
 .two-columns {
   grid-template-columns: repeat(2, 1fr);
+}
+
+.four-columns {
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .form-group {

@@ -7,6 +7,7 @@ import com.mcorp.wallapopserver.DTO.BasicProductDTO;
 import com.mcorp.wallapopserver.DTO.ProductDTO;
 import com.mcorp.wallapopserver.models.Category;
 import com.mcorp.wallapopserver.models.Product;
+import com.mcorp.wallapopserver.models.Product.ItemCondition;
 import com.mcorp.wallapopserver.models.User;
 import com.mcorp.wallapopserver.repositories.CategoryRepository;
 import com.mcorp.wallapopserver.repositories.ProductRepository;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProductService {
@@ -43,6 +45,21 @@ public class ProductService {
 
   public Optional<Product> getProductById(Long id) {
     return productRepository.findById(id);
+  }
+
+  @Transactional
+  public Product createProduct(ProductDTO productDTO, Long  id) throws JsonProcessingException {
+    Product product = objectMapper.convertValue(productDTO, Product.class);
+    Category category = categoryRepository.findById(productDTO.getCategoryId())
+        .orElseThrow(() -> new RuntimeException("Category not found"));
+    product.setCategory(category);
+
+    // Fetch user and set to product
+    User user = userRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+    product.setUser(user);
+
+    return productRepository.save(product);
   }
 
   public Optional<Product> incrementViewCount(Long id) {
@@ -68,18 +85,27 @@ public class ProductService {
   }
 
   @Transactional
-  public Product createProduct(ProductDTO productDTO, Long  id) throws JsonProcessingException {
-    Product product = objectMapper.convertValue(productDTO, Product.class);
-    Category category = categoryRepository.findById(productDTO.getCategoryId())
-        .orElseThrow(() -> new RuntimeException("Category not found"));
-    product.setCategory(category);
+  public Product updateProduct(ProductDTO productDTO, Product existingProduct,
+      MultipartFile[] files) throws JsonProcessingException {
+    existingProduct.setTitle(productDTO.getTitle());
+    existingProduct.setPrice(productDTO.getPrice());
+    existingProduct.setDescription(productDTO.getDescription());
+    existingProduct.setShippingAvailable(productDTO.isShippingAvailable());
+    existingProduct.setItemCondition(ItemCondition.valueOf(productDTO.getItemCondition()));
+    existingProduct.setProductStatus(productDTO.getProductStatus());
+    existingProduct.setAttributes(productDTO.getAttributes());
 
-    // Fetch user and set to product
-    User user = userRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("User not found"));
-    product.setUser(user);
+    // Update category if changed
+    if (!existingProduct.getCategory().getId().equals(productDTO.getCategoryId())) {
+      Category newCategory = categoryRepository.findById(productDTO.getCategoryId())
+          .orElseThrow(() -> new RuntimeException("Category not found"));
+      existingProduct.setCategory(newCategory);
+    }
+     existingProduct.setImageUrls(productDTO.getImageUrls());
 
-    return productRepository.save(product);
+
+    // Save the updated product
+    return productRepository.save(existingProduct);
   }
 
   // BasicProductDTO methods

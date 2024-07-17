@@ -25,7 +25,7 @@ const BasicProductCard = ({ product }) => {
   }, [product.id]);
 
   const handleCardClick = () => {
-    navigate(`/products/${product.id}`);
+    window.open(`/products/${product.id}`, "_blank");
   };
 
   return (
@@ -40,7 +40,7 @@ const BasicProductCard = ({ product }) => {
       <div className="basic-product-card-details">
         <div className="price-and-like">
           <p className="basic-product-card-price">
-            {formatPrice(product.price)}
+            {formatPrice(product.price)} €
           </p>
           <span>{isLiked && <FaHeart className="liked-icon" />}</span>
         </div>

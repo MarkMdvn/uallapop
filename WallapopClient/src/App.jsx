@@ -19,6 +19,8 @@ import ProductListPage from "./pages/ProductListPage/ProductListPage.jsx";
 import Footer from "./components/common/Footer/Footer.jsx";
 import HomeBanner from "./components/banners/HomeBanner/HomeBanner.jsx";
 import SellerPage from "./pages/SellerPage/SellerPage.jsx";
+Modal.setAppElement("#root");
+
 const router = createBrowserRouter([
   {
     path: "/",

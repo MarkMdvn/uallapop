@@ -4,9 +4,19 @@ import { TbLibraryPhoto } from "react-icons/tb";
 import { AiOutlineClose } from "react-icons/ai";
 
 const ImageSelector = ({ images, onImageChange }) => {
+  const initialImages = product.imageUrls
+    ? [
+        ...product.imageUrls.map((url) => ({ url })),
+        ...Array(10 - product.imageUrls.length).fill(null),
+      ]
+    : Array(10).fill(null);
   const handleImageChange = (event, index) => {
     const file = event.target.files[0];
     if (file) {
+      // If an image exists and is a File object, revoke its URL
+      if (images[index] && images[index] instanceof File) {
+        URL.revokeObjectURL(images[index]);
+      }
       const newImages = [...images];
       newImages[index] = file;
       onImageChange(newImages);
@@ -14,10 +24,14 @@ const ImageSelector = ({ images, onImageChange }) => {
   };
 
   const handleRemoveImage = (index) => {
+    if (images[index] instanceof File) {
+      URL.revokeObjectURL(images[index]);
+    }
     const newImages = [...images];
-    newImages[index] = null; // Set the image at this index to null
+    newImages[index] = null;
     onImageChange(newImages);
   };
+
   return (
     <div className="main-form-container">
       <h1 className="main-form-h1">Photos</h1>
@@ -39,9 +53,16 @@ const ImageSelector = ({ images, onImageChange }) => {
             {image ? (
               <>
                 <img
-                  src={URL.createObjectURL(image)}
+                  src={
+                    image instanceof File
+                      ? URL.createObjectURL(image)
+                      : image.url || image
+                  }
                   alt="Uploaded"
                   className="photo-preview"
+                  onLoad={() =>
+                    image instanceof File && URL.revokeObjectURL(image)
+                  }
                 />
                 <AiOutlineClose
                   className="remove-icon"

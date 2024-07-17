@@ -79,13 +79,14 @@
   padding-bottom: 4px;
 }
 
-.product-buttons {
+/* buttons */
+
+.product-buttons-container {
+  display: flex;
   margin-left: auto;
   margin-right: 15px;
   position: relative; /* For tooltip positioning */
 }
-
-/* buttons */
 
 .product-button {
   background-color: white;

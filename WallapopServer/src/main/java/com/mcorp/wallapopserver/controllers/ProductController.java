@@ -15,6 +15,8 @@ import com.mcorp.wallapopserver.utils.UrlUtil;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.ErrorManager;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -70,13 +72,13 @@ public class ProductController {
 
   @GetMapping("/my-products")
   @PreAuthorize("isAuthenticated()")
-  public ResponseEntity<List<BasicProductDTO>> getUserProducts(Principal principal) {
+  public ResponseEntity<List<ProductDTO>> getUserProducts(Principal principal) {
     try {
       // Assuming you have a way to extract the user ID from the Principal or from the token directly
       Long userId = userService.getUserIdFromPrincipal(principal);
       List<Product> products = productService.getProductsByUserId(userId);
-      List<BasicProductDTO> productDTOs = products.stream()
-          .map(this::convertToBasicDTO)
+      List<ProductDTO> productDTOs = products.stream()
+          .map(this::convertToDTO)
           .collect(Collectors.toList());
       return ResponseEntity.ok(productDTOs);
     } catch (Exception e) {
@@ -110,26 +112,36 @@ public class ProductController {
     }
   }
 
-  @PutMapping("/edit-product/{id}")
-  public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id,
-      @RequestBody ProductDTO productDTO) {
+  @PostMapping("/edit-product/{productId}")
+  @PreAuthorize("hasRole('ROLE_USER')")
+  public ResponseEntity<?> editProduct(
+      @PathVariable("productId") Long productId,
+      @RequestParam("product") String productJson,
+      @RequestParam(value = "images", required = false) MultipartFile[] files,
+      @AuthenticationPrincipal WallapopUserDetails currentUser) {
     try {
-      Product product = productService.getProductById(id)
-          .orElseThrow(() -> new RuntimeException("Product not found"));
-      product.setTitle(productDTO.getTitle());
-      product.setDescription(productDTO.getDescription());
-      product.setPrice(productDTO.getPrice());
-      product.setShippingAvailable(productDTO.isShippingAvailable());
-      Category category = categoryService.getCategoryById(productDTO.getCategoryId())
-          .orElseThrow(() -> new RuntimeException("Category not found"));
-      product.setCategory(category);
-      Product updatedProduct = productService.saveProduct(product);
+      ProductDTO productDTO = objectMapper.readValue(productJson, ProductDTO.class);
+      Optional<Product> optionalExistingProduct = productService.getProductById(productId);
+
+      if (!optionalExistingProduct.isPresent()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+      }
+
+      Product existingProduct = optionalExistingProduct.get();
+      if (!existingProduct.getUser().getId().equals(currentUser.getId())) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to edit this product");
+      }
+
+      Product updatedProduct = productService.updateProduct(productDTO, existingProduct, files);
+
       return ResponseEntity.ok(convertToDTO(updatedProduct));
     } catch (Exception e) {
       e.printStackTrace();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body("Failed to edit product");
     }
   }
+
 
   @PutMapping("/{id}/status")
   public ResponseEntity<?> updateProductStatus(@PathVariable Long id, @RequestBody ProductStatusUpdateDTO statusUpdate) {
@@ -212,6 +224,8 @@ public class ProductController {
     dto.setTitle(product.getTitle());
     dto.setPrice(product.getPrice());
     dto.setDescription(product.getDescription());
+    dto.setCategoryId(product.getCategory().getId());
+    dto.setCategoryName(product.getCategory().getName());
     dto.setImageUrls(product.getImageUrls());
     dto.setCreatedAt(product.getCreatedAt());
     dto.setUpdatedAt(product.getUpdatedAt());

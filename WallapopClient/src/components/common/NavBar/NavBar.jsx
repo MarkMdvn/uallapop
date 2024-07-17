@@ -108,7 +108,7 @@ const NavBar = ({ enableScrollEffect = true }) => {
               </div>
             </>
           ) : (
-            <Link to="/auth">
+            <Link to="/authentication">
               <button className="btn register-btn-navbar">
                 Regístrate o inicia sesión
               </button>

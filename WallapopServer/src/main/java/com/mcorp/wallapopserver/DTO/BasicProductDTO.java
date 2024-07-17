@@ -11,6 +11,8 @@ public class BasicProductDTO {
   private String title;
   private Double price;
   private String description;
+  private Long categoryId;
+  private String categoryName;
   private boolean shippingAvailable;
   private List<String> imageUrls;
   private Date createdAt;

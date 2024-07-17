@@ -1,5 +1,6 @@
 package com.mcorp.wallapopserver.DTO;
 
+import com.mcorp.wallapopserver.models.Product;
 import com.mcorp.wallapopserver.models.Product.ProductStatus;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,5 @@ public class ProductDTO {
   private int viewCount;
   private Long userId;
   private ProductStatus productStatus = ProductStatus.ON_SELL;
-
 
 }

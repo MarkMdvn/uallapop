@@ -7,11 +7,10 @@ import {
 import "./UserProducts.css";
 import { useAuth } from "../../auth/AuthProvider";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { FaRegHandshake } from "react-icons/fa6";
-import { FaRegBookmark } from "react-icons/fa";
+import { FaRegTrashAlt, FaRegHandshake, FaRegBookmark } from "react-icons/fa";
 import ConfirmActionModal from "../../modals/ConfirmationModal/ConfirmationModal";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import EditProductForm from "../../product/EditProduct/EditProductForm";
 
 const UserProducts = () => {
   const [products, setProducts] = useState([]);
@@ -21,19 +20,21 @@ const UserProducts = () => {
   const [actionType, setActionType] = useState("");
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [editing, setEditing] = useState(false); // State to manage editing mode
 
   useEffect(() => {
+    if (!user || !localStorage.getItem("token")) {
+      console.error("No user token found");
+      return;
+    }
     const fetchProducts = async () => {
-      if (!user || !localStorage.token) {
-        console.error("No user token found");
-        return;
-      }
-
       try {
         const response = await axios.get(
           "http://localhost:9192/api/products/my-products",
           {
-            headers: { Authorization: `Bearer ${localStorage.token}` },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
         );
         setProducts(response.data);
@@ -41,7 +42,6 @@ const UserProducts = () => {
         console.error("Failed to fetch products", error);
       }
     };
-
     fetchProducts();
   }, [user]);
 
@@ -56,12 +56,18 @@ const UserProducts = () => {
   };
 
   const confirmAction = () => {
-    if (actionType === "delete") {
-      handleDeleteProduct(currentProduct.id);
-    } else if (actionType === "reserve") {
-      handleUpdateStatus(currentProduct.id, "RESERVED");
-    } else if (actionType === "sell") {
-      handleUpdateStatus(currentProduct.id, "SOLD");
+    switch (actionType) {
+      case "delete":
+        handleDeleteProduct(currentProduct.id);
+        break;
+      case "reserve":
+        handleUpdateStatus(currentProduct.id, "RESERVED");
+        break;
+      case "sell":
+        handleUpdateStatus(currentProduct.id, "SOLD");
+        break;
+      default:
+        console.log("No action specified");
     }
     closeModal();
   };
@@ -77,6 +83,19 @@ const UserProducts = () => {
   const filteredProducts = products.filter(
     (product) => product.productStatus === activeTab
   );
+
+  const handleEditProduct = (product) => {
+    setCurrentProduct(product);
+    setEditing(true);
+  };
+
+  const closeEdit = () => {
+    setEditing(false);
+  };
+
+  if (editing) {
+    return <EditProductForm product={currentProduct} closeForm={closeEdit} />;
+  }
 
   return (
     <div className="user-products-container">
@@ -124,7 +143,7 @@ const UserProducts = () => {
                 onClick={() => handleProductClick(product.id)}
                 className="product-details-dates-ind"
               >
-                <span>Modified</span>
+                <span>Modified</span>{" "}
                 {new Date(product.updatedAt).toLocaleDateString()}
               </p>
             </div>
@@ -136,7 +155,11 @@ const UserProducts = () => {
               >
                 <FaRegHandshake />
               </button>
-              <button className="product-button" data-tooltip="Edit item">
+              <button
+                onClick={() => handleEditProduct(product)}
+                className="product-button"
+                data-tooltip="Edit item"
+              >
                 <MdOutlineModeEdit />
               </button>
               <button
@@ -153,17 +176,20 @@ const UserProducts = () => {
               >
                 <FaRegTrashAlt />
               </button>
-              <ConfirmActionModal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                onConfirm={confirmAction}
-                product={currentProduct}
-                actionType={actionType}
-              />
             </div>
           </div>
         ))}
       </div>
+      {isModalOpen && actionType === "edit" && currentProduct && (
+        <EditProductForm product={currentProduct} />
+      )}
+      <ConfirmActionModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        onConfirm={confirmAction}
+        product={currentProduct}
+        actionType={actionType}
+      />
     </div>
   );
 };
