@@ -53,6 +53,8 @@
 
 .product-details {
   flex-grow: 1;
+  max-width: 200px;
+  overflow: hidden;
 }
 
 .product-details span {
@@ -61,7 +63,8 @@
 }
 
 .product-details-dates {
-  width: 45%;
+  width: 30%;
+  margin-left: 200px;
   display: flex;
   gap: 20px;
   color: #90a4ae;

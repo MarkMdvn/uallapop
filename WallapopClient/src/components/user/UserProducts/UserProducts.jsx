@@ -11,6 +11,7 @@ import { FaRegTrashAlt, FaRegHandshake, FaRegBookmark } from "react-icons/fa";
 import ConfirmActionModal from "../../modals/ConfirmationModal/ConfirmationModal";
 import { useNavigate } from "react-router-dom";
 import EditProductForm from "../../product/EditProduct/EditProductForm";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const UserProducts = () => {
   const [products, setProducts] = useState([]);
@@ -128,7 +129,10 @@ const UserProducts = () => {
               onClick={() => handleProductClick(product.id)}
             />
             <div className="product-details">
-              <h3 style={{ marginBottom: "10px" }}>{product.price} €</h3>
+              <h3 style={{ marginBottom: "10px" }}>
+                {" "}
+                {formatPrice(product.price)} €
+              </h3>
               <span>{product.title}</span>
             </div>
             <div className="product-details-dates">

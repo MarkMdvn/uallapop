@@ -13,6 +13,11 @@ export const sellProduct = (formData, headers) => {
   });
 };
 
+export const updateProduct = (formData, productId, headers) => {
+  return axios.put(`${API_URL}/products/edit-product/${productId}`, formData, {
+    headers,
+  });
+};
 // Fetch latest products by category ID
 export const getLatestProductsByCategory = (categoryId) => {
   return axios.get(`${API_URL}/products/latest-by-category/${categoryId}`);

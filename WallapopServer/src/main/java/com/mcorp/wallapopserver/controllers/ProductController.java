@@ -112,7 +112,7 @@ public class ProductController {
     }
   }
 
-  @PostMapping("/edit-product/{productId}")
+  @PutMapping("/edit-product/{productId}")
   @PreAuthorize("hasRole('ROLE_USER')")
   public ResponseEntity<?> editProduct(
       @PathVariable("productId") Long productId,

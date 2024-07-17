@@ -44,6 +44,11 @@
   border-radius: 16px;
 }
 
+.items-list > * {
+  /* Direct children of .items-list */
+  max-width: 205px;
+}
+
 .items-list .product-item {
   text-align: center;
 }

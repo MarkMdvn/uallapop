@@ -4,12 +4,6 @@ import { TbLibraryPhoto } from "react-icons/tb";
 import { AiOutlineClose } from "react-icons/ai";
 
 const ImageSelector = ({ images, onImageChange }) => {
-  const initialImages = product.imageUrls
-    ? [
-        ...product.imageUrls.map((url) => ({ url })),
-        ...Array(10 - product.imageUrls.length).fill(null),
-      ]
-    : Array(10).fill(null);
   const handleImageChange = (event, index) => {
     const file = event.target.files[0];
     if (file) {
