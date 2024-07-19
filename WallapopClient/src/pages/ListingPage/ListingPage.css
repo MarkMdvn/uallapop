@@ -1,8 +1,9 @@
 .listing-page-container {
-  margin-top: 50px;
+  padding: 30px;
   display: flex;
+  background-color: whitesmoke;
+  min-height: 100vh;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 

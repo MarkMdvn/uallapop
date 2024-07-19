@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./BasicProductCard.css";
 import { useNavigate } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaBookmark } from "react-icons/fa"; // Import the save icon
 import { checkLikedStatus } from "../../../api/productService";
 import { formatPrice } from "../../../utils/formatPrice";
 
@@ -30,6 +30,12 @@ const BasicProductCard = ({ product }) => {
 
   return (
     <div className="basic-product-card-container" onClick={handleCardClick}>
+      {product.productStatus === "RESERVED" && (
+        <div className="save-icon-container">
+          <FaBookmark className="save-icon" />
+          Reserved
+        </div>
+      )}
       <div className="basic-product-image-container">
         <img
           className="basic-product-card-image"

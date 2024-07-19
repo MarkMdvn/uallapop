@@ -2,6 +2,8 @@
 import React from "react";
 import ProductSlider from "../../components/product/ProductSlider/ProductSlider";
 import "./HomePage.css";
+import ProductsGrid from "../../components/product/ProductsGrid/ProductsGrid";
+import AdBanner from "../../components/banners/AdBanner/AdBanner";
 
 const HomePage = () => {
   const carsCategory = 2;
@@ -17,6 +19,8 @@ const HomePage = () => {
         SliderTitle={"Latest Phone posts"}
         categoryId={smartphonesCategory}
       />
+      <AdBanner />
+      <ProductsGrid />
     </div>
   );
 };

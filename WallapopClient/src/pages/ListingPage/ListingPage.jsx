@@ -54,6 +54,7 @@ const ListingPage = () => {
   };
 
   const handleSubmit = async () => {
+    console.log(formData);
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
@@ -91,6 +92,14 @@ const ListingPage = () => {
     } catch (error) {
       console.error("Failed to post product:", error);
     }
+  };
+
+  const handleSubcategoryChange = (id, name) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      categoryId: id,
+      categoryName: name,
+    }));
   };
 
   const renderForm = () => {

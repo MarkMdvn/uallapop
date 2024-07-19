@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class ProductStatusUpdateDTO {
 
-  private ProductStatus productStatus = ProductStatus.ON_SELL;
+  private ProductStatus productStatus;
 
 
 }

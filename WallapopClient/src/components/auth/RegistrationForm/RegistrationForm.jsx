@@ -7,7 +7,6 @@ function RegistrationForm({ changeForm }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
-  const [receivePromotions, setReceivePromotions] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -72,20 +71,22 @@ function RegistrationForm({ changeForm }) {
         <div className="registration-checkboxes">
           <label>
             <input
-              type="checkbox"
-              checked={receivePromotions}
-              onChange={() => setReceivePromotions(!receivePromotions)}
-            />
-            I want to receive promotions and updates from Wallapop.
-          </label>
-          <label>
-            <input
+              id="terms-checkbox"
               type="checkbox"
               checked={agreeToTerms}
               onChange={() => setAgreeToTerms(!agreeToTerms)}
             />
-            I have read and agree to the Terms of Use and Privacy Policy of
-            Wallapop.
+            <span className="checkbox-span-terms" id="checkbox-span">
+              I have read and agree to the{" "}
+              <a href="https://about.wallapop.com/condiciones-de-uso/">
+                Terms of Use
+              </a>{" "}
+              and{" "}
+              <a href="https://about.wallapop.com/politica-privacidad/">
+                Privacy Policy
+              </a>{" "}
+              of Wallapop.
+            </span>
           </label>
         </div>
         <button type="submit" className="registration-button">

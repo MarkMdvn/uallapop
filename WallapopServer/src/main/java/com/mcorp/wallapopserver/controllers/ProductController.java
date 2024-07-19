@@ -191,6 +191,13 @@ public class ProductController {
     return productService.getLatestProductsByCategory(categoryId, page, size);
   }
 
+  @GetMapping("/latest-products")
+  public Page<BasicProductDTO> getLatestProducts(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "25") int size) {
+    return productService.getLatestProducts(page, size);
+  }
+
   // DTO methods
 
   private ProductDTO convertToDTO(Product product) {

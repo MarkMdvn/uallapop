@@ -113,3 +113,15 @@ export const getLatestProductsByCategoryWP = async (categoryId, page, size) => {
     throw error;
   }
 };
+
+export const fetchLatestProducts = async (page, size) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/products/latest-products?page=${page}&size=${size}`
+    );
+    return response.data; // This will return the actual data received from the server
+  } catch (error) {
+    console.error("Failed to fetch latest products:", error);
+    return []; // Return an empty array on error to ensure the consuming function can handle it correctly
+  }
+};

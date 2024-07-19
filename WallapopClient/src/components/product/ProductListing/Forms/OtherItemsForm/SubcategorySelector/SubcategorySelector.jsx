@@ -6,7 +6,7 @@ import SmartphoneForm from "../SubCategoriesForm/SmartphoneForm/SmartphoneForm";
 import DefaultForm from "../SubCategoriesForm/DefaultForm/DefaultForm";
 import BicycleForm from "../SubCategoriesForm/BicycleForm/BicycleForm";
 
-const SubcategorySelector = () => {
+const SubcategorySelector = ({ handleInputChange, formData }) => {
   const [title, setTitle] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [category, setCategory] = useState("");
@@ -25,6 +25,7 @@ const SubcategorySelector = () => {
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
+    handleInputChange("title", e.target.value);
   };
 
   const handleContinue = () => {
@@ -40,19 +41,26 @@ const SubcategorySelector = () => {
     6: SmartphoneForm,
   };
 
-  const handleCategoryChange = (e) => {
-    const newCategoryId = e.target.value;
-    setCategory(newCategoryId);
-    handleFormSelection(newCategoryId);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitting:", { title, category });
   };
 
+  const handleCategoryChange = (e) => {
+    const newCategoryId = e.target.value;
+    setCategory(newCategoryId);
+    handleFormSelection(newCategoryId);
+  };
+
   const handleFormSelection = (categoryId) => {
     const FormComponent = formComponents[categoryId] || DefaultForm;
-    setSelectedForm(<FormComponent key={categoryId} />); // Use key to force re-render on change
+    setSelectedForm(
+      <FormComponent
+        key={categoryId}
+        handleInputChange={handleInputChange}
+        formData={formData}
+      />
+    );
   };
 
   return (
@@ -71,7 +79,7 @@ const SubcategorySelector = () => {
             onChange={handleTitleChange}
           />
           <p className="small-form-recomendations">
-            Example: Red velvet three-seater sofa{" "}
+            Example: Red velvet three-seater sofa
           </p>
         </div>
         <button

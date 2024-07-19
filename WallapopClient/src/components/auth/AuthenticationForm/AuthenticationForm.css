@@ -70,3 +70,12 @@
   color: var(--light-gray);
   margin-right: 5px;
 }
+
+#google-btn {
+  background-color: white;
+  border: 1px solid black;
+}
+#facebook-btn {
+  border: 1px solid black;
+  background-color: white;
+}

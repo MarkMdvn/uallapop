@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../../../../../../pages/ListingPage/ListingPage.css";
 
-const SmartphoneForm = () => {
+const SmartphoneForm = ({ handleInputChange }) => {
   const [state, setState] = useState({
     condition: "",
     price: "",
@@ -15,16 +15,29 @@ const SmartphoneForm = () => {
   });
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Update local state
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    // Determine whether the field is a general field or an attribute
+    const isAttribute = ["brand", "model", "storage", "color"].includes(name);
+
+    // Update global state by passing the changes up to the parent component
+    if (isAttribute) {
+      handleInputChange(`attributes.${name}`, value, true); // Store in attributes if it's an attribute
+    } else {
+      handleInputChange(name, value, false); // Directly store other fields like price, description
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", state);
-    // Add form submission logic here
+    console.log("Form Data ready for submission:", state);
+    // You might trigger a global submission or validation here
   };
 
   return (
@@ -41,9 +54,13 @@ const SmartphoneForm = () => {
               value={state.condition}
               onChange={handleChange}
             >
-              <option value="">Estado del producto</option>
-              <option value="new">Nuevo</option>
-              <option value="used">Usado</option>
+              <option value="">State of the product</option>
+              <option value="NOT_OPENED">Not opened</option>
+              <option value="IN_THE_BOX">In the box</option>
+              <option value="NEW">New</option>
+              <option value="ALMOST_NEW">Almost new</option>
+              <option value="USED">Used</option>
+              <option value="POOR_CONDITION">Poor condition</option>
             </select>
           </div>
           <div className="form-group">

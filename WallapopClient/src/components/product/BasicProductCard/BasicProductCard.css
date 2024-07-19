@@ -1,4 +1,6 @@
 .basic-product-card-container {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -61,4 +63,26 @@
   margin-right: 10px;
   fill: rgb(255, 85, 80);
   font-size: 20px;
+}
+
+.save-icon-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 7px;
+  position: absolute;
+  background-color: white;
+  color: rgb(134, 65, 138);
+  border-radius: 50px;
+  font-weight: bold;
+  top: 15px;
+  left: 15px;
+  font-size: 0.875rem;
+  line-height: 20px;
+  z-index: 10;
+}
+.save-icon {
+  font-size: 15px;
+  font-weight: bolder;
+  fill: rgb(134, 65, 138);
 }

@@ -36,7 +36,7 @@ const JobsForm = ({ formData, handleInputChange }) => {
               className="input-field"
               value={formData.attributes.jobType}
               onChange={(e) =>
-                handleInputChange("job-type", e.target.value, true)
+                handleInputChange("jobType", e.target.value, true)
               }
               required
             >
@@ -55,7 +55,7 @@ const JobsForm = ({ formData, handleInputChange }) => {
               placeholder="Profession"
               value={formData.attributes.profession}
               onChange={(e) =>
-                handleInputChange("title", e.target.value, false)
+                handleInputChange("profession", e.target.value, true)
               }
               required
               minLength={1}

@@ -12,6 +12,7 @@ import ConfirmActionModal from "../../modals/ConfirmationModal/ConfirmationModal
 import { useNavigate } from "react-router-dom";
 import EditProductForm from "../../product/EditProduct/EditProductForm";
 import { formatPrice } from "../../../utils/formatPrice";
+import { FaHeart, FaBookmark } from "react-icons/fa"; // Import the save icon
 
 const UserProducts = () => {
   const [products, setProducts] = useState([]);
@@ -55,24 +56,20 @@ const UserProducts = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
   const confirmAction = () => {
-    switch (actionType) {
-      case "delete":
-        handleDeleteProduct(currentProduct.id);
-        break;
-      case "reserve":
-        handleUpdateStatus(currentProduct.id, "RESERVED");
-        break;
-      case "sell":
-        handleUpdateStatus(currentProduct.id, "SOLD");
-        break;
-      default:
-        console.log("No action specified");
+    if (actionType === "delete") {
+      handleDeleteProduct(currentProduct.id);
+    } else if (actionType === "reserve") {
+      // Toggle between RESERVED and ON_SELL based on current status
+      const newStatus =
+        currentProduct.productStatus === "RESERVED" ? "ON_SELL" : "RESERVED";
+      handleUpdateStatus(currentProduct.id, newStatus);
+    } else if (actionType === "sell") {
+      handleUpdateStatus(currentProduct.id, "SOLD");
     }
     closeModal();
+    window.location.reload();
   };
-
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -81,10 +78,16 @@ const UserProducts = () => {
     navigate(`/products/${productId}`);
   };
 
-  const filteredProducts = products.filter(
-    (product) => product.productStatus === activeTab
-  );
-
+  const filteredProducts = products.filter((product) => {
+    if (activeTab === "ON_SELL") {
+      return (
+        product.productStatus === "ON_SELL" ||
+        product.productStatus === "RESERVED"
+      );
+    } else if (activeTab === "SOLD") {
+      return product.productStatus === "SOLD";
+    }
+  });
   const handleEditProduct = (product) => {
     setCurrentProduct(product);
     setEditing(true);
@@ -133,8 +136,10 @@ const UserProducts = () => {
                 {" "}
                 {formatPrice(product.price)} €
               </h3>
+
               <span>{product.title}</span>
             </div>
+
             <div className="product-details-dates">
               <p
                 onClick={() => handleProductClick(product.id)}
@@ -150,6 +155,11 @@ const UserProducts = () => {
                 <span>Modified</span>{" "}
                 {new Date(product.updatedAt).toLocaleDateString()}
               </p>
+              {product.productStatus === "RESERVED" && (
+                <div className="user-save-icon-container">
+                  <FaBookmark className="save-icon" />
+                </div>
+              )}
             </div>
             <div className="product-buttons">
               <button
@@ -168,7 +178,11 @@ const UserProducts = () => {
               </button>
               <button
                 onClick={() => openModal(product, "reserve")}
-                className="product-button"
+                className={`product-button ${
+                  product.productStatus === "RESERVED"
+                    ? "product-button-reserved"
+                    : "prdouct-button"
+                }`}
                 data-tooltip="Mark item as reserved"
               >
                 <FaRegBookmark />

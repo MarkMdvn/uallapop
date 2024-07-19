@@ -7,13 +7,6 @@
   position: fixed;
 }
 
-.vn-filler {
-  position: relative;
-  background-color: red;
-  width: 4000px;
-  height: 100vh;
-}
-
 .vertical-navbar-profile-section {
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 :root {
   --primary-color: rgb(19, 193, 172);
-  --main-background-color: rgb(236, 239, 241);
+  --main-background-color: rgb(255, 255, 255);
   --nav-margin-top: 100px;
 }
 
@@ -13,7 +13,7 @@
 
 body {
   height: 100vh;
-  background-color: whitesmoke;
+  background-color: white;
   display: flex;
   flex-direction: column;
 }

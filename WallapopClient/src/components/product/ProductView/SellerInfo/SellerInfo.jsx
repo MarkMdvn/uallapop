@@ -60,7 +60,7 @@ const SellerInfo = ({ userId, productId }) => {
   }, [productId, user]);
   const handleLikeClick = async () => {
     if (!user) {
-      navigate("/auth");
+      navigate("/authentication");
       return;
     }
 

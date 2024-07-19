@@ -144,6 +144,11 @@
   background-color: rgb(165, 47, 47);
 }
 
+.product-button-reserved {
+  color: white;
+  background-color: rgb(84, 84, 153);
+}
+
 .tab-buttons {
   display: flex;
   margin-top: 10px;
@@ -160,4 +165,25 @@
 .tab-button.active {
   color: var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
+}
+
+.user-save-icon-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 7px;
+  background-color: white;
+  color: rgb(134, 65, 138);
+  border-radius: 50px;
+  font-weight: bold;
+  top: 15px;
+  left: 15px;
+  font-size: 0.875rem;
+  line-height: 20px;
+  z-index: 10;
+}
+.save-icon {
+  font-size: 15px;
+  font-weight: bolder;
+  fill: rgb(134, 65, 138);
 }

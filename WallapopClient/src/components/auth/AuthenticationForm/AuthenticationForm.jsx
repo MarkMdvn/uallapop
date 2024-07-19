@@ -15,12 +15,24 @@ function AuthenticationForm({ changeFormToLogin, changeFormToRegister }) {
           Get the best prices and earn money selling whatever you don't use.
         </p>
         <div className="auth-btn-container">
-          <button onClick={changeFormToRegister} className="auth-register-btn">
-            Register with Email
+          <button
+            id="google-btn"
+            className="auth-register-btn"
+            disabled
+            title="coming soon!"
+          >
+            Register with Google
           </button>
-          <button className="auth-register-btn">Register with Email</button>
+          <button
+            id="facebook-btn"
+            className="auth-register-btn"
+            title="coming soon!"
+            disabled
+          >
+            Register with Facebook
+          </button>
           <button onClick={changeFormToRegister} className="auth-register-btn">
-            La la la laaa lala
+            Continue with e-mail
           </button>
         </div>
         <div className="change-auth-form">

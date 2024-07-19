@@ -6,6 +6,7 @@ import SubcategorySelector from "../ProductListing/Forms/OtherItemsForm/Subcateg
 import ImageSelector from "../ProductListing/Forms/ImageSelector/ImageSelector";
 import { updateProduct } from "../../../api/productService";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "./EditProductForm.css";
 
 const EditProductForm = ({ product, closeForm }) => {
   const navigate = useNavigate(); // Hook to get the navigate function
@@ -112,12 +113,18 @@ const EditProductForm = ({ product, closeForm }) => {
           setFormData({ ...formData, images: newImages })
         }
       />
-      <button onClick={handleSubmit} className="submit-product-button">
-        Submit Product
-      </button>{" "}
-      <button type="button" onClick={closeForm}>
-        Cancel
-      </button>
+      <div className="edit-product-buttons">
+        <button
+          type="button"
+          onClick={closeForm}
+          className="submit-product-button"
+        >
+          Cancel
+        </button>
+        <button onClick={handleSubmit} className="submit-product-button">
+          Submit Product
+        </button>
+      </div>
     </form>
   );
 };

@@ -51,6 +51,7 @@ const LoginForm = ({ changeForm }) => {
             placeholder="Email"
             value={login.email}
             onChange={handleInputChange}
+            required
           />
           <input
             type="password"
@@ -60,11 +61,12 @@ const LoginForm = ({ changeForm }) => {
             placeholder="Password"
             value={login.password}
             onChange={handleInputChange}
+            required
           />
         </div>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <div className="login-remember-forgot">
-          <a href="#" className="forgot-password">
+          <a href="#" className="forgot-password" style={{ color: "gray" }}>
             Forgot your password?
           </a>
         </div>

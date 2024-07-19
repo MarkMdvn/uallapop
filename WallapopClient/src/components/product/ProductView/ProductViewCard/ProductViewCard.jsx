@@ -1,6 +1,8 @@
 import React from "react";
 import ImageSlider from "../ImageSlider/ImageSlider";
 import OtherItemDetails from "../ProductDetails/OtherItemsDetails/OtherItemsDetails";
+import { FaHeart, FaBookmark } from "react-icons/fa"; // Import the save icon
+
 import CarDetails from "../ProductDetails/CarDetails/CarDetails";
 import PropertyDetails from "../ProductDetails/PropertyDetails/PropertyDetails";
 import JobDetails from "../ProductDetails/JobDetails/JobDetails";

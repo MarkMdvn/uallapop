@@ -1,0 +1,6 @@
+.edit-product-buttons {
+  display: flex;
+  gap: 20px;
+  width: 90%;
+  margin: 10px 50em;
+}

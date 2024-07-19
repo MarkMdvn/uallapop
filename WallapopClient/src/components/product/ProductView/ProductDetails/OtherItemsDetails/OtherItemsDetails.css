@@ -51,7 +51,12 @@
 
 /* For unavailable shipping */
 .shipping-unavailable {
+  font-size: 0.875rem;
+  line-height: 20px;
+  gap: 4px;
+  padding: 2px 0px;
   color: rgb(92, 122, 137);
+  font-weight: bold;
 }
 
 /* Ensuring the SVG inherits the color from the parent */

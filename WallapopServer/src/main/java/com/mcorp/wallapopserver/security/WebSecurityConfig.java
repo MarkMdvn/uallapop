@@ -61,7 +61,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/products/**", "api/users/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/products/**","/api/categories/**", "api/users/**").permitAll()
             .requestMatchers("/images/**").permitAll()
             .requestMatchers("/api/products/create-product", "/api/products/edit-product/**", "/api/products/delete-product/**").authenticated()  // Secured endpoints
             .anyRequest().authenticated())  // All other requests need authentication

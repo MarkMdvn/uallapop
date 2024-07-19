@@ -123,6 +123,11 @@ public class ProductService {
     return productPage.map(this::convertToBasicDTO);
   }
 
+
+  public Page<BasicProductDTO> getLatestProducts(int page, int size) {
+    Page<Product> products = productRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(page, size));
+    return products.map(this::convertToBasicDTO);
+  }
   private BasicProductDTO convertToBasicDTO(Product product) {
     BasicProductDTO dto = new BasicProductDTO();
     dto.setId(product.getId());
@@ -130,6 +135,7 @@ public class ProductService {
     dto.setPrice(product.getPrice());
     dto.setDescription(product.getDescription());
     dto.setShippingAvailable(product.isShippingAvailable());
+    dto.setProductStatus(product.getProductStatus());
 
     // Only taking the first image for simplicity
     dto.setImageUrls(product.getImageUrls().isEmpty() ? Collections.emptyList()
