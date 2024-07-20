@@ -21,7 +21,6 @@ function RegistrationForm({ changeForm }) {
       email,
       password,
       agreeToTerms,
-      receivePromotions,
     };
 
     try {

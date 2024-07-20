@@ -94,14 +94,6 @@ const ListingPage = () => {
     }
   };
 
-  const handleSubcategoryChange = (id, name) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      categoryId: id,
-      categoryName: name,
-    }));
-  };
-
   const renderForm = () => {
     switch (formData.categoryName) {
       case "Cars":

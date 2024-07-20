@@ -20,7 +20,7 @@ const ProductsGrid = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gridTemplateColumns: "repeat(5, minmax(180px, 1fr))", // Adjusted for 5 columns
           gap: "10px",
           marginTop: "20px",
           gridAutoRows: "minmax(50px, auto)",

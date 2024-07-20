@@ -41,15 +41,16 @@ const SubcategorySelector = ({ handleInputChange, formData }) => {
     6: SmartphoneForm,
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitting:", { title, category });
-  };
-
   const handleCategoryChange = (e) => {
     const newCategoryId = e.target.value;
     setCategory(newCategoryId);
     handleFormSelection(newCategoryId);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitting:", { title, category });
+    // Trigger a global submission function here if needed
   };
 
   const handleFormSelection = (categoryId) => {
