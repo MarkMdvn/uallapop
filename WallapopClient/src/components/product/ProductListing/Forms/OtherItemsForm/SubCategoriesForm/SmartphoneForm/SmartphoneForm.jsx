@@ -71,6 +71,7 @@ const SmartphoneForm = ({ handleInputChange }) => {
               value={state.price}
               onChange={handleChange}
               placeholder="Precio"
+              required
             />
             <p className="small-form-recomendations">Be reasonable...</p>
           </div>

@@ -3,15 +3,14 @@ server:
 
 spring:
   datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/wallapop_db
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/wallapop_db}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
-
     properties:
       hibernate:
         jdbc:
@@ -23,5 +22,5 @@ spring:
       file-size-threshold: 2KB
   security:
     jwt:
-      secret: 36763979244226452948404D635166546A576D5A7134743777217A25432A462D
-      jwtExpirationTime: 9900009
+      secret: ${JWT_SECRET:36763979244226452948404D635166546A576D5A7134743777217A25432A462D}
+      jwtExpirationTime: ${JWT_EXPIRATION_TIME:9900009}

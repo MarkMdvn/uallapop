@@ -51,7 +51,7 @@ public class ProductController {
   @Autowired
   private UserService userService;
 
-  @GetMapping("/all-products")
+  @GetMapping("/all-products") // TODO convert to basicProductDTO
   public List<ProductDTO> getAllProducts() {
     List<Product> products = productService.getAllProducts();
       return products.stream()

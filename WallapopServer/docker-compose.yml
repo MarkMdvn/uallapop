@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  my-springboot-app:
+    build: .
+    ports:
+      - "9192:9192"
+    env_file:
+      - .env

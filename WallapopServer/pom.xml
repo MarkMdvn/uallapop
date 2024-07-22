@@ -7,7 +7,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.3.0</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath/>
   </parent>
   <groupId>com.mcorp</groupId>
   <artifactId>Wallapop-Server</artifactId>
@@ -43,8 +43,10 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <scope>annotationProcessor</scope>
+      <version>1.18.34</version>
+      <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
@@ -76,22 +78,30 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-    <groupId>io.jsonwebtoken</groupId>
-    <artifactId>jjwt-jackson</artifactId>
-    <version>0.11.5</version>
-    <scope>runtime</scope>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>0.11.5</version>
+      <scope>runtime</scope>
     </dependency>
 
 
   </dependencies>
-
   <build>
-    
     <plugins>
-
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <mainClass>com.mcorp.wallapopserver.WallapopServerApplication</mainClass>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
