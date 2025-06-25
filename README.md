@@ -2,7 +2,7 @@
 
 <h1 align="center">
   <br>
-  <a><img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/wallapop-logo.png" alt="Uallapop-Logo" width="200"></a>
+  <a><img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/wallapop-logo.png" alt="Uallapop-Logo" width="500"></a>
   <br>
   Uallapop - A Full-Stack Marketplace Platform
   <br>
