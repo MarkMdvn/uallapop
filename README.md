@@ -2,7 +2,7 @@
 
 <h1 align="center">
   <br>
-  <a><img src="path/to/your/logo.png" alt="Uallapop-Logo" width="200"></a>
+  <a><img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/wallapop-logo.png" alt="Uallapop-Logo" width="200"></a>
   <br>
   Uallapop - A Full-Stack Marketplace Platform
   <br>
@@ -18,7 +18,7 @@
 
 <br>
 
-![screenshot](path/to/your/main_screenshot.png)
+![screenshot](https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/uallapop-homepage.png)
 
 ---
 
@@ -76,6 +76,9 @@ The frontend is a single-page application (SPA) built with React, developed with
 
 The relational schema was carefully designed in MySQL to support the application's complex data requirements. It features a normalized structure with foreign key constraints to maintain data integrity and is indexed on critical columns to ensure efficient query performance, especially on product search and retrieval operations.
 
+![screenshot](https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/10-database-structure.png)
+
+
 ### **Infrastructure: Docker & AWS Deployment**
 
 * **Full Containerization:** The entire application stack—the Spring Boot backend, the React frontend (served via a lightweight web server), and the MySQL database—is fully containerized using **Docker** and orchestrated by **Docker Compose**. This encapsulates all dependencies, guarantees a consistent environment from development to production, and drastically simplifies deployment.
@@ -89,15 +92,45 @@ The relational schema was carefully designed in MySQL to support the application
 
 The true heart of this project is its ability to understand that selling a car is fundamentally different from posting a job or listing a smartphone. The platform was engineered from the ground up to adapt its entire workflow based on what the user is selling, creating a highly intuitive and specialized experience.
 
-**How It Works, From the User's Perspective:**
-
-The user's journey begins with a single, crucial choice: the product category. This choice triggers a cascade of changes across the application:
-
-* **If the user selects "Cars":** The system immediately presents a form tailored for vehicles. It intelligently asks for details like **Brand, Model, Year, Horsepower, Mileage, and Transmission type**. It knows these are the details a car buyer needs.
-
-* **If the user selects "Jobs":** The car-specific form disappears entirely. A new, purpose-built interface appears, asking for information relevant to a service listing, such as **Profession, Job Title, Experience Level, and Hourly Rate**.
-
-* **If the user selects "Other Items":** The system demonstrates another layer of intelligence. It prompts the user to choose a sub-category. For example, selecting "Electronics" and then "Smartphone" will generate a form asking for **Storage Capacity, Screen Size, Color, and the product's physical condition** (e.g., "New," "Used," "Like New").
+<p>
+  <strong>How It Works, From the User's Perspective:</strong>
+</p>
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      The user's journey begins with a single, crucial choice: the product category. This choice triggers a cascade of changes across the application.
+    </td>
+    <td width="50%" align="center">
+      <img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/0-çproduct-category-selection.png?raw=true" alt="Category Selection" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <br>
+      <ul>
+        <li><strong>If the user selects "Cars":</strong> The system immediately presents a form tailored for vehicles. It intelligently asks for details like <strong>Brand, Model, Year, Horsepower, Mileage, and Transmission type</strong>. It knows these are the details a car buyer needs.</li>
+      </ul>
+    </td>
+    <td width="50%" align="center">
+      <br>
+      <img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/1-product-uploading-cars.png?raw=true" alt="Car Upload Form" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <br>
+      <ul>
+        <li><strong>If the user selects "Jobs":</strong> The car-specific form disappears entirely. A new, purpose-built interface appears, asking for information relevant to a service listing.</li>
+        <br>
+        <li><strong>If the user selects "Other Items":</strong> The system demonstrates another layer of intelligence. It prompts the user to choose a sub-category which generates a specific form. For example, a "Smartphone" will require details like <strong>Storage Capacity, Screen Size, Color, and physical condition.</strong></li>
+      </ul>
+    </td>
+    <td width="50%" align="center">
+      <br>
+      <img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/2-product-post-phone.png?raw=true" alt="Phone Upload Form" width="400"/>
+    </td>
+  </tr>
+</table>
 
 **The Intelligence Behind the Scenes:**
 
@@ -107,19 +140,44 @@ This isn't just a simple form with hidden fields. The application is designed as
 2.  **Displaying Information Correctly:** This is key. The final product page for a car will have a clean, technical specifications table. A job listing page will be formatted like a professional services ad. A smartphone page will highlight its key features. The layout and presentation are completely unique to the category.
 3.  **Handling Edits Intelligently:** When a user edits a listing, the system again calls the correct specialist to present the right editing interface. You can't accidentally change a car's "horsepower" to an "hourly rate."
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <strong>Car Example</strong><br><br>
+      <img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/3-car-example.png?raw=true" alt="Example of a car product page" width="270"/>
+    </td>
+    <td align="center">
+      <strong>Phone Example</strong><br><br>
+      <img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/5-phone-example-product.png?raw=true" alt="Example of a phone product page" width="270"/>
+    </td>
+    <td align="center">
+      <strong>Job Example</strong><br><br>
+      <img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/4-job-example.png?raw=true" alt="Example of a job listing page" width="270"/>
+    </td>
+  </tr>
+</table>
+
 This design makes the platform incredibly powerful for the user and keeps the codebase clean, organized, and easy to extend. Adding a new category like "Real Estate" would simply mean building a new "specialist" module without having to overhaul the entire system.
 
 ### 2. User & Account Management: A Secure Personal Hub
 
 Every user is given a personal and secure command center to manage their identity and market activity on the platform.
 
+
 * **Secure Identity:** User accounts are the foundation of trust in the marketplace. When a user registers, their password is not stored directly. Instead, it's instantly converted into a secure, irreversible encrypted code. Login sessions are protected by a temporary "security key" (JWT) that validates every action the user takes, ensuring their account is safe. This key is designed to expire after a period of inactivity, automatically protecting users who forget to log out.
 * **Personal Dashboard:** This is the user's hub for managing their listings. The system automatically queries the database and sorts their products into two clear lists: "On Sale" and "Sold." This provides an at-a-glance overview of their activity.
+
+<img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/6-editing-panel.png" alt="User Dashboard" />
+
 * **Full Control Over Listings:** From the dashboard, users have direct control. They can edit any detail of a listing, and the system will present them with the correct, category-specific form. They can also manage the status of a sale with a single click, for instance, by marking an item as "Reserved" for a potential buyer, which visually flags it across the site.
+
+<img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/8-favourites.png" alt="User Dashboard "/>
 
 ### 3. Social Engagement: Building a Community Marketplace
 
 A marketplace thrives on interaction. This platform includes features designed to foster a sense of community and provide valuable feedback to sellers.
+
+<img src="https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/9-product-stats.png" alt="Product Statistics"/>
 
 * **Product Popularity Metrics:** Every product listing publicly displays two key metrics: **View Count** and **Like Count**.
     * **Behind the View Count:** The system registers a "view" each time a product's detail page is visited. This gives sellers immediate, valuable insight into how much exposure their items are getting.
