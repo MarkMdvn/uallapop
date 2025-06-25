@@ -76,8 +76,6 @@ The frontend is a single-page application (SPA) built with React, developed with
 
 The relational schema was carefully designed in MySQL to support the application's complex data requirements. It features a normalized structure with foreign key constraints to maintain data integrity and is indexed on critical columns to ensure efficient query performance, especially on product search and retrieval operations.
 
-![screenshot](https://github.com/MarkMdvn/uallapop/blob/main/public/readme-images/10-database-structure.png)
-
 
 ### **Infrastructure: Docker & AWS Deployment**
 
