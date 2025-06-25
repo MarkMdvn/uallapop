@@ -76,6 +76,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/images/**").addResourceLocations(
-        "file:///D:/Development/Fullstack_Projects/Wallapop2/WallapopAssets/ProductImages/");
+        "file:///C:/Users/markm/Desktop/uallapop/WallapopAssets/ProductImages/");
   }
 }

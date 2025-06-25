@@ -5,7 +5,7 @@ spring:
   datasource:
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
-    url: ${DB_URL:jdbc:mysql://localhost:3306/wallapop_db}
+    url: ${DB_URL:jdbc:mysql://localhost:3307/uallapop_db}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
