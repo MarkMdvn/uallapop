@@ -181,4 +181,15 @@ A marketplace thrives on interaction. This platform includes features designed t
     * **Behind the View Count:** The system registers a "view" each time a product's detail page is visited. This gives sellers immediate, valuable insight into how much exposure their items are getting.
     * **Behind the Like System:** When a user "likes" a product, the system creates a direct link in the database between that user's profile and the specific item. This allows users to keep a personalized list of interesting products to revisit later. For sellers, this "like count" serves as a powerful social proof indicator, showing potential buyers that the item is desirable. Users can also "like" or "follow" other sellers, helping to build reputation and trust within the community.
 
+## 📝 Project Status & Future Work
+This project represents a substantial and functional implementation of a complex, full-stack application, demonstrating a wide array of modern development practices.
+
+Development was paused while architecting and implementing two crucial, high-complexity features:
+
+* Real-time Messaging System: A user-to-user chat feature, likely to be implemented with WebSockets, to allow direct communication between buyers and sellers.
+
+* Advanced Search Functionality: A comprehensive search engine with text-based matching and dynamic filtering based on category-specific attributes.
+
+The existing codebase provides a robust and scalable foundation upon which these and other features can be built.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
